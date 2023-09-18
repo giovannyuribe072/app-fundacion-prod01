@@ -1,0 +1,258 @@
+.navbar{
+  background: #fff !important;
+}
+.navbarback{
+  background-size: 100% 100%;
+  background-image: url(./../../../../assets/img/trescru.gif)!important;
+}
+.textonosotros{
+  color:rgb(56,118,29);
+  font-size: 36px;
+}
+.sites-embed-content-textbox {
+   padding: 5px; 
+   text-align: left; 
+}
+.fontazul{
+  color:#38761d;
+}
+
+.bordegris{
+  border:  1px solid rgba(0,0,0,.125);
+  box-shadow: 0px 4px 0px 0px #999 !important;
+}
+
+
+.contador{
+  max-height: 130%;
+  padding: 30px;
+}
+
+.contador{
+  background-color: #0064a2;
+  height: 390px;
+}
+
+ .contador{
+  font-size: 40px;
+  color: #47c6f3;
+}
+
+
+.contador p{
+  font-size: 20px;
+}
+
+.contador span{
+  font-size: 70px;
+}
+
+
+.fontptextnosotros{
+  font-size: 20px;
+}
+
+.fontext1{
+  font-size:20px;
+}
+
+svg.ct-chart-donut .ct-label{
+  font-size:3.75rem !important;
+}
+
+
+body {
+  overflow: hidden;
+}
+
+
+
+.labeCont{
+  font-size: 36px;
+}
+.textcont{
+  font-size: 20px;
+}
+
+
+.formContact .form-control{
+  background: transparent;
+}
+
+
+
+.formContact{
+  border-radius:5px;
+  width:100%;
+  height:120%;
+  max-height: 120%;
+  background-size: 100% 100%;
+  background-repeat:no-repeat; 
+  background-size: cover;
+  resize: both;
+  }
+.formContact img{
+  width: 100%;
+}
+@media all and (min-width: 500px) and (max-width: 1000px)
+{  
+.formContact{
+  width:100%;
+  height:100%;
+  background-size: 100% 100%;
+  background-repeat:no-repeat; 
+  background-size: cover;
+  
+  }
+}
+.formContact img{
+   width:100%;
+}
+
+
+// boton flotante
+
+.btn-flotante {
+	font-size: 16px; /* Cambiar el tamaño de la tipografia */
+	text-transform: uppercase; /* Texto en mayusculas */
+	font-weight: bold; /* Fuente en negrita o bold */
+	color: #ffffff; /* Color del texto */
+	border-radius: 5px; /* Borde del boton */
+	letter-spacing: 2px; /* Espacio entre letras */
+	background-color: #0064a2; /* Color de fondo */
+	padding: 9px 15px; /* Relleno del boton */
+	position: fixed;
+	bottom: 40px;
+	right: 40px;
+	transition: all 300ms ease 0ms;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	z-index: 99;
+}
+.btn-flotante:hover {
+	background-color: #2c2fa5; /* Color de fondo al pasar el cursor */
+	box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+	transform: translateY(-7px);
+}
+@media only screen and (max-width: 600px) {
+ 	.btn-flotante {
+		font-size: 14px;
+		padding: 12px 20px;
+		bottom: 20px;
+		right: 20px;
+	}
+} 
+
+
+hr{
+  height:2px;
+  border-width:0;
+  color:#0064a2;
+  background-color:#0064a2
+}
+
+.div_video{
+  padding-bottom: 170px;
+}
+
+.ul_credi li{
+  padding: 3px;
+}
+
+#navbarResponsive ul li a{
+  text-shadow: 2px 2px 2px #8c939b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#navbarResponsive .icon-inner{
+  color: #007bff;
+}
+
+#mainNav .navbar-nav .nav-item .nav-link:hover{
+  color: #007bff;
+}
+
+#mainNav .navbar-nav .nav-item .nav-link{
+  font-size: 20px !important;
+}
+
+
+#container {
+  height: 400px; 
+}
+
+.highcharts-figure, .highcharts-data-table table {
+  min-width: 310px; 
+  max-width: 800px;
+  margin: 1em auto;
+}
+
+.highcharts-data-table table {
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #EBEBEB;
+  margin: 10px auto;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+}
+.highcharts-data-table caption {
+  padding: 1em 0;
+  font-size: 1.2em;
+  color: #555;
+}
+.highcharts-data-table th {
+  font-weight: 600;
+  padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+  padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+  background: #f1f7ff;
+}
+
+button .highcharts-a11y-proxy-button{
+  display: none !important;
+}
+
+.highcharts-background{
+  width: 100%;
+  max-width: 1200px;
+}
+
+ 
+.formContact img{
+   width:100%;
+}
+
+
+
+.footer {
+  text-align: center;
+  font-size: 0.9rem;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+
+.navbar { 
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+.navbar .container,
+.navbar .container-fluid,
+.navbar .container-sm,
+.navbar .container-md,
+.navbar .container-lg,
+.navbar .container-xl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}

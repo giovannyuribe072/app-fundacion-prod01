@@ -1,0 +1,189 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content>
+  <div #passwordSection id="passwordSection" class="card mb-3 mb-lg-5">
+    <div class="card-header">
+      <h2 class="card-title h4 text-success"><i class="tio-fingerprint nav-icon"></i> CARGUE DE DOCUMENTOS</h2>
+    </div>
+<br>
+    <div class="row form-group">
+      <label for="emailLabel" class="col-sm-3 col-form-label input-label">
+        <ion-icon name="cash-outline"></ion-icon> Valor a cobrar:
+      </label>
+
+      <div class="col-sm-9">
+        <ion-input   placeholder="$1,000,000.00" class="form-control" [(ngModel)]="cobro" required minlength="1"
+          [ngModelOptions]="{standalone: true}" type="currency"> 
+        </ion-input>
+      </div>
+    </div>
+    <ion-item>
+      <ion-label position="floating">
+        <ion-icon name="attach-outline"></ion-icon>TIPO DE PAGO
+      </ion-label>
+      <ion-select  class="--padding-start" [(ngModel)]="tipopago"
+        [ngModelOptions]="{standalone: true}" required>
+        <ion-select-option *ngFor="let tipolinea of tiposlineas" value="{{tipolinea.idlinea}}">
+          {{tipolinea.nombrelinea}}</ion-select-option>
+      </ion-select> 
+    </ion-item>
+    <div class="card-body">
+
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">Pagare <span
+            class="input-label-secondary"> </span></label>
+
+        <div class="col-sm-9">
+          <!-- Stats -->
+          <div class="row gx-2 gx-lg-3">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <div class="input-group">
+                  <ion-input id="rut" type="file" accept="*" (change)="changeListener($event,'pagare')" required>
+                  </ion-input>
+                  <div class="input-group-append">
+                    <ion-button (click)="deleteDoc('pagare')">Eliminar</ion-button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">Carta de Instrucción
+          <span class="input-label-secondary"> </span></label>
+
+        <div class="col-sm-9">
+          <div class="row gx-2 gx-lg-3">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <div class="input-group">
+                  <ion-input id="rut" type="file" accept="*" (change)="changeListener($event,'cartainstruccion')" required>
+                  </ion-input>
+                  <div class="input-group-append">
+                    <ion-button (click)="deleteDoc('cartainstruccion')">Eliminar</ion-button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div> 
+        </div>
+      </div>
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">Formato Cobro Garantias
+          <span class="input-label-secondary"></span></label>
+
+        <div class="col-sm-9">
+          <div class="row gx-2 gx-lg-3">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <div class="input-group">
+                  <ion-input id="rut" type="file" accept="*" (change)="changeListener($event,'liquidacioncredito')" required>
+                  </ion-input>
+                  <div class="input-group-append">
+                    <ion-button (click)="deleteDoc('liquidacioncredito')">Eliminar</ion-button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div> 
+        </div>
+      </div>
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">Anexo Servicio Fianza
+          <span class="input-label-secondary"></span></label>
+
+        <div class="col-sm-9">
+          <div class="row gx-2 gx-lg-3">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <div class="input-group">
+                  <ion-input id="rut" type="file" accept="*" (change)="changeListener($event,'anexoservicio')" required>
+                  </ion-input>
+                  <div class="input-group-append">
+                    <ion-button (click)="deleteDoc('anexoservicio')">Eliminar</ion-button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div> 
+        </div>
+      </div>
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">Certificación Centrales de Riesgo
+          <span class="input-label-secondary"></span></label>
+
+        <div class="col-sm-9">
+          <div class="row gx-2 gx-lg-3">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <div class="input-group">
+                  <ion-input id="rut" type="file" accept="*" (change)="changeListener($event,'certificacionriesgo')" required>
+                  </ion-input>
+                  <div class="input-group-append">
+                    <ion-button (click)="deleteDoc('certificacionriesgo')">Eliminar</ion-button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div> 
+        </div>
+      </div>
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">Cédula de ciudadania
+          <span class="input-label-secondary">(Opcional)</span></label>
+
+        <div class="col-sm-9">
+          <div class="row gx-2 gx-lg-3">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <div class="input-group">
+                  <ion-input id="rut" type="file" accept="*" (change)="changeListener($event,'cedulaciudadania')" required>
+                  </ion-input>
+                  <div class="input-group-append">
+                    <ion-button (click)="deleteDoc('cedulaciudadania')">Eliminar</ion-button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div style=" text-align: center;">
+      <ion-button (click)="loadDoc()">Cargar Documentos</ion-button>
+      <ion-button (click)="cancelarEliminacion()">Cancelar</ion-button>
+    </div>
+    <!-- End Body -->
+  </div>
+</ion-content>

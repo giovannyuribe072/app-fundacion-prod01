@@ -1,0 +1,148 @@
+<ion-content>
+  <div id="main">
+    <div class="content-page">
+      <!-- Start content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="container">
+            <div class="content container-fluid">
+              <!-- Page Header -->
+              <div class="page-header text-center">
+                <div class="row align-items-center">
+                  <div class="col-sm mb-0 mb-sm-0">
+                    <h1 class="page-header-title text-uppercase text-success">Aplicar Pagos
+                    </h1>
+                  </div>
+
+                </div>
+              </div>
+              <!-- End Page Header -->
+
+              <!-- Stats -->
+         <!-- Stats -->  
+         <div class="col-auto">
+          <div class="row form-group">
+            <label  class="col-sm-3 col-form-label input-label">
+              <ion-icon name="id-card-outline"></ion-icon>Cédula
+            </label>
+      
+            <div class="col-sm-4">
+              <ion-item><ion-input  type="number" class="form-control" required [(ngModel)]="documento" >  
+              </ion-input> <div class="input-group-append">
+                <button (click)="openConsultar()" class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div></ion-item>
+              
+             
+            </div>
+          
+          </div>
+          <div class="row form-group">
+            <label  class="col-sm-3 col-form-label input-label">
+              <ion-icon name="accessibility-outline"></ion-icon>Nombre
+            </label>
+      
+            <div class="col-sm-4">
+              <ion-input class="form-control" required  [(ngModel)]="carteras.carteralobj.nombredeudor" > 
+              </ion-input>
+            </div> 
+          </div> 
+          <div class="row form-group">
+            <label  class="col-sm-3 col-form-label input-label">
+              <ion-icon name="cash-outline"></ion-icon>Valor Capital
+            </label>
+      
+            <div class="col-sm-4">
+              <ion-input class="form-control" required readonly > 
+                {{carteras.carteralobj.valorcapital| currency}}
+              </ion-input>
+            </div> 
+          </div>
+          <div class="row form-group">
+            <label  class="col-sm-3 col-form-label input-label">
+              <ion-icon name="cash-outline"></ion-icon>Valor
+            </label>
+      
+            <div class="col-sm-4">
+              <ion-input class="form-control" required type="number" [(ngModel)]="aplicarpago.valorpago" > 
+              </ion-input>
+            </div>
+            <div class="col-sm-2">
+              <ion-checkbox slot="start" (click)="isAllSelected()"></ion-checkbox> Cobrar Int. Mora y GAC
+            </div> 
+             
+          </div> 
+          <div class="row form-group">
+            <label  class="col-sm-3 col-form-label input-label">
+              <ion-icon name="pricetag-outline"></ion-icon>Obligación
+            </label>
+      
+            <div class="col-sm-4">
+              <ion-item><ion-input  class="form-control" required [(ngModel)]="carteras.carteralobj.nropagare" >  
+              </ion-input> <div class="input-group-append">
+                <button  class="btn btn-primary" type="button" (click)="openConsultarPagare()">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div></ion-item> 
+            </div> 
+            
+          </div>  
+          <div class="row form-group"> 
+            <label class="col-sm-3 col-form-label input-label">
+              <ion-icon name="at-circle-outline"></ion-icon>Cobrador
+            </label>
+      
+            <div class="col-sm-4">
+              <div class="input-group input-group-sm-down-break">
+                <ion-select class="form-control"  
+                   required [(ngModel)]="carteras.carteralobj.cobrador">
+                  <ion-select-option *ngFor="let managerc of usercobrador" value="{{managerc.email}}">{{managerc.nombre}}</ion-select-option>
+                </ion-select>
+                <!-- End Custom Radio -->
+              </div>
+            </div> 
+            
+          </div>  
+          
+          <ion-item> 
+            <ion-checkbox  (click)="isAllSelectedCob()" slot="start"></ion-checkbox>
+            <ion-label>Sumar a Cobertura</ion-label>
+          </ion-item>
+          <ion-item> 
+            <ion-checkbox  (click)="isAllSelectedNtc()" slot="start"></ion-checkbox>
+            <ion-label>Nota crédito</ion-label>
+          </ion-item>
+
+          <div *ngIf="checkntc" class="col-sm-4">
+            <ion-item>
+              <ion-label position="floating">
+                <ion-icon name="book-outline"></ion-icon>Observación
+              </ion-label>
+              <ion-textarea  required type="text" [(ngModel)]="aplicarpago.observacion" >
+              </ion-textarea>
+            </ion-item> 
+          </div>
+          <br>
+          <div class="row form-group">
+         
+            <div class="col-sm-3">
+              <a (click)="aplicarPagos()" class="btn btn-danger"> Aplicar Pago</a>
+            </div> 
+          </div>  
+          
+      </div> 
+    
+  
+
+            </div>
+          </div>
+
+        </div>
+        <!-- END container-fluid -->
+      </div>
+      <!-- END content -->
+    </div>
+    <!-- END content-page -->
+  </div>
+</ion-content>

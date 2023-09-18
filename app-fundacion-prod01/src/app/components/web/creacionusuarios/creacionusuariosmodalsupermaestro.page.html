@@ -1,0 +1,351 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content>
+<div #createSection id="createSection" class="card mb-3 mb-lg-5">
+  <div class="page-header">
+    <div class="media mb-3">
+      <!-- Avatar -->
+      <div class="avatar avatar-xl avatar-4by3 mr-2">
+        <img class="avatar-img" src="../../../../assets/img/customLogo.gif">
+      </div>
+      <!-- End Avatar -->
+
+      <div class="media-body">
+        <div class="row">
+          <div class="col-lg mb-3 mb-lg-0">
+            <h1 class="page-header-title text-success text-center" > ADMINISTRACIÓN DE USUARIOS SUPER MAESTRO </h1>
+         
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Body -->
+  <div class="card-body">
+
+    
+    <!-- End Form Group -->
+ 
+    <!-- End Form Group -->
+ 
+    <!-- End Form Group -->
+
+    <!-- Form Group -->
+    <div class="row form-group">
+      <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+        <ion-icon name="person-circle-outline"></ion-icon>Correo Electrónico
+      </label>
+
+      <div class="col-sm-9">
+        <ion-input class="form-control" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}"
+          type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+        </ion-input>
+      </div>
+    </div> <!-- Form Group -->
+    <div class="row form-group">
+      <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+        <ion-icon name="lock-closed-outline"></ion-icon>Contraseña
+      </label>
+
+      <div class="col-sm-9">
+        <ion-input class="form-control"  [(ngModel)]="user.password"  required type="password"
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+      </div>
+    </div> <!-- Form Group -->
+    <div class="row form-group">
+      <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+        <ion-icon name="lock-closed-outline"></ion-icon>Confirmar Contraseña
+      </label>
+
+      <div class="col-sm-9">
+        <ion-input 
+         required type="password" class="form-control" [(ngModel)]="user.passwordcheck" 
+          [ngModelOptions]="{standalone: true}"></ion-input>
+      </div>
+    </div>
+    <!-- Form Group -->
+    <div class="row form-group">
+      <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+        <ion-icon name="happy-outline"></ion-icon>Nombres y Apellidos
+      </label>
+
+      <div class="col-sm-9">
+        <ion-input class="form-control" required [(ngModel)]="user.nombre" 
+          [ngModelOptions]="{standalone: true}"> 
+        </ion-input>
+      </div>
+    </div> 
+    <!-- Form Group -->
+    <div class="row form-group">
+      <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+        <ion-icon name="at-circle-outline"></ion-icon>Estado
+      </label>
+
+      <div class="col-sm-9">
+        <ion-select class="form-control"   [(ngModel)]="user.estado" 
+          [ngModelOptions]="{standalone: true}" required>
+          <ion-select-option *ngFor="let estado of estados">{{estado.estado}}
+          </ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+    <ion-button fill="outline" (click)="RegisterUsuario()">
+      <ion-icon name="person-add-outline"></ion-icon>Crear
+    </ion-button>
+  </div>
+  <!-- End Body -->
+</div>
+<div *ngIf=" edit == 'false'" class="content container-fluid">
+  <!-- Page Header -->
+  
+  <!-- End Media -->
+
+  <ion-card>
+    <ion-item>
+      <ion-input type="text" (change)="applyFilterIntermediarios($event.target.value)"
+        (keyup)="applyFilterIntermediarios($event.target.value)" placeholder="Filtro de Busqueda">
+      </ion-input>
+    </ion-item>
+    <div class="div-table">
+
+      <table  mat-table [dataSource]="dataSourceSuper"
+        class="mat-elevation-z8">
+
+        <!--  
+ * Separador INSTITUCIÓN Column
+ * Forma que empaqueta boton de ver el Intermediario. 
+ * Metodo principal:verModalCreacionVer(element);
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo  -->
+        <ng-container class="ng-container" matColumnDef="email">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+            *matHeaderCellDef>
+            USUARIO</th>
+          <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+            {{element.email}} </td>
+        </ng-container>
+
+        <!--  
+ * Separador VER Column
+ * Forma que empaqueta boton de ver el Intermediario. 
+ * Metodo principal:verModalCreacionVer(element);
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo  -->
+        <ng-container class="ng-container" matColumnDef="edit">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+            *matHeaderCellDef> EDITAR
+          </th>
+          <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+            <ion-button (click)="verModalEdit(element)" >
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+          </td>
+        </ng-container>
+   
+        <ng-container class="ng-container" matColumnDef="delete">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+            *matHeaderCellDef>
+            ELIMINAR </th>
+          <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+            <ion-button (click)="eliminarUsuarioConfirmacion(element)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsSuperM"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsSuperM;"></tr>
+      </table> 
+    </div>
+    <mat-paginator #paginatorSuper [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+    </mat-paginator>
+  </ion-card>
+  <div class="media-body">
+    <div class="row">
+      <div class="col-lg mb-3 mb-lg-0">
+        <h1 class="page-header-title text-success text-center" > ADMINISTRACIÓN DE PRESUPUESTO RECAUDO </h1>
+     
+
+      </div>
+
+    </div>
+  </div>
+  <div class="row form-group">
+    <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+      <ion-icon name="cafe-outline"></ion-icon>Presupuesto
+    </label>
+
+    <div class="col-sm-9">
+      <ion-input class="form-control" [(ngModel)]="presupuesto.presupuesto" [ngModelOptions]="{standalone: true}"
+        type="number" required  >
+      </ion-input>
+    </div>
+  </div>
+  <div class="row form-group">
+    <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+      <ion-icon name="calendar-number-outline"></ion-icon>Fecha Presupuesto
+    </label>
+
+    <div class="col-sm-9">
+      <ion-datetime [(ngModel)]="presupuesto.fecha" class="custom-select" displayFormat="MM YYYY"
+      placeholder="Seleccionar Fecha" min="2000" max="2999">
+  </ion-datetime>
+    </div>
+  </div>
+  
+  <ion-button fill="outline" (click)="RegisterPresupuesto()">
+    <ion-icon name="cafe-outline"></ion-icon>Crear
+  </ion-button>
+
+  <ion-card>
+    <ion-item>
+      <ion-input type="text" (change)="applyFilterPresupuesto($event.target.value)"
+        (keyup)="applyFilterPresupuesto($event.target.value)" placeholder="Filtro de Busqueda">
+      </ion-input>
+    </ion-item>
+    <div class="div-table">
+
+      <table  mat-table [dataSource]="dataSourcePresupuesto"
+        class="mat-elevation-z8">
+
+        <!--  
+ * Separador INSTITUCIÓN Column
+ * Forma que empaqueta boton de ver el Intermediario. 
+ * Metodo principal:verModalCreacionVer(element);
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo  -->
+        <ng-container class="ng-container" matColumnDef="presupuesto">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+            *matHeaderCellDef>
+            PRESUPUESTO</th>
+          <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+            {{element.presupuesto | currency}} </td>
+        </ng-container>
+
+        <!--  
+ * Separador VER Column
+ * Forma que empaqueta boton de ver el Intermediario. 
+ * Metodo principal:verModalCreacionVer(element);
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo  -->
+        <ng-container class="ng-container" matColumnDef="fecha">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+            *matHeaderCellDef> FECHA
+          </th>
+          <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+            {{element.fecha}} </td>
+        </ng-container>
+   
+        <ng-container class="ng-container" matColumnDef="delete">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+            *matHeaderCellDef>
+            ELIMINAR </th>
+          <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+            <ion-button (click)="eliminarPresupuestoConfirmacion(element)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsPresupuesto"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsPresupuesto;"></tr>
+      </table> 
+    </div>
+    <mat-paginator #paginatorPresupuesto [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+    </mat-paginator>
+  </ion-card>
+</div>
+<div *ngIf="edit == 'true'">
+  <!--
+ * Separador CONSULTA INSTITUCIÓN
+ * Forma que empaqueta consulta de Intermediarios. 
+ * Metodo principal:verModalCreacionNew();
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo     --> 
+
+  <!-- Card -->
+  <div #content class="card mb-3 mb-lg-5">
+    <div class="card-header">
+      <h2 class="card-title h4 text-success"><i class="tio-user-outlined nav-icon"></i>INFORMACIÓN BÁSICA</h2>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body">
+      <!-- Form -->
+      <form>
+
+
+        <!-- End Form Group -->
+
+
+        <!-- Form Group -->
+        
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div class="row form-group ">
+          <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+            <ion-icon name="lock-closed-outline"></ion-icon>Contraseña Actual
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" [(ngModel)]="useredit.histpassword" required type="password"
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+
+        <!-- Form Group -->
+        <div class="row form-group ">
+          <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+            <ion-icon name="lock-closed-outline"></ion-icon>Contraseña Nueva
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" [(ngModel)]="useredit.password" required type="password"
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <!-- Form Group -->
+        <div class="row form-group ">
+          <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+            <ion-icon name="lock-closed-outline"></ion-icon>Confirmación Contraseña Nueva
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" [(ngModel)]="useredit.passwordcheck" required type="password"
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+
+        <!-- End Form Group -->
+
+      </form>
+      <!-- End Form -->
+    </div>
+    <!-- End Body -->
+  </div>
+  <div style=" text-align: center;">
+    <ion-button (click)="updateUser()">Actualizar</ion-button>
+    <ion-button (click)="closeEdit()">Cerrar</ion-button>
+  </div> 
+</div>
+</ion-content>
+
+ 

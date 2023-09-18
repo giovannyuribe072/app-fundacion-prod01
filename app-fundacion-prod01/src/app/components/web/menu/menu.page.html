@@ -1,0 +1,967 @@
+<!-- /*!
+* MENU PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/menu/bandeja)
+* pathAplicationConfig=menu.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* menu v0.0.1 (HASTECNOLOGIA SAS/menu/bandeja) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-tabs>
+    <div id="main" [ngClass]="classSidebar">
+        <!-- top bar navigation -->
+        <div class="headerbar">
+            <header id="header"
+                class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-flush navbar-container navbar-bordered">
+
+                <div class="navbar-nav-wrap">
+                    <a (click)="openDetalle()" class="logo btn btn-ghost-secondary rounded-circle"><img id="Logo"
+                            class="img-fluid" alt="Logo" src="./../../../../assets/img/LogohorizontalPNG.png" /></a>
+
+                    <!-- Secondary Content -->
+                    <div class="navbar-nav-wrap-content-right">
+                        <!-- Navbar -->
+                        <!-- Navbar -->
+                        <ul class="navbar-nav align-items-center flex-row">
+                            <li class="nav-item d-none d-sm-inline-block">
+                                <!-- Notification -->
+                                <div class="hs-unfold">
+                                    <a class="collapsed js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                                        data-toggle="collapse" data-target="#notificationDropdown" aria-expanded="true"
+                                        aria-controls="notificationDropdown" data-hs-unfold-options='{
+                     "target": "#notificationDropdown",
+                     "type": "css-animation"
+                   }'>
+                                        <i class="tio-notifications-on-outlined"></i>
+                                        <span class="btn-status btn-sm-status btn-status-danger"></span>
+                                    </a>
+
+                                    <div id="notificationDropdown"
+                                        class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right navbar-dropdown-menu"
+                                        style="width: 25rem;">
+                                        <!-- Header -->
+                                        <div class="card-header">
+                                            <span class="card-title h4">Notificaciones</span>
+
+
+                                            <!-- End Unfold -->
+                                        </div>
+                                        <!-- End Header -->
+
+                                        <!-- Nav -->
+                                        <ul class="nav nav-tabs nav-justified" id="notificationTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="notificationNavOne-tab" data-toggle="tab"
+                                                    href="#notificationNavOne" role="tab"
+                                                    aria-controls="notificationNavOne" aria-selected="true">Garantia
+                                                    ({{notificalenght}})</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="notificationNavTwo-tab" data-toggle="tab"
+                                                    href="#notificationNavTwo" role="tab"
+                                                    aria-controls="notificationNavTwo"
+                                                    aria-selected="false">Cobro({{cobrolenght}})</a>
+                                            </li>
+                                        </ul>
+                                        <!-- End Nav -->
+
+                                        <!-- Body -->
+                                        <div class="card-body-height">
+                                            <!-- Tab Content -->
+                                            <div class="tab-content" id="notificationTabContent">
+                                                <div class="tab-pane fade show active" id="notificationNavOne"
+                                                    role="tabpanel" aria-labelledby="notificationNavOne-tab">
+                                                    <ul class="list-group list-group-flush navbar-card-list-group">
+                                                        <div id="notifica">
+
+                                                        </div>
+                                                        <!-- End Item -->
+                                                    </ul>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="notificationNavTwo" role="tabpanel"
+                                                    aria-labelledby="notificationNavTwo-tab">
+                                                    <ul class="list-group list-group-flush navbar-card-list-group">
+                                                        <div id="cobro">
+
+                                                        </div>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- End Tab Content -->
+                                        </div>
+                                        <!-- End Body -->
+
+                                        <!-- Card Footer -->
+                                        <a class="card-footer text-center">
+                                            Ver todas las notificaciones.
+                                            <i class="tio-chevron-right"></i>
+                                        </a>
+                                        <!-- End Card Footer -->
+                                    </div>
+                                </div>
+                                <!-- End Notification -->
+                            </li>
+
+
+                            <li class="nav-item">
+                                <!-- Account -->
+                                <div class="hs-unfold">
+                                    <a [routerLink]="" class="js-hs-unfold-invoker navbar-dropdown-account-wrapper"
+                                        data-hs-unfold-options='{
+                     "target": "#accountNavbarDropdown",
+                     "type": "css-animation"
+                   }' data-toggle="collapse" data-target="#accountNavbarDropdown" aria-expanded="true"
+                                        aria-controls="accountNavbarDropdown">
+                                        <div class="avatar avatar-sm avatar-circle">
+                                            <img id="avatarImgMenu" class="avatar-img">
+                                            <span class="avatar-status avatar-sm-status avatar-status-success"></span>
+                                        </div>
+                                    </a>
+
+                                    <div id="accountNavbarDropdown"
+                                        class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right navbar-dropdown-menu navbar-dropdown-account"
+                                        style="width: 16rem;">
+                                        <div class="dropdown-item-text">
+                                            <div class="media align-items-center">
+                                                <div class="avatar avatar-sm avatar-circle mr-2">
+                                                    <img id="avatarImgMenu1" class="avatar-img">
+                                                </div>
+                                                <div class="media-body">
+                                                    <span class="card-title h5">{{user.nombre}}</span>
+                                                    <span class="card-text">{{user.email}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="dropdown-divider"></div>
+
+                                        <a [routerLink]="" (click)="signOut()" class="dropdown-item">
+                                            <span class="text-truncate pr-2" title="Sign out">Cerrar Sesión</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- End Account -->
+                            </li>
+                        </ul>
+                        <!-- End Navbar -->
+                        <!-- End Navbar -->
+                    </div>
+                    <!-- End Secondary Content -->
+                </div>
+            </header>
+
+        </div>
+        <div class="left main-sidebar">
+            <div *ngIf="width < 420 " class="left main-sidebar navbar navbar-vertical" style="top: 80px;">
+                <!-- Navbar -->
+                <ul class="navbar-nav navbar-nav-lg">
+                    <li *ngIf="user.role === 'Super Maestro'" class="nav-item">
+                        <a class="nav-link " [routerLink]="" (click)="closeFirst('bandeja')">
+                            <i class="tio-visible-outlined nav-icon"></i>
+                            <div *ngIf="detalle != 'close'">Inicio</div>
+                        </a>
+                    </li>
+                    <li *ngIf="user.role === 'Super Maestro' || user.role === 'Intermediario'" class="nav-item">
+                        <a class="nav-link " [routerLink]="" (click)="closeFirst('creacionusuarios')">
+                            <i class="tio-user-outlined nav-icon"></i>
+                            <div *ngIf="detalle != 'close'">Información</div>
+                        </a>
+                    </li>
+
+                    <li *ngIf="user.role === 'Super Maestro'" class="nav-item">
+                        <a class="nav-link  nav-link-toggle" href="#sidebarPagesWithTogglerEg1" data-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="sidebarPagesWithTogglerEg1">
+                            <i class="tio-node-multiple-outlined nav-icon"></i>
+                            <div *ngIf="detalle != 'close'">Comisión</div>
+                        </a>
+
+                        <div class="collapse" id="sidebarPagesWithTogglerEg1">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('periodocobertura')" class="nav-link">
+                                        <i class="tio-voice-line nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'">Cargue</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('historico')" class="nav-link">
+                                        <i class="tio-command-key nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'"> Histórico </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li *ngIf="user.role === 'Super Maestro'" class="nav-item">
+                        <a class="nav-link nav-link-toggle" href="#sidebarPagesWithTogglerEg" data-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="sidebarPagesWithTogglerEg">
+                            <i class="tio-pages-outlined nav-icon"></i>
+                            <div *ngIf="detalle != 'close'">Garantías</div>
+                        </a>
+
+                        <div class="collapse" id="sidebarPagesWithTogglerEg">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('garantias')" class="nav-link">
+                                        <i class="tio-users-switch nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'"> Cargue </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('factura')" class="nav-link">
+                                        <i class="tio-shop nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'">Factura</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a (click)="closeFirst('comprobante')" [routerLink]="" class="nav-link">
+                                        <i class="tio-dashboard-vs-outlined nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'">Comprobante</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li *ngIf="user.role === 'Super Maestro'" class="nav-item">
+                        <a class="nav-link " [routerLink]="" (click)="closeFirst('consolidado')">
+                            <i class="tio-group-junior nav-icon"></i>
+                            <div *ngIf="detalle != 'close'">Consolidado</div>
+                        </a>
+                    </li>
+
+
+                    <li *ngIf="user.role === 'Super Maestro'" class="nav-item">
+                        <a class="nav-link  nav-link-toggle" href="#sidebarPagesWithTogglerEg3" data-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="sidebarPagesWithTogglerEg3">
+                            <i class="tio-puzzle nav-icon"></i>
+                            <div *ngIf="detalle != 'close'">Cobro de Crédito</div>
+                        </a>
+
+                        <div class="collapse" id="sidebarPagesWithTogglerEg3">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('cobrogarantia')" class="nav-link">
+                                        <i class="tio-seat  nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'">Cargue Documentos</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('verificacioncobrogarantias')"
+                                        class="nav-link">
+                                        <i class="tio-voice-line nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'">Soporte de Pago</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li *ngIf="user.role == 'Super Maestro'"
+                        class="nav-item">
+                        <a class="nav-link  nav-link-toggle" href="#sidebarPagesWithTogglerEg4" data-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="sidebarPagesWithTogglerEg3">
+                            <i class="tio-credit-card-add nav-icon"></i>
+                            <div *ngIf="detalle != 'close'">Cobranza</div>
+                        </a>
+
+                        <div class="collapse" id="sidebarPagesWithTogglerEg4">
+                            <ul class="nav flex-column">
+                                <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Maestro'||user.role == 'Intermediario'||user.role == 'Coordinador'"
+                                    class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('cartera')" class="nav-link">
+                                        <i class="tio-users-switch nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'"> Cargue </div>
+                                    </a>
+                                </li>
+                                <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Maestro'||user.role == 'Intermediario'||user.role == 'Coordinador'||user.role == 'Cobrador'"
+                                    class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('buscarclientes')" class="nav-link">
+                                        <i class="tio-dollar-outlined nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'">Buscar Clientes</div>
+                                    </a>
+                                </li>
+                                <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Maestro'||user.role == 'Intermediario'||user.role == 'Coordinador'||user.role == 'Cobrador'"
+                                    class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('seguimiento')" class="nav-link">
+                                        <i class="tio-accessibility-vs nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'">Seguimiento</div>
+                                    </a>
+                                </li>
+                                <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Coordinador'" class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('aplicarpagos')" class="nav-link">
+                                        <i class="tio-walking nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'">Aplicar Pagos</div>
+                                    </a>
+                                </li>
+                                <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Maestro'||user.role == 'Intermediario'||user.role == 'Coordinador'"
+                                    class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('reportecobranza')" class="nav-link">
+                                        <i class="tio-chart-bubble nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'">Reportes</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li *ngIf="user.role == 'Super Maestro'" class="nav-item">
+                        <a class="nav-link  nav-link-toggle" href="#sidebarPagesWithTogglerEg5" data-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="sidebarPagesWithTogglerEg5">
+                            <i class="tio-data-sharing nav-icon"></i>
+                            <div *ngIf="detalle != 'close'">Informes</div>
+                        </a>
+
+                        <div class="collapse" id="sidebarPagesWithTogglerEg5">
+                            <ul class="nav flex-column">
+                                <a class="nav-link  nav-link-toggle" href="#sidebarPagesWithTogglerEg6"
+                                    data-toggle="collapse" role="button" aria-expanded="false"
+                                    aria-controls="sidebarPagesWithTogglerEg6">
+                                    <i class="tio-data-sharing nav-icon"></i>
+                                    <div *ngIf="detalle != 'close'">Recaudo
+                                    </div>
+                                </a>
+                                <div class="collapse" id="sidebarPagesWithTogglerEg6">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+
+
+                                            <div class="collapse" id="sidebarPagesWithTogglerEg6">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a [routerLink]="" (click)="closeFirst('analista')"
+                                                            class="nav-link">
+                                                            <i class="tio-chart-bar-1  nav-icon"></i>
+                                                            <span class="nav-dot"></span>
+                                                            <div *ngIf="detalle != 'close'">
+                                                                Analista</div>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="collapse" id="sidebarPagesWithTogglerEg6">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a [routerLink]="" (click)="closeFirst('anodia')"
+                                                            class="nav-link">
+                                                            <i class="tio-chart-bar-2  nav-icon"></i>
+                                                            <span class="nav-dot"></span>
+                                                            <div *ngIf="detalle != 'close'">
+                                                                Año/Mes</div>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="collapse" id="sidebarPagesWithTogglerEg6">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a [routerLink]="" (click)="closeFirst('dia')" class="nav-link">
+                                                            <i class="tio-chart-bar-4  nav-icon"></i>
+                                                            <span class="nav-dot"></span>
+                                                            <div *ngIf="detalle != 'close'">
+                                                                Día</div>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="collapse" id="sidebarPagesWithTogglerEg6">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a [routerLink]="" (click)="closeFirst('mes')" class="nav-link">
+                                                            <i class="tio-chart-bar-4  nav-icon"></i>
+                                                            <span class="nav-dot"></span>
+                                                            <div *ngIf="detalle != 'close'">
+                                                                Mes</div>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="collapse" id="sidebarPagesWithTogglerEg6">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a [routerLink]="" (click)="closeFirst('mes')" class="nav-link">
+                                                            <i class="tio-chart-bar-4  nav-icon"></i>
+                                                            <span class="nav-dot"></span>
+                                                            <div *ngIf="detalle != 'close'">
+                                                                Mes</div>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="collapse" id="sidebarPagesWithTogglerEg6">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a [routerLink]="" (click)="closeFirst('presupuestorecaudo')"
+                                                            class="nav-link">
+                                                            <i class="tio-chart-bar-4  nav-icon"></i>
+                                                            <span class="nav-dot"></span>
+                                                            <div *ngIf="detalle != 'close'">
+                                                                Presupuesto/Recaudo</div>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="collapse" id="sidebarPagesWithTogglerEg5">
+                            <ul class="nav flex-column">
+                                <a class="nav-link  nav-link-toggle"
+                                    href="#sidebarPagesWithTogglerEg7" data-toggle="collapse"
+                                    role="button" aria-expanded="false"
+                                    aria-controls="sidebarPagesWithTogglerEg7">
+                                    <i class="tio-data-sharing nav-icon"></i>
+                                    <div *ngIf="detalle != 'close'">Gestión
+                                    </div>
+                                </a>
+                                <div class="collapse" id="sidebarPagesWithTogglerEg7">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+
+
+                                            <div class="collapse"
+                                                id="sidebarPagesWithTogglerEg7">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a [routerLink]=""
+                                                            (click)="closeFirst('finllamada')"
+                                                            class="nav-link">
+                                                            <i
+                                                                class="tio-chart-bar-1  nav-icon"></i>
+                                                            <span class="nav-dot"></span>
+                                                            <div *ngIf="detalle != 'close'">
+                                                                Fin de Llamada</div>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="collapse"
+                                                id="sidebarPagesWithTogglerEg7">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a [routerLink]=""
+                                                            (click)="closeFirst('llamadaanomes')"
+                                                            class="nav-link">
+                                                            <i
+                                                                class="tio-chart-bar-2  nav-icon"></i>
+                                                            <span class="nav-dot"></span>
+                                                            <div>
+                                                                Llamada Año/Mes</div>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="collapse"
+                                                id="sidebarPagesWithTogglerEg7">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a [routerLink]=""
+                                                            (click)="closeFirst('dia')"
+                                                            class="nav-link">
+                                                            <i
+                                                                class="tio-chart-bar-3  nav-icon"></i>
+                                                            <span class="nav-dot"></span>
+                                                            <div>
+                                                                Analista</div>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div> 
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="collapse" id="sidebarPagesWithTogglerEg5">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a [routerLink]="" (click)="closeFirst('operacion')" class="nav-link">
+                                        <i class="tio-chart-bar-4  nav-icon"></i> <span class="nav-dot"></span>
+                                        <div *ngIf="detalle != 'close'">Operación</div>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <!-- End Navbar -->
+            </div>
+            <div *ngIf="width > 420 " class="sidebar-inner leftscroll">
+                <div id="sidebar-menu">
+                    <aside
+                        class="js-navbar-vertical-aside navbar navbar-vertical-aside navbar-vertical navbar-vertical-fixed navbar-expand-xl navbar-bordered navbar-vertical-aside-initialized">
+                        <div class="navbar-vertical-container">
+                            <div class="navbar-vertical-footer-offset">
+                                <div class="navbar-brand-wrapper justify-content-between">
+                                    <!-- Logo -->
+
+
+                                    <a class="navbar-brand" aria-label="Front">
+                                        <div class="sidebar-brand-icon menu-icon">
+                                            <div class="headerbar-left">
+                                                <a class="logo"><img id="Logo" alt="Logo"
+                                                        src="./../../../../assets/img/customLogo.gif" /></a>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <!-- End Logo -->
+
+
+                                    <!-- End Navbar Vertical Toggle -->
+                                </div>
+
+                                <!-- Content -->
+                                <div class="navbar-vertical-content">
+                                    <!-- Navbar Vertical -->
+                                    <div class="navbar navbar-vertical navbar-expand-md" style="max-width: 16rem;">
+                                        <!-- Navbar -->
+                                        <ul class="navbar-nav navbar-nav-lg nav-tabs card card-navbar-nav">
+                                            <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Maestro'||user.role == 'Intermediario'"
+                                                (click)="closeFirst('bandeja')" [routerLink]="" class="nav-item">
+                                                <a [routerLink]="" class="nav-link ">
+                                                    <i class="tio-visible-outlined nav-icon"></i> Inicio
+                                                </a>
+                                            </li>
+
+                                            <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Maestro'||user.role == 'Intermediario'"
+                                                class="nav-item">
+                                                <a class="nav-link " [routerLink]=""
+                                                    (click)="closeFirst('creacionusuarios')">
+                                                    <i class="tio-user-outlined nav-icon"></i>Tu información
+                                                </a>
+                                            </li>
+
+                                            <li *ngIf="user.role == 'Super Maestro'"
+                                                class="nav-item">
+                                                <a class="nav-link  nav-link-toggle" href="#sidebarPagesWithTogglerEg1"
+                                                    data-toggle="collapse" role="button" aria-expanded="false"
+                                                    aria-controls="sidebarPagesWithTogglerEg1">
+                                                    <i class="tio-node-multiple-outlined nav-icon"></i> Modalidad de
+                                                    comisión
+                                                </a>
+
+                                                <div class="collapse" id="sidebarPagesWithTogglerEg1">
+                                                    <ul class="nav flex-column">
+                                                        <li class="nav-item">
+                                                            <a [routerLink]="" (click)="closeFirst('periodocobertura')"
+                                                                class="nav-link">
+                                                                <i class="tio-voice-line nav-icon"></i> <span
+                                                                    class="nav-dot"></span> Cargue
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a [routerLink]="" (click)="closeFirst('historico')"
+                                                                class="nav-link">
+                                                                <i class="tio-command-key nav-icon"></i> <span
+                                                                    class="nav-dot"></span> Histórico
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+
+                                            <li *ngIf="user.role == 'Super Maestro'"
+                                                class="nav-item">
+                                                <a class="nav-link nav-link-toggle" href="#sidebarPagesWithTogglerEg"
+                                                    data-toggle="collapse" role="button" aria-expanded="false"
+                                                    aria-controls="sidebarPagesWithTogglerEg">
+                                                    <i class="tio-pages-outlined nav-icon"></i> Garantías
+                                                </a>
+
+                                                <div class="collapse" id="sidebarPagesWithTogglerEg">
+                                                    <ul class="nav flex-column">
+                                                        <li class="nav-item">
+                                                            <a [routerLink]="" (click)="closeFirst('garantias')"
+                                                                class="nav-link">
+                                                                <i class="tio-users-switch nav-icon"></i> <span
+                                                                    class="nav-dot"></span> Cargue
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a [routerLink]="" (click)="closeFirst('factura')"
+                                                                class="nav-link">
+                                                                <i class="tio-shop nav-icon"></i> <span
+                                                                    class="nav-dot"></span> Factura
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a (click)="closeFirst('comprobante')" [routerLink]=""
+                                                                class="nav-link">
+                                                                <i class="tio-dashboard-vs-outlined nav-icon"></i> <span
+                                                                    class="nav-dot"></span> Comprobante
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li *ngIf="user.role == 'Super Maestro'"
+                                                class="nav-item">
+                                                <a class="nav-link " [routerLink]=""
+                                                    (click)="closeFirst('consolidado')">
+                                                    <i class="tio-group-junior nav-icon"></i>
+                                                    <div>Consolidado</div>
+                                                </a>
+                                            </li>
+
+                                            <li *ngIf="user.role == 'Super Maestro'"
+                                                class="nav-item">
+                                                <a class="nav-link  nav-link-toggle" href="#sidebarPagesWithTogglerEg3"
+                                                    data-toggle="collapse" role="button" aria-expanded="false"
+                                                    aria-controls="sidebarPagesWithTogglerEg3">
+                                                    <i class="tio-puzzle nav-icon"></i>
+                                                    <div>Cobro Créditos Afianzados</div>
+                                                </a>
+
+                                                <div class="collapse" id="sidebarPagesWithTogglerEg3">
+                                                    <ul class="nav flex-column">
+                                                        <li class="nav-item">
+                                                            <a [routerLink]="" (click)="closeFirst('cobrogarantia')"
+                                                                class="nav-link">
+                                                                <i class="tio-seat nav-icon"></i> <span
+                                                                    class="nav-dot"></span>
+                                                                <div>Cargue Documentos</div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a [routerLink]=""
+                                                                (click)="closeFirst('verificacioncobrogarantias')"
+                                                                class="nav-link">
+                                                                <i class="tio-survey nav-icon"></i> <span
+                                                                    class="nav-dot"></span>
+                                                                <div>Soporte de Pago</div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+
+                                            <li *ngIf="user.role == 'Super Maestro'"
+                                                class="nav-item">
+                                                <a class="nav-link  nav-link-toggle" href="#sidebarPagesWithTogglerEg4"
+                                                    data-toggle="collapse" role="button" aria-expanded="false"
+                                                    aria-controls="sidebarPagesWithTogglerEg3">
+                                                    <i class="tio-credit-card-add nav-icon"></i>
+                                                    <div>Cobranza</div>
+                                                </a>
+
+                                                <div class="collapse" id="sidebarPagesWithTogglerEg4">
+                                                    <ul class="nav flex-column">
+                                                        <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Maestro'||user.role == 'Intermediario'||user.role == 'Coordinador'"
+                                                            class="nav-item">
+                                                            <a [routerLink]="" (click)="closeFirst('cartera')"
+                                                                class="nav-link">
+                                                                <i class="tio-users-switch nav-icon"></i> <span
+                                                                    class="nav-dot"></span>
+                                                                <div> Cargue </div>
+                                                            </a>
+                                                        </li>
+                                                        <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Maestro'||user.role == 'Intermediario'||user.role == 'Coordinador'||user.role == 'Cobrador'"
+                                                            class="nav-item">
+                                                            <a [routerLink]="" (click)="closeFirst('buscarclientes')"
+                                                                class="nav-link">
+                                                                <i class="tio-dollar-outlined nav-icon"></i> <span
+                                                                    class="nav-dot"></span>
+                                                                <div>Buscar Clientes</div>
+                                                            </a>
+                                                        </li>
+                                                        <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Maestro'||user.role == 'Intermediario'||user.role == 'Coordinador'||user.role == 'Cobrador'"
+                                                            class="nav-item">
+                                                            <a [routerLink]="" (click)="closeFirst('seguimiento')"
+                                                                class="nav-link">
+                                                                <i class="tio-accessibility-vs nav-icon"></i> <span
+                                                                    class="nav-dot"></span>
+                                                                <div>Seguimiento</div>
+                                                            </a>
+                                                        </li>
+                                                        <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Coordinador'"
+                                                            class="nav-item">
+                                                            <a [routerLink]="" (click)="closeFirst('aplicarpagos')"
+                                                                class="nav-link">
+                                                                <i class="tio-walking nav-icon"></i> <span
+                                                                    class="nav-dot"></span>
+                                                                <div>Aplicar Pagos</div>
+                                                            </a>
+                                                        </li>
+                                                        <li *ngIf="user.role == 'Super Maestro'|| user.role == 'Maestro'||user.role == 'Intermediario'||user.role == 'Coordinador'"
+                                                            class="nav-item">
+                                                            <a [routerLink]="" (click)="closeFirst('reportecobranza')"
+                                                                class="nav-link">
+                                                                <i class="tio-chart-bubble nav-icon"></i> <span
+                                                                    class="nav-dot"></span>
+                                                                <div>Reportes</div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li *ngIf="user.role == 'Super Maestro'" class="nav-item">
+                                                <a class="nav-link  nav-link-toggle" href="#sidebarPagesWithTogglerEg5"
+                                                    data-toggle="collapse" role="button" aria-expanded="false"
+                                                    aria-controls="sidebarPagesWithTogglerEg5">
+                                                    <i class="tio-data-sharing nav-icon"></i>
+                                                    <div>Informes</div>
+                                                </a>
+
+                                                <div *ngIf="user.role == 'Super Maestro'" class="collapse" id="sidebarPagesWithTogglerEg5">
+                                                    <ul class="nav flex-column">
+                                                        <a class="nav-link  nav-link-toggle"
+                                                            href="#sidebarPagesWithTogglerEg6" data-toggle="collapse"
+                                                            role="button" aria-expanded="false"
+                                                            aria-controls="sidebarPagesWithTogglerEg6">
+                                                            <i class="tio-data-sharing nav-icon"></i>
+                                                            <div>Recaudo
+                                                            </div>
+                                                        </a>
+                                                        <div class="collapse" id="sidebarPagesWithTogglerEg6">
+                                                            <ul class="nav flex-column">
+                                                                <li class="nav-item">
+
+
+                                                                    <div class="collapse"
+                                                                        id="sidebarPagesWithTogglerEg6">
+                                                                        <ul class="nav flex-column">
+                                                                            <li class="nav-item">
+                                                                                <a [routerLink]=""
+                                                                                    (click)="closeFirst('analista')"
+                                                                                    class="nav-link">
+                                                                                    <i
+                                                                                        class="tio-chart-bar-1  nav-icon"></i>
+                                                                                    <span class="nav-dot"></span>
+                                                                                    <div>
+                                                                                        Analista</div>
+                                                                                </a>
+                                                                            </li>
+
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="collapse"
+                                                                        id="sidebarPagesWithTogglerEg6">
+                                                                        <ul class="nav flex-column">
+                                                                            <li class="nav-item">
+                                                                                <a [routerLink]=""
+                                                                                    (click)="closeFirst('anodia')"
+                                                                                    class="nav-link">
+                                                                                    <i
+                                                                                        class="tio-chart-bar-2  nav-icon"></i>
+                                                                                    <span class="nav-dot"></span>
+                                                                                    <div>
+                                                                                        Año/Mes</div>
+                                                                                </a>
+                                                                            </li>
+
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="collapse"
+                                                                        id="sidebarPagesWithTogglerEg6">
+                                                                        <ul class="nav flex-column">
+                                                                            <li class="nav-item">
+                                                                                <a [routerLink]=""
+                                                                                    (click)="closeFirst('dia')"
+                                                                                    class="nav-link">
+                                                                                    <i
+                                                                                        class="tio-chart-bar-3  nav-icon"></i>
+                                                                                    <span class="nav-dot"></span>
+                                                                                    <div>
+                                                                                        Día</div>
+                                                                                </a>
+                                                                            </li>
+
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <div class="collapse"
+                                                                        id="sidebarPagesWithTogglerEg6">
+                                                                        <ul class="nav flex-column">
+                                                                            <li class="nav-item">
+                                                                                <a [routerLink]=""
+                                                                                    (click)="closeFirst('mes')"
+                                                                                    class="nav-link">
+                                                                                    <i
+                                                                                        class="tio-chart-bar-4  nav-icon"></i>
+                                                                                    <span class="nav-dot"></span>
+                                                                                    <div >
+                                                                                        Mes</div>
+                                                                                </a>
+                                                                            </li>
+
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="collapse"
+                                                                        id="sidebarPagesWithTogglerEg6">
+                                                                        <ul class="nav flex-column">
+                                                                            <li class="nav-item">
+                                                                                <a [routerLink]=""
+                                                                                    (click)="closeFirst('presupuestorecaudo')"
+                                                                                    class="nav-link">
+                                                                                    <i
+                                                                                        class="tio-chart-donut-1  nav-icon"></i>
+                                                                                    <span class="nav-dot"></span>
+                                                                                    <div >
+                                                                                        Presupuesto/Recaudo</div>
+                                                                                </a>
+                                                                            </li>
+
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </ul>
+                                                </div>
+                                                <div *ngIf="user.role == 'Super Maestro'" class="collapse" id="sidebarPagesWithTogglerEg5">
+                                                    <ul class="nav flex-column">
+                                                        <a class="nav-link  nav-link-toggle"
+                                                            href="#sidebarPagesWithTogglerEg7" data-toggle="collapse"
+                                                            role="button" aria-expanded="false"
+                                                            aria-controls="sidebarPagesWithTogglerEg7">
+                                                            <i class="tio-data-sharing nav-icon"></i>
+                                                            <div>Gestión
+                                                            </div>
+                                                        </a>
+                                                        <div class="collapse" id="sidebarPagesWithTogglerEg7">
+                                                            <ul class="nav flex-column">
+                                                                <li class="nav-item">
+
+
+                                                                    <div class="collapse"
+                                                                        id="sidebarPagesWithTogglerEg7">
+                                                                        <ul class="nav flex-column">
+                                                                            <li class="nav-item">
+                                                                                <a [routerLink]=""
+                                                                                    (click)="closeFirst('finllamada')"
+                                                                                    class="nav-link">
+                                                                                    <i
+                                                                                        class="tio-chart-bar-1  nav-icon"></i>
+                                                                                    <span class="nav-dot"></span>
+                                                                                    <div>
+                                                                                        Fin de Llamada</div>
+                                                                                </a>
+                                                                            </li>
+
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="collapse"
+                                                                        id="sidebarPagesWithTogglerEg7">
+                                                                        <ul class="nav flex-column">
+                                                                            <li class="nav-item">
+                                                                                <a [routerLink]=""
+                                                                                    (click)="closeFirst('llamadaanomes')"
+                                                                                    class="nav-link">
+                                                                                    <i
+                                                                                        class="tio-chart-bar-2  nav-icon"></i>
+                                                                                    <span class="nav-dot"></span>
+                                                                                    <div>
+                                                                                    Llamadas Año/Mes</div>
+                                                                                </a>
+                                                                            </li>
+
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="collapse"
+                                                                        id="sidebarPagesWithTogglerEg7">
+                                                                        <ul class="nav flex-column">
+                                                                            <li class="nav-item">
+                                                                                <a [routerLink]=""
+                                                                                    (click)="closeFirst('seguimientoanalista')"
+                                                                                    class="nav-link">
+                                                                                    <i
+                                                                                        class="tio-chart-bar-3  nav-icon"></i>
+                                                                                    <span class="nav-dot"></span>
+                                                                                    <div>
+                                                                                        Analista</div>
+                                                                                </a>
+                                                                            </li>
+
+                                                                        </ul>
+                                                                    </div> 
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </ul>
+                                                </div>
+                                                <div *ngIf="user.role == 'Super Maestro'|| user.role == 'Intermediario'" class="collapse" id="sidebarPagesWithTogglerEg5">
+                                                    <ul class="nav flex-column">
+                                                        <li class="nav-item">
+                                                            <a [routerLink]="" (click)="closeFirst('operacion')"
+                                                                class="nav-link">
+                                                                <i class="tio-chart-bar-4  nav-icon"></i> <span
+                                                                    class="nav-dot"></span>
+                                                                <div>Operación</div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <!-- End Navbar -->
+                                    </div>
+                                    <!-- End Navbar Vertical -->
+                                </div>
+                                <!-- End Content -->
+
+                                <!-- Footer -->
+                                <div class="navbar-vertical-footer">
+                                    <ul class="navbar-vertical-footer-list">
+                                        <li class="navbar-vertical-footer-list-item">
+                                            <!-- Unfold -->
+                                            <div class="hs-unfold">
+                                                <a *ngIf="user.role == 'Super Maestro'"
+                                                    class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                                                    (click)="closeFirst('reprocesos')">
+                                                    <i class="tio-tune"></i>
+                                                </a>
+                                            </div>
+                                            <!-- End Unfold -->
+                                        </li>
+
+                                        <li class="navbar-vertical-footer-list-item">
+                                            <!-- Other Links -->
+                                            <div class="hs-unfold">
+                                                <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                                                    data-hs-unfold-options="{
+                                        &quot;target&quot;: &quot;#otherLinksDropdown&quot;,
+                                        &quot;type&quot;: &quot;css-animation&quot;,
+                                        &quot;animationIn&quot;: &quot;slideInDown&quot;,
+                                        &quot;hideOnScroll&quot;: true
+                                       }" data-hs-unfold-target="#otherLinksDropdown" data-hs-unfold-invoker="">
+                                                    <i class="tio-help-outlined"></i>
+                                                </a>
+
+                                            </div>
+                                            <!-- End Other Links -->
+                                        </li>
+                                    </ul>
+                                    <p class="font-size-sm mb-0 text-center">© Copyright INSTITUCIÓN SAN JOSÉ. <span 
+                                            class="d-none d-sm-inline-block">2023 - {{dates}} - </span>
+                                        <span class="d-none d-sm-inline-block">Version © V-01 </span>
+                                    </p>
+                                    <p class="text-muted small mb-0">Developed by &copy; HASTECNOLOGIA SAS</p>
+                                </div>
+                                <!-- End Footer -->
+                            </div>
+                        </div>
+                    </aside>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</ion-tabs>

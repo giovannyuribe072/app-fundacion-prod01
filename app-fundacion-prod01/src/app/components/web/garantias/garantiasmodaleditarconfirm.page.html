@@ -1,0 +1,67 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content>
+        <ion-card-header> 
+           <ion-card-title style="text-align: center;" class="text-success">CONFIRMACIÓN DE EDICIÓN DEL REPORTE CRÉDITOS AFIANZADOS</ion-card-title>      
+            <ion-row *ngIf="option === 'consult' ">
+                <ion-col  >
+                <ion-item>
+                  <ion-label position="floating">
+                    <ion-icon name="calculator-outline"></ion-icon>COBERTURA
+                  </ion-label>
+                  <ion-input  type="number"  [(ngModel)]="garantiahist.cobertura" [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col >
+                <ion-item>
+                  <ion-label position="floating">
+                    <ion-icon name="briefcase-outline"></ion-icon>ADMINISTRACIÓN
+                  </ion-label>
+                  <ion-input  type="number" [(ngModel)]="garantiahist.administracion" [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col   >
+                <ion-item>
+                  <ion-label position="floating">
+                    <ion-icon name="cafe-outline"></ion-icon>IVA ADMINISTRACIÓN
+                  </ion-label>
+                  <ion-input type="number"  [(ngModel)]="garantiahist.ivaadministracion" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </ion-item>
+              </ion-col>  
+              <div style=" text-align: center;">
+                <ion-button (click)="calcular()">Calcular</ion-button> 
+              </div> 
+              </ion-row>
+              <div *ngIf="option === 'calcular'">
+                <ion-item style="text-align: center;">
+                    <ion-label position="floating">
+                      <ion-icon name="pricetags-outline"></ion-icon>COMISIÓN TOTAL
+                    </ion-label> 
+                    <br><br>
+                  </ion-item>  
+                  <div style="text-align: center;">{{comisiontotal|currency}}</div>
+                    <!-- Divider -->
+          <hr class="sidebar-divider d-none d-md-block">
+                  <div style=" text-align: center;">
+                    <ion-button (click)="confirmar()">Confirmar</ion-button> 
+                    <ion-button (click)="recalcular()">Calcular</ion-button> 
+                  </div>
+              </div> 
+            <div style=" text-align: center;">
+                <ion-button (click)="cancelarEdicion()">Cancelar</ion-button> 
+              </div>
+            </ion-card-header> </ion-content>

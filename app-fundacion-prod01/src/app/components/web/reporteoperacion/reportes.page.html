@@ -1,0 +1,139 @@
+<ion-content>
+    <div id="main">
+        <div class="content-page">
+            <div class="content">
+                <div class="content container-fluid">
+                    <div class="row align-items-sm-center py-sm-10">
+                        <div class="col-sm-6">
+                            <div class="text-center text-sm-right mr-sm-4 mb-5 mb-sm-0">
+                                <img *ngIf="chart == 'img'" class="w-60 w-sm-100 mx-auto"
+                                    src="../../../../assets/img/samuel2.png" style="max-width: 23rem;min-width: 15rem;">
+                                <div #lineChart *ngIf="chart == 'chart'" id="container"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 text-center text-sm-left">
+                            <h1 class="display-1 mb-0 text-success"> CONSULTA DE INFORME DE OPERACIÓN INSTITUCIÓN
+                            </h1>
+                            <!--
+                       * Separador SELECCIÓN DE INSTITUCIÓN
+                       * Forma que empaqueta tabla Intermediarios. 
+                       * Metodo principal:selectIntermediario()
+                       * AUTH GOOGLE CLOUD FIREBASE SERVICE
+                       * @author Giovanny Uribe Acevedo  -->
+                            <ion-col>
+
+                                <!--
+        * Separador SELECCIÓN DE INSTITUCIÓN
+        * Forma que empaqueta tabla Intermediarios. 
+        * Metodo principal:selectIntermediario()
+        * AUTH GOOGLE CLOUD FIREBASE SERVICE
+        * @author Giovanny Uribe Acevedo  -->
+                                <div *ngIf="optionselectintermediario == 'close' && user.role === 'Super Maestro' ">
+                                    <ion-card-header>
+                                        <ion-card-title>Selección de intermediario</ion-card-title>
+                                    </ion-card-header>
+                                    <ion-card>
+                                        <ion-item>
+                                            <ion-input type="text"
+                                                (change)="applyFilterIntermediarios($event.target.value)"
+                                                (keyup)="applyFilterIntermediarios($event.target.value)"
+                                                placeholder="Filtro de Busqueda">
+                                            </ion-input>
+                                        </ion-item>
+                                        <div class="div-table">
+                                            <table mat-table [dataSource]="dataSourceIntermediario"
+                                                class="mat-elevation-z8">
+                                                <!-- nombre Table Column -->
+                                                <ng-container class="ng-container" matColumnDef="nombre">
+                                                    <th style="text-align: center;width: 130px; color: black;"
+                                                        class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        INSTITUCIÓN </th>
+                                                    <td style="text-align: center;" class="ng-container" mat-cell
+                                                        *matCellDef="let element"> {{element.sigla}} </td>
+                                                </ng-container>
+
+                                                <!--  
+        * Separador SELECCIONAR Column
+        * Forma que empaqueta boton de seleccionar el Intermediario. 
+        * Metodo principal:selectIntermediario(element);
+        * AUTH GOOGLE CLOUD FIREBASE SERVICE
+        * @author Giovanny Uribe Acevedo  -->
+                                                <ng-container class="ng-container" matColumnDef="select">
+                                                    <th style="text-align: center; width: 130px; color: black;"
+                                                        class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        SELECCIONAR </th>
+                                                    <td style="text-align: center;" class="ng-container" mat-cell
+                                                        *matCellDef="let element">
+                                                        <ion-button (click)="selectIntermediario(element)">
+                                                            <ion-icon name="checkmark-done-outline"></ion-icon>
+                                                        </ion-button>
+                                                    </td>
+                                                </ng-container>
+                                                <tr mat-header-row *matHeaderRowDef="displayedColumnsIntermediario">
+                                                </tr>
+                                                <tr mat-row
+                                                    *matRowDef="let row; columns: displayedColumnsIntermediario;"></tr>
+                                            </table>
+                                        </div>
+                                        <mat-paginator #paginatorIntermediarios [pageSizeOptions]="[5, 10, 15, 20]"
+                                            showFirstLastButtons>
+                                        </mat-paginator>
+                                    </ion-card>
+                                    <div *ngIf="user.role == 'Super Maestro'"> <a class="btn btn-primary text-white"
+                                            fill="outline" (click)="getMolizados()">
+                                            <ion-icon name="card-outline"></ion-icon>MOVILIZADO
+                                        </a> </div>
+                                    <br>
+                                    <a *ngIf="user.role == 'Super Maestro'" class="btn btn-primary text-white"
+                                        fill="outline" (click)="getRecuperados()">
+                                        <ion-icon name="card-outline"></ion-icon>RECLAMADO
+                                    </a>
+                                </div>
+                                <div *ngIf=" optionselectintermediario == 'open'">
+                                    <!--
+        * Separador SELECCIÓN DE OTRO INSTITUCIÓN
+        * Forma que empaqueta BUSQUEDA Intermediarios. 
+        * Metodo principal:selectOtherIntermediario()
+        * AUTH GOOGLE CLOUD FIREBASE SERVICE
+        * @author Giovanny Uribe Acevedo  -->
+                                    <ion-button *ngIf="user.role === 'Super Maestro' "
+                                        (click)="selectOtherIntermediario()">Seleccionar Otro</ion-button>
+
+                                    <div>
+                                        <a class="btn btn-primary  text-white" fill="outline" (click)="getOperacion()">
+                                            <ion-icon name="card-outline"></ion-icon>OPERACIÓN
+                                        </a>
+                                    </div>
+                                    <br>
+
+                                    <!--
+        * Separador CONSULTA COMISIONES INSTITUCIÓN
+        * Forma que empaqueta CONSULTA COMISIONES Intermediarios. 
+        * Metodo principal:consultarComisiones()
+        * AUTH GOOGLE CLOUD FIREBASE SERVICE
+        * @author Giovanny Uribe Acevedo  -->
+                                  
+                                    <div *ngIf="user.role == 'Super Maestro'"> <a class="btn btn-primary text-white"
+                                            fill="outline" (click)="getMolizado()">
+                                            <ion-icon name="card-outline"></ion-icon>MOVILIZADO
+                                        </a> </div>
+                                    <br>
+                                    <a *ngIf="user.role == 'Super Maestro'" class="btn btn-primary text-white"
+                                        fill="outline" (click)="getRecuperado()">
+                                        <ion-icon name="card-outline"></ion-icon>RECLAMADO
+                                    </a>
+                                </div>
+                            </ion-col>
+                        </div>
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <!-- END container-fluid -->
+            </div>
+
+            <!-- END content -->
+        </div>
+        <!-- END content-page -->
+    </div>
+</ion-content>

@@ -1,0 +1,1393 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content *ngIf="menuopcionT == 'analista'">
+    <div id="main">
+        <div class="content-page">
+            <div style="margin-top: 95px;"></div>
+            <!-- Page Header -->
+            <div class="page-header text-center">
+                <div class="row align-items-center">
+                    <div class="col-sm mb-0 mb-sm-0">
+                        <h1 class="page-header-title text-uppercase text-success">CONSULTA DE INFORME DE RECAUDOS
+                            POR ANALISTA
+                        </h1>
+                    </div>
+                </div> 
+                <div menuinterno class="row  align-items-center col-sm mb-0 mb-sm-0">
+                    <a [routerLink]="" (click)="closeFirst('analista')" class="nav-link">
+                        <i class="tio-chart-bar-1  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Analista</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('anodia')" class="nav-link">
+                        <i class="tio-chart-bar-2  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Año/Mes</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('dia')" class="nav-link">
+                        <i class="tio-chart-bar-3  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Día</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('mes')" class="nav-link">
+                        <i class="tio-chart-bar-4  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Mes</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('presupuestorecaudo')" class="nav-link">
+                        <i class="tio-chart-donut-1  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Presupuesto/Recaudo</div>
+                    </a>
+                </div>
+            </div>
+            <div class="container">
+                <div arriba class="row">
+                    <div grafica class="col-sm-3 card card-body-height">
+                        <div #ano>
+                            <div>
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedAno()" slot="start"></ion-checkbox>
+                                    <ion-label>Filtrar por Año</ion-label>
+                                </ion-item>
+                                <br>
+
+                                <div *ngIf="checkano">
+                                    <ion-item>
+                                        <ion-icon name="calendar-outline"></ion-icon>Año del Recaudo
+                                        <ion-datetime [(ngModel)]="filtroano" class="custom-select" displayFormat="YYYY"
+                                            placeholder="Seleccionar Fecha" min="2000" max="2999">
+                                        </ion-datetime>
+                                        <a (click)="addAno()" class="btn btn-primary btn-xl" fill="outline">
+                                            <i class="tio-add nav-icon"></i>
+                                        </a>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-card class="shadow">
+                                            <div>
+                                                <table mat-table [dataSource]="dataSourceAno" class="mat-elevation-z8">
+
+                                                    <ng-container class="ng-container" matColumnDef="nombre">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef> AÑO
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            {{element}} </td>
+                                                    </ng-container>
+
+                                                    <ng-container class="ng-container" matColumnDef="select">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            <a (click)="deleteAno(element)"
+                                                                class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                fill="outline">
+                                                                <i class="tio-delete nav-icon"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsAno"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsAno;">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </ion-card>
+                                    </ion-item>
+                                    <div #mes class="input-group">
+                                        <div class="input-group ">
+                                            <ion-item>
+                                                <ion-checkbox (click)="isAllSelectedNtc()" slot="start"></ion-checkbox>
+                                                <ion-label>Filtrar por Mes</ion-label>
+                                            </ion-item>
+
+                                            <div *ngIf="checkntc">
+                                                <ion-item class="row">
+                                                    <ion-icon name="calendar-outline"></ion-icon>Mes del Recaudo
+                                                    <ion-datetime [(ngModel)]="filtromes" class="custom-select"
+                                                        displayFormat="MM" placeholder="Seleccionar Fecha" min="2000"
+                                                        max="2999">
+                                                    </ion-datetime>
+                                                    <a (click)="addMes()" class="btn btn-primary btn-xl "
+                                                        fill="outline">
+                                                        <i class="tio-add nav-icon"></i>
+                                                    </a>
+                                                </ion-item>
+                                                <ion-item>
+                                                    <ion-card class="shadow">
+                                                        <div>
+                                                            <table mat-table [dataSource]="dataSourceMes"
+                                                                class="mat-elevation-z8">
+
+                                                                <ng-container class="ng-container"
+                                                                    matColumnDef="nombre">
+                                                                    <th style="color: black; text-align: center;"
+                                                                        class="ng-container" mat-header-cell
+                                                                        *matHeaderCellDef> MES
+                                                                    </th>
+                                                                    <td style="text-align: center;" class="ng-container"
+                                                                        mat-cell *matCellDef="let element">
+                                                                        {{element}} </td>
+                                                                </ng-container>
+
+                                                                <ng-container class="ng-container"
+                                                                    matColumnDef="select">
+                                                                    <th style="color: black; text-align: center;"
+                                                                        class="ng-container" mat-header-cell
+                                                                        *matHeaderCellDef>
+                                                                    </th>
+                                                                    <td style="text-align: center;" class="ng-container"
+                                                                        mat-cell *matCellDef="let element">
+                                                                        <a (click)="deleteMes(element)"
+                                                                            class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                            fill="outline">
+                                                                            <i class="tio-delete nav-icon"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </ng-container>
+                                                                <tr mat-header-row
+                                                                    *matHeaderRowDef="displayedColumnsMes"></tr>
+                                                                <tr mat-row
+                                                                    *matRowDef="let row; columns: displayedColumnsMes;">
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </ion-card>
+                                                </ion-item>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div #inter class="input-group">
+                            <div class="input-group">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedInt()" slot="start"></ion-checkbox>
+                                    <ion-label>Filtrar por Intermediario</ion-label>
+                                </ion-item>
+
+                                <div *ngIf="checkint">
+                                    <ion-item>
+                                        <ion-select class="custom-select" [(ngModel)]="filtrointermediario"
+                                            [ngModelOptions]="{standalone: true}" required>
+                                            <ion-select-option *ngFor="let intermediario of intermediarios"
+                                                value="{{intermediario.nit}}">
+                                                {{intermediario.sigla}}
+                                            </ion-select-option>
+                                        </ion-select>
+                                        <a (click)="addInt()"
+                                            class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline">
+                                            <i class="tio-add nav-icon"></i>
+                                        </a>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-card class="shadow">
+                                            <div class="div-table">
+                                                <table mat-table [dataSource]="dataSourceInt" class="mat-elevation-z8">
+
+                                                    <ng-container class="ng-container" matColumnDef="nombre">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                            INSTITUCIÓN </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            {{element}} </td>
+                                                    </ng-container>
+
+                                                    <ng-container class="ng-container" matColumnDef="select">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            <a (click)="deleteInt(element)"
+                                                                class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                fill="outline">
+                                                                <i class="tio-delete nav-icon"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsInt"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsInt;">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </ion-card>
+                                    </ion-item>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div #ntc class="input-group">
+                            <div class="input-group">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedNotc()" slot="start"></ion-checkbox>
+                                    <ion-label>Sin Nota Crédito</ion-label>
+                                </ion-item>
+                            </div>
+                        </div>
+                        <a (click)="consultarRecaudoAnalista()" class="btn btn-primary btn-xl text-white"
+                            fill="outline">
+                            <i class="fa
+                            s fa-search fa-sm"></i> Recaudo Analista
+                        </a>
+                    </div>
+                    <div grafica1 class="col container-fluid container">
+
+
+                        <div *ngIf="grafica">
+                            <figure class="highcharts-figure">
+                                <div id="container"></div>
+                            </figure>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</ion-content>
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content *ngIf="menuopcionT == 'anodia'">
+    <div id="main">
+        <div class="content-page">
+            <div style="margin-top: 95px;"></div>
+            <!-- Page Header -->
+            <div class="page-header text-center">
+                <div class="row align-items-center">
+                    <div class="col-sm mb-0 mb-sm-0">
+                        <h1 class="page-header-title text-uppercase text-success">CONSULTA DE INFORME DE RECAUDOS
+                            POR AÑO Y MES
+                        </h1>
+                    </div>
+                </div>
+                <div menuinterno class="row  align-items-center col-sm mb-0 mb-sm-0">
+                    <a [routerLink]="" (click)="closeFirst('analista')" class="nav-link">
+                        <i class="tio-chart-bar-1  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Analista</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('anodia')" class="nav-link">
+                        <i class="tio-chart-bar-2  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Año/Mes</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('dia')" class="nav-link">
+                        <i class="tio-chart-bar-3  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Día</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('mes')" class="nav-link">
+                        <i class="tio-chart-bar-4  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Mes</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('presupuestorecaudo')" class="nav-link">
+                        <i class="tio-chart-donut-1  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Presupuesto/Recaudo</div>
+                    </a>
+                </div>
+            </div>
+            <div class="container">
+                <div arriba class="row">
+                    <div grafica class="col-sm-3 card card-body-height">
+                        <div #ano class="input-group">
+                            <div class="input-group input-group-md-down-break">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedAno1()" slot="start"></ion-checkbox>
+                                    <ion-label>Filtrar por Año</ion-label>
+                                </ion-item>
+
+                                <div *ngIf="checkano1">
+                                    <ion-item>
+                                        <ion-icon name="calendar-outline"></ion-icon>Año del Recaudo
+                                        <ion-datetime [(ngModel)]="filtroano1" class="custom-select"
+                                            displayFormat="YYYY" placeholder="Seleccionar Fecha" min="2000" max="2999">
+                                        </ion-datetime>
+                                        <a (click)="addAno1()"
+                                            class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline">
+                                            <i class="tio-add nav-icon"></i>
+                                        </a>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-card class="shadow">
+                                            <div class="div-table">
+                                                <table mat-table [dataSource]="dataSourceAno1" class="mat-elevation-z8">
+
+                                                    <ng-container class="ng-container" matColumnDef="nombre">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef> AÑO
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            {{element}} </td>
+                                                    </ng-container>
+
+                                                    <ng-container class="ng-container" matColumnDef="select">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            <a (click)="deleteAno1(element)"
+                                                                class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                fill="outline">
+                                                                <i class="tio-delete nav-icon"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsAno1"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsAno1;">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </ion-card>
+                                    </ion-item>
+                                    <div #mes class="input-group">
+                                        <div class="input-group input-group-md-down-break">
+                                            <ion-item>
+                                                <ion-checkbox (click)="isAllSelectedNtc1()" slot="start"></ion-checkbox>
+                                                <ion-label>Filtrar por Mes</ion-label>
+                                            </ion-item>
+
+                                            <div *ngIf="checkntc1">
+                                                <ion-item class="row">
+                                                    <ion-icon name="calendar-outline"></ion-icon>Mes del Recaudo
+                                                    <ion-datetime [(ngModel)]="filtromes1" class="custom-select"
+                                                        displayFormat="MM" placeholder="Seleccionar Fecha" min="2000"
+                                                        max="2999">
+                                                    </ion-datetime>
+                                                    <a (click)="addMes1()"
+                                                        class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                        fill="outline">
+                                                        <i class="tio-add nav-icon"></i>
+                                                    </a>
+                                                </ion-item>
+                                                <ion-item>
+                                                    <ion-card class="shadow">
+                                                        <div class="div-table">
+                                                            <table mat-table [dataSource]="dataSourceMes1"
+                                                                class="mat-elevation-z8">
+
+                                                                <ng-container class="ng-container"
+                                                                    matColumnDef="nombre">
+                                                                    <th style="color: black; text-align: center;"
+                                                                        class="ng-container" mat-header-cell
+                                                                        *matHeaderCellDef> MES
+                                                                    </th>
+                                                                    <td style="text-align: center;" class="ng-container"
+                                                                        mat-cell *matCellDef="let element">
+                                                                        {{element}} </td>
+                                                                </ng-container>
+
+                                                                <ng-container class="ng-container"
+                                                                    matColumnDef="select">
+                                                                    <th style="color: black; text-align: center;"
+                                                                        class="ng-container" mat-header-cell
+                                                                        *matHeaderCellDef>
+                                                                    </th>
+                                                                    <td style="text-align: center;" class="ng-container"
+                                                                        mat-cell *matCellDef="let element">
+                                                                        <a (click)="deleteMes1(element)"
+                                                                            class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                            fill="outline">
+                                                                            <i class="tio-delete nav-icon"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </ng-container>
+                                                                <tr mat-header-row
+                                                                    *matHeaderRowDef="displayedColumnsMes1"></tr>
+                                                                <tr mat-row
+                                                                    *matRowDef="let row; columns: displayedColumnsMes1;">
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </ion-card>
+                                                </ion-item>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div #inter class="input-group">
+                            <div class="input-group input-group-md-down-break">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedInt1()" slot="start"></ion-checkbox>
+                                    <ion-label>Filtrar por Intermediario</ion-label>
+                                </ion-item>
+
+                                <div *ngIf="checkint1">
+                                    <ion-item>
+                                        <ion-select class="custom-select" [(ngModel)]="filtrointermediario1"
+                                            [ngModelOptions]="{standalone: true}" required>
+                                            <ion-select-option *ngFor="let intermediario of intermediarios"
+                                                value="{{intermediario.nit}}">
+                                                {{intermediario.sigla}}
+                                            </ion-select-option>
+                                        </ion-select>
+                                        <a (click)="addInt1()"
+                                            class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline">
+                                            <i class="tio-add nav-icon"></i>
+                                        </a>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-card class="shadow">
+                                            <div class="div-table">
+                                                <table mat-table [dataSource]="dataSourceInt1" class="mat-elevation-z8">
+
+                                                    <ng-container class="ng-container" matColumnDef="nombre">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                            INSTITUCIÓN </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            {{element}} </td>
+                                                    </ng-container>
+
+                                                    <ng-container class="ng-container" matColumnDef="select">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            <a (click)="deleteInt1(element)"
+                                                                class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                fill="outline">
+                                                                <i class="tio-delete nav-icon"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsInt1"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsInt1;">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </ion-card>
+                                    </ion-item>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div #ntc class="input-group">
+                            <div class="input-group">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedNotc()" slot="start"></ion-checkbox>
+                                    <ion-label>Sin Nota Crédito</ion-label>
+                                </ion-item>
+                            </div>
+                        </div>
+                        <a (click)="consultarMesAno()" class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                            fill="outline">
+                            <i class="fas fa-search fa-sm"></i> Recaudo Mes/Año
+                        </a>
+                    </div>
+                    <div grafica1 class="col container-fluid container">
+                        <figure *ngIf="grafica1" class="highcharts-figure">
+                            <div id="container1"></div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</ion-content>
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content *ngIf="menuopcionT == 'dia'">
+    <div id="main">
+        <div class="content-page">
+            <div style="margin-top: 95px;"></div>
+            <!-- Page Header -->
+            <div class="page-header text-center">
+                <div class="row align-items-center">
+                    <div class="col-sm mb-0 mb-sm-0">
+                        <h1 class="page-header-title text-uppercase text-success">CONSULTA DE INFORME DE RECAUDOS
+                            POR DÍA
+                        </h1>
+                    </div>
+                </div>
+                <div menuinterno class="row  align-items-center col-sm mb-0 mb-sm-0">
+                    <a [routerLink]="" (click)="closeFirst('analista')" class="nav-link">
+                        <i class="tio-chart-bar-1  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Analista</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('anodia')" class="nav-link">
+                        <i class="tio-chart-bar-2  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Año/Mes</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('dia')" class="nav-link">
+                        <i class="tio-chart-bar-3  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Día</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('mes')" class="nav-link">
+                        <i class="tio-chart-bar-4  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Mes</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('presupuestorecaudo')" class="nav-link">
+                        <i class="tio-chart-donut-1  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Presupuesto/Recaudo</div>
+                    </a>
+                </div>
+            </div>
+            <div class="container">
+                <div arriba class="row">
+                    <div grafica class="col-sm-3 card card-body-height">
+                        <div #ano class="input-group">
+                            <div class="input-group input-group-md-down-break">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedAno2()" slot="start"></ion-checkbox>
+                                    <ion-label>Filtrar por Año</ion-label>
+                                </ion-item>
+
+                                <div *ngIf="checkano2">
+                                    <ion-item>
+                                        <ion-icon name="calendar-outline"></ion-icon>Año del Recaudo
+                                        <ion-datetime [(ngModel)]="filtroano2" class="custom-select"
+                                            displayFormat="YYYY" placeholder="Seleccionar Fecha" min="2000" max="2999">
+                                        </ion-datetime>
+                                        <a (click)="addAno2()"
+                                            class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline">
+                                            <i class="tio-add nav-icon"></i>
+                                        </a>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-card class="shadow">
+                                            <div class="div-table">
+                                                <table mat-table [dataSource]="dataSourceAno2" class="mat-elevation-z8">
+
+                                                    <ng-container class="ng-container" matColumnDef="nombre">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef> AÑO
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            {{element}} </td>
+                                                    </ng-container>
+
+                                                    <ng-container class="ng-container" matColumnDef="select">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            <a (click)="deleteAno2(element)"
+                                                                class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                fill="outline">
+                                                                <i class="tio-delete nav-icon"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsAno2"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsAno2;">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </ion-card>
+                                    </ion-item>
+                                    <div #mes class="input-group">
+                                        <div class="input-group input-group-md-down-break">
+                                            <ion-item>
+                                                <ion-checkbox (click)="isAllSelectedNtc2()" slot="start"></ion-checkbox>
+                                                <ion-label>Filtrar por Mes</ion-label>
+                                            </ion-item>
+
+                                            <div *ngIf="checkntc2">
+                                                <ion-item class="row">
+                                                    <ion-icon name="calendar-outline"></ion-icon>Mes del Recaudo
+                                                    <ion-datetime [(ngModel)]="filtromes2" class="custom-select"
+                                                        displayFormat="MM" placeholder="Seleccionar Fecha" min="2000"
+                                                        max="2999">
+                                                    </ion-datetime>
+                                                    <a (click)="addMes2()"
+                                                        class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                        fill="outline">
+                                                        <i class="tio-add nav-icon"></i>
+                                                    </a>
+                                                </ion-item>
+                                                <ion-item>
+                                                    <ion-card class="shadow">
+                                                        <div class="div-table">
+                                                            <table mat-table [dataSource]="dataSourceMes2"
+                                                                class="mat-elevation-z8">
+
+                                                                <ng-container class="ng-container"
+                                                                    matColumnDef="nombre">
+                                                                    <th style="color: black; text-align: center;"
+                                                                        class="ng-container" mat-header-cell
+                                                                        *matHeaderCellDef> MES
+                                                                    </th>
+                                                                    <td style="text-align: center;" class="ng-container"
+                                                                        mat-cell *matCellDef="let element">
+                                                                        {{element}} </td>
+                                                                </ng-container>
+
+                                                                <ng-container class="ng-container"
+                                                                    matColumnDef="select">
+                                                                    <th style="color: black; text-align: center;"
+                                                                        class="ng-container" mat-header-cell
+                                                                        *matHeaderCellDef>
+                                                                    </th>
+                                                                    <td style="text-align: center;" class="ng-container"
+                                                                        mat-cell *matCellDef="let element">
+                                                                        <a (click)="deleteMes2(element)"
+                                                                            class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                            fill="outline">
+                                                                            <i class="tio-delete nav-icon"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </ng-container>
+                                                                <tr mat-header-row
+                                                                    *matHeaderRowDef="displayedColumnsMes2"></tr>
+                                                                <tr mat-row
+                                                                    *matRowDef="let row; columns: displayedColumnsMes2;">
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </ion-card>
+                                                </ion-item>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div #inter class="input-group">
+                            <div class="input-group input-group-md-down-break">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedInt2()" slot="start"></ion-checkbox>
+                                    <ion-label>Filtrar por Intermediario</ion-label>
+                                </ion-item>
+
+                                <div *ngIf="checkint2">
+                                    <ion-item>
+                                        <ion-select class="custom-select" [(ngModel)]="filtrointermediario2"
+                                            [ngModelOptions]="{standalone: true}" required>
+                                            <ion-select-option *ngFor="let intermediario of intermediarios"
+                                                value="{{intermediario.nit}}">
+                                                {{intermediario.sigla}}
+                                            </ion-select-option>
+                                        </ion-select>
+                                        <a (click)="addInt2()"
+                                            class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline">
+                                            <i class="tio-add nav-icon"></i>
+                                        </a>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-card class="shadow">
+                                            <div class="div-table">
+                                                <table mat-table [dataSource]="dataSourceInt2" class="mat-elevation-z8">
+
+                                                    <ng-container class="ng-container" matColumnDef="nombre">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                            INSTITUCIÓN </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            {{element}} </td>
+                                                    </ng-container>
+
+                                                    <ng-container class="ng-container" matColumnDef="select">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            <a (click)="deleteInt2(element)"
+                                                                class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                fill="outline">
+                                                                <i class="tio-delete nav-icon"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsInt2"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsInt2;">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </ion-card>
+                                    </ion-item>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div #ntc class="input-group">
+                            <div class="input-group">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedNotc()" slot="start"></ion-checkbox>
+                                    <ion-label>Sin Nota Crédito</ion-label>
+                                </ion-item>
+                            </div>
+                        </div>
+                        <a (click)="consultarPorDia()" class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                            fill="outline">
+                            <i class="fas fa-search fa-sm"></i> Recaudo por Día
+                        </a>
+                    </div>
+                    <div grafica1 class="col container-fluid container">
+
+
+                        <figure class="highcharts-figure">
+                            <div id="container2"></div>
+                        </figure>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</ion-content>
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content *ngIf="menuopcionT == 'mes'">
+    <div id="main">
+        <div class="content-page">
+            <div style="margin-top: 95px;"></div>
+            <!-- Page Header -->
+            <div class="page-header text-center">
+                <div class="row align-items-center">
+                    <div class="col-sm mb-0 mb-sm-0">
+                        <h1 class="page-header-title text-uppercase text-success">CONSULTA DE INFORME DE RECAUDOS
+                            POR MES
+                        </h1>
+                    </div>
+                </div>
+                <div menuinterno class="row  align-items-center col-sm mb-0 mb-sm-0">
+                    <a [routerLink]="" (click)="closeFirst('analista')" class="nav-link">
+                        <i class="tio-chart-bar-1  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Analista</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('anodia')" class="nav-link">
+                        <i class="tio-chart-bar-2  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Año/Mes</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('dia')" class="nav-link">
+                        <i class="tio-chart-bar-3  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Día</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('mes')" class="nav-link">
+                        <i class="tio-chart-bar-4  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Mes</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('presupuestorecaudo')" class="nav-link">
+                        <i class="tio-chart-donut-1  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Presupuesto/Recaudo</div>
+                    </a>
+                </div>
+            </div>
+            <div class="container">
+                <div arriba class="row">
+                    <div grafica class="col-sm-3 card card-body-height">
+                        <div #ano class="input-group">
+                            <div class="input-group input-group-md-down-break">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedAno3()" slot="start"></ion-checkbox>
+                                    <ion-label>Filtrar por Año</ion-label>
+                                </ion-item>
+
+                                <div *ngIf="checkano3">
+                                    <ion-item>
+                                        <ion-icon name="calendar-outline"></ion-icon>Año del Recaudo
+                                        <ion-datetime [(ngModel)]="filtroano3" class="custom-select"
+                                            displayFormat="YYYY" placeholder="Seleccionar Fecha" min="2000" max="2999">
+                                        </ion-datetime>
+                                        <a (click)="addAno3()"
+                                            class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline">
+                                            <i class="tio-add nav-icon"></i>
+                                        </a>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-card class="shadow">
+                                            <div class="div-table">
+                                                <table mat-table [dataSource]="dataSourceAno3" class="mat-elevation-z8">
+
+                                                    <ng-container class="ng-container" matColumnDef="nombre">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef> AÑO
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            {{element}} </td>
+                                                    </ng-container>
+
+                                                    <ng-container class="ng-container" matColumnDef="select">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            <a (click)="deleteAno3(element)"
+                                                                class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                fill="outline">
+                                                                <i class="tio-delete nav-icon"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsAno3"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsAno3;">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </ion-card>
+                                    </ion-item>
+                                    <div #mes class="input-group">
+                                        <div class="input-group input-group-md-down-break">
+                                            <ion-item>
+                                                <ion-checkbox (click)="isAllSelectedNtc2()" slot="start"></ion-checkbox>
+                                                <ion-label>Filtrar por Mes</ion-label>
+                                            </ion-item>
+
+                                            <div *ngIf="checkntc2">
+                                                <ion-item class="row">
+                                                    <ion-icon name="calendar-outline"></ion-icon>Mes del Recaudo
+                                                    <ion-datetime [(ngModel)]="filtromes2" class="custom-select"
+                                                        displayFormat="MM" placeholder="Seleccionar Fecha" min="2000"
+                                                        max="2999">
+                                                    </ion-datetime>
+                                                    <a (click)="addMes2()"
+                                                        class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                        fill="outline">
+                                                        <i class="tio-add nav-icon"></i>
+                                                    </a>
+                                                </ion-item>
+                                                <ion-item>
+                                                    <ion-card class="shadow">
+                                                        <div class="div-table">
+                                                            <table mat-table [dataSource]="dataSourceMes2"
+                                                                class="mat-elevation-z8">
+
+                                                                <ng-container class="ng-container"
+                                                                    matColumnDef="nombre">
+                                                                    <th style="color: black; text-align: center;"
+                                                                        class="ng-container" mat-header-cell
+                                                                        *matHeaderCellDef> MES
+                                                                    </th>
+                                                                    <td style="text-align: center;" class="ng-container"
+                                                                        mat-cell *matCellDef="let element">
+                                                                        {{element}} </td>
+                                                                </ng-container>
+
+                                                                <ng-container class="ng-container"
+                                                                    matColumnDef="select">
+                                                                    <th style="color: black; text-align: center;"
+                                                                        class="ng-container" mat-header-cell
+                                                                        *matHeaderCellDef>
+                                                                    </th>
+                                                                    <td style="text-align: center;" class="ng-container"
+                                                                        mat-cell *matCellDef="let element">
+                                                                        <a (click)="deleteMes1(element)"
+                                                                            class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                            fill="outline">
+                                                                            <i class="tio-delete nav-icon"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </ng-container>
+                                                                <tr mat-header-row
+                                                                    *matHeaderRowDef="displayedColumnsMes2"></tr>
+                                                                <tr mat-row
+                                                                    *matRowDef="let row; columns: displayedColumnsMes2;">
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </ion-card>
+                                                </ion-item>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div #inter class="input-group">
+                            <div class="input-group input-group-md-down-break">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedInt3()" slot="start"></ion-checkbox>
+                                    <ion-label>Filtrar por Intermediario</ion-label>
+                                </ion-item>
+
+                                <div *ngIf="checkint3">
+                                    <ion-item>
+                                        <ion-select class="custom-select" [(ngModel)]="filtrointermediario3"
+                                            [ngModelOptions]="{standalone: true}" required>
+                                            <ion-select-option *ngFor="let intermediario of intermediarios"
+                                                value="{{intermediario.nit}}">
+                                                {{intermediario.sigla}}
+                                            </ion-select-option>
+                                        </ion-select>
+                                        <a (click)="addInt3()"
+                                            class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline">
+                                            <i class="tio-add nav-icon"></i>
+                                        </a>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-card class="shadow">
+                                            <div class="div-table">
+                                                <table mat-table [dataSource]="dataSourceInt3" class="mat-elevation-z8">
+
+                                                    <ng-container class="ng-container" matColumnDef="nombre">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                            INSTITUCIÓN </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            {{element}} </td>
+                                                    </ng-container>
+
+                                                    <ng-container class="ng-container" matColumnDef="select">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            <a (click)="deleteInt3(element)"
+                                                                class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                fill="outline">
+                                                                <i class="tio-delete nav-icon"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsInt2"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsInt2;">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </ion-card>
+                                    </ion-item>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div #ntc class="input-group">
+                            <div class="input-group">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedNotc()" slot="start"></ion-checkbox>
+                                    <ion-label>Sin Nota Crédito</ion-label>
+                                </ion-item>
+                            </div>
+                        </div>
+                        <a (click)="consultarPorMes()" class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                            fill="outline">
+                            <i class="fas fa-search fa-sm"></i> Recaudo por Mes
+                        </a>
+                    </div>
+                    <div grafica1 class="col container-fluid container">
+
+
+                        <div *ngIf="checkdatames">
+                            <ion-card class="shadow">
+                                <div style="text-align: right;">
+                                    <ion-button fill="outline"
+                                        (click)="exporter.exportTable('xlsx',{fileName:'recaudomensual'})">
+                                        <ion-icon name="cloud-download-outline"></ion-icon>
+                                    </ion-button>
+                                </div>
+                                <ion-item>
+                                    <ion-input type="text" (change)="applyFilterIntermediarios($event.target.value)"
+                                        (keyup)="applyFilterIntermediarios($event.target.value)"
+                                        placeholder="Filtro de Busqueda">
+                                    </ion-input>
+                                </ion-item>
+                                <div class="div-table">
+                                    <table #exporter="matTableExporter" matTableExporter mat-table
+                                        [dataSource]="dataSourceRecaudoMes" class="mat-elevation-z8">
+
+
+
+                                        <!-- ivaadministracion Column -->
+                                        <ng-container matColumnDef="origen">
+                                            <th style="text-align: center;width: 150px; color: black;" mat-header-cell
+                                                *matHeaderCellDef> ORIGEN </th>
+                                            <td style="text-align: center;" mat-cell *matCellDef="let element">
+                                                {{element.origen}} </td>
+                                        </ng-container>
+
+                                        <!-- administracion Column -->
+                                        <ng-container matColumnDef="recaudo">
+                                            <th style="text-align: center;width: 130px; color: black;" mat-header-cell
+                                                *matHeaderCellDef> RECAUDO </th>
+                                            <td style="text-align: center; " mat-cell *matCellDef="let element">
+                                                {{element.recaudo | currency}} </td>
+                                        </ng-container>
+                                        <!-- administracion Column -->
+                                        <!-- administracion Column -->
+                                        <ng-container matColumnDef="mes">
+                                            <th style="text-align: center;width: 130px; color: black;" mat-header-cell
+                                                *matHeaderCellDef> MES </th>
+                                            <td style="text-align: center;" mat-cell *matCellDef="let element">
+                                                {{element.mes}} </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsRecaudoMes"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsRecaudoMes;"></tr>
+                                    </table>
+                                </div>
+                                <mat-paginator #paginatorRecaudoMes [pageSizeOptions]="[10, 15, 30]"
+                                    showFirstLastButtons>
+                                </mat-paginator>
+                            </ion-card>
+                            <div class="row">
+                                <ion-label class="col-sm-1 ">Total:</ion-label> <input class="form-control col"
+                                    type="text" value="{{valortotal | currency}}" disabled readonly>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</ion-content>
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content *ngIf="menuopcionT == 'presupuestorecaudo'">
+    <div id="main">
+        <div class="content-page">
+            <div style="margin-top: 95px;"></div>
+            <!-- Page Header -->
+            <div class="page-header text-center">
+                <div class="row align-items-center">
+                    <div class="col-sm mb-0 mb-sm-0">
+                        <h1 class="page-header-title text-uppercase text-success">CONSULTA DE INFORME DE RECAUDOS
+                            POR PRESUPUESTO Y RECAUDO
+                        </h1>
+                    </div>
+                </div>
+                <div menuinterno class="row  align-items-center col-sm mb-0 mb-sm-0">
+                    <a [routerLink]="" (click)="closeFirst('analista')" class="nav-link">
+                        <i class="tio-chart-bar-1  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Analista</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('anodia')" class="nav-link">
+                        <i class="tio-chart-bar-2  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Año/Mes</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('dia')" class="nav-link">
+                        <i class="tio-chart-bar-3  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Día</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('mes')" class="nav-link">
+                        <i class="tio-chart-bar-4  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Mes</div>
+                    </a>
+                    <a [routerLink]="" (click)="closeFirst('presupuestorecaudo')" class="nav-link">
+                        <i class="tio-chart-donut-1  nav-icon"></i>
+                        <span class="nav-dot"></span>
+                        <div>
+                            Presupuesto/Recaudo</div>
+                    </a>
+                </div>
+            </div>
+            <div class="container">
+                <div arriba class="row">
+                    <div grafica class="col-sm-3 card card-body-height">
+                        <div #ano class="input-group">
+                            <div class="input-group input-group-md-down-break">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedAno4()" slot="start"></ion-checkbox>
+                                    <ion-label>Filtrar por Año</ion-label>
+                                </ion-item>
+
+                                <div *ngIf="checkano4">
+                                    <ion-item>
+                                        <ion-icon name="calendar-outline"></ion-icon>Año del Recaudo
+                                        <ion-datetime [(ngModel)]="filtroano4" class="custom-select"
+                                            displayFormat="YYYY" placeholder="Seleccionar Fecha" min="2000" max="2999">
+                                        </ion-datetime>
+                                        <a (click)="addAno4()"
+                                            class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline">
+                                            <i class="tio-add nav-icon"></i>
+                                        </a>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-card class="shadow">
+                                            <div class="div-table">
+                                                <table mat-table [dataSource]="dataSourceAno4" class="mat-elevation-z8">
+                                                    <ng-container class="ng-container" matColumnDef="nombre">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef> AÑO
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            {{element}} </td>
+                                                    </ng-container>
+
+                                                    <ng-container class="ng-container" matColumnDef="select">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            <a (click)="deleteAno4(element)"
+                                                                class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                fill="outline">
+                                                                <i class="tio-delete nav-icon"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsAno4"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsAno4;">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </ion-card>
+                                    </ion-item>
+                                    <div #mes class="input-group">
+                                        <div class="input-group input-group-md-down-break">
+                                            <ion-item>
+                                                <ion-checkbox (click)="isAllSelectedNtc4()" slot="start"></ion-checkbox>
+                                                <ion-label>Filtrar por Mes</ion-label>
+                                            </ion-item>
+
+                                            <div *ngIf="checkntc4">
+                                                <ion-item class="row">
+                                                    <ion-icon name="calendar-outline"></ion-icon>Mes del Recaudo
+                                                    <ion-datetime [(ngModel)]="filtromes4" class="custom-select"
+                                                        displayFormat="MM" placeholder="Seleccionar Fecha" min="2000"
+                                                        max="2999">
+                                                    </ion-datetime>
+                                                    <a (click)="addMes4()"
+                                                        class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                        fill="outline">
+                                                        <i class="tio-add nav-icon"></i>
+                                                    </a>
+                                                </ion-item>
+                                                <ion-item>
+                                                    <ion-card class="shadow">
+                                                        <div class="div-table">
+                                                            <table mat-table [dataSource]="dataSourceMes4"
+                                                                class="mat-elevation-z8">
+
+                                                                <ng-container class="ng-container"
+                                                                    matColumnDef="nombre">
+                                                                    <th style="color: black; text-align: center;"
+                                                                        class="ng-container" mat-header-cell
+                                                                        *matHeaderCellDef> MES </th>
+                                                                    <td style="text-align: center;" class="ng-container"
+                                                                        mat-cell *matCellDef="let element">
+                                                                        {{element}} </td>
+                                                                </ng-container>
+
+                                                                <ng-container class="ng-container"
+                                                                    matColumnDef="select">
+                                                                    <th style="color: black; text-align: center;"
+                                                                        class="ng-container" mat-header-cell
+                                                                        *matHeaderCellDef> </th>
+                                                                    <td style="text-align: center;" class="ng-container"
+                                                                        mat-cell *matCellDef="let element">
+                                                                        <a (click)="deleteMes4(element)"
+                                                                            class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                            fill="outline">
+                                                                            <i class="tio-delete nav-icon"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </ng-container>
+                                                                <tr mat-header-row
+                                                                    *matHeaderRowDef="displayedColumnsMes4"></tr>
+                                                                <tr mat-row
+                                                                    *matRowDef="let row; columns: displayedColumnsMes4;">
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </ion-card>
+                                                </ion-item>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div #inter class="input-group">
+                            <div class="input-group input-group-md-down-break">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedInt4()" slot="start"></ion-checkbox>
+                                    <ion-label>Filtrar por Intermediario</ion-label>
+                                </ion-item>
+
+                                <div *ngIf="checkint4">
+                                    <ion-item>
+                                        <ion-select class="custom-select" [(ngModel)]="filtrointermediario4"
+                                            [ngModelOptions]="{standalone: true}" required>
+                                            <ion-select-option *ngFor="let intermediario of intermediarios"
+                                                value="{{intermediario.nit}}">
+                                                {{intermediario.sigla}}
+                                            </ion-select-option>
+                                        </ion-select>
+                                        <a (click)="addInt4()"
+                                            class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline">
+                                            <i class="tio-add nav-icon"></i>
+                                        </a>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-card class="shadow">
+                                            <div class="div-table">
+                                                <table mat-table [dataSource]="dataSourceInt4" class="mat-elevation-z8">
+
+                                                    <ng-container class="ng-container" matColumnDef="nombre">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                            INSTITUCIÓN </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            {{element}} </td>
+                                                    </ng-container>
+
+                                                    <ng-container class="ng-container" matColumnDef="select">
+                                                        <th style="color: black; text-align: center;"
+                                                            class="ng-container" mat-header-cell *matHeaderCellDef>
+                                                        </th>
+                                                        <td style="text-align: center;" class="ng-container" mat-cell
+                                                            *matCellDef="let element">
+                                                            <a (click)="deleteInt4(element)"
+                                                                class="btn btn-primary btn-xl js-scroll-trigger text-white"
+                                                                fill="outline">
+                                                                <i class="tio-delete nav-icon"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsInt4"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsInt4;">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </ion-card>
+                                    </ion-item>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div #ntc class="input-group">
+                            <div class="input-group">
+                                <ion-item>
+                                    <ion-checkbox (click)="isAllSelectedNotc()" slot="start"></ion-checkbox>
+                                    <ion-label>Sin Nota Crédito</ion-label>
+                                </ion-item>
+                            </div>
+                        </div>
+                        <a (click)="consultarPorPresupuesto()"
+                            class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline">
+                            <i class="fas fa-search fa-sm"></i> Recaudo por Presupuesto
+                        </a>
+                    </div>
+                    <div grafica1 class="col container-fluid container">
+
+                        <figure *ngIf="grafica4" class="highcharts-figure">
+                            <div id="container3"></div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</ion-content>

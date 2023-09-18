@@ -1,0 +1,104 @@
+ 
+@media screen and (max-width: 500px ){
+    #main.hideSidebar .main-sidebar {
+      width: 0px;
+    }
+    #main.hideSidebar .main-sidebar .sidebar-inner #sidebar-menu {
+      visibility: hidden;
+    }
+    .button-menu-mobile {
+      position: absolute;
+      right: 15%;
+    }
+    #main.showSidebar .headerbar .navbar-custom, #main.hideSidebar .content-page, #main.showSidebar .content-page, .content-page {
+      margin-left: 0px;
+    }
+  }
+  
+  @media screen and (max-width: 645px) {
+    #main.showSidebar .headerbar .navbar-custom, #main.hideSidebar .content-page, #main.showSidebar .content-page, .content-page {
+      margin-left: 90px;
+    }
+  }
+   
+  
+  #main.enlarged .content-page {
+    margin-left: 70px;
+  }
+  
+  
+  .card-footer {
+    padding: 1.3125rem 1.3125rem;
+    background-color: #fff;
+    border-top: 0.0625rem solid rgba(231, 234, 243, 0.7);
+  }
+  
+  .card-footer:last-child {
+    border-radius: 0 0 0.6875rem 0.6875rem;
+  }
+  
+  .main-sidebar {
+    top: 50px;
+    width: auto;
+    z-index: 10;
+    background: #ffffff;
+    bottom: 0;
+    margin-bottom: -70px;
+    margin-top: 0;
+    padding-bottom: 70px;
+    position: fixed;
+    transition: width .5s
+  }
+  
+  #main.hideSidebar .main-sidebar, #main.hideSidebar .headerbar .headerbar-left {
+    width: 68px; 
+  }
+  
+  #main.hideSidebar .headerbar .headerbar-left a img {
+    padding: 2px;
+  }
+  
+  #main.hideSidebar .headerbar .navbar-custom {
+    margin-left: 68px;
+    transition: margin-left .5s;
+  }
+  
+  #main.hideSidebar .main-sidebar .sidebar-inner #sidebar-menu ul li a .options-span {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0px !important;
+    padding: 12px 15px 12px 12px;
+  }
+  
+  #main.hideSidebar .main-sidebar .sidebar-inner #sidebar-menu ul li a i {
+    font-size: 25px;
+    margin: .2em 0 0 0;
+  }
+  
+  #main.hideSidebar .content-page {
+    margin-left: 90px;
+    transition: margin-left .5s;
+  }
+  
+  
+  #main.showSidebar .content-page {
+    margin-left: 250px;
+    transition: margin-left .5s;
+  }
+  
+  #main.showSidebar .headerbar .navbar-custom {
+    transition: margin-left .5s;
+    margin-left: 250px;
+  }
+  
+  .content-page {
+    margin-left: 250px;
+    overflow: hidden;
+  }
+  
+  .content-page .content {
+    margin-top: 60px;
+  }

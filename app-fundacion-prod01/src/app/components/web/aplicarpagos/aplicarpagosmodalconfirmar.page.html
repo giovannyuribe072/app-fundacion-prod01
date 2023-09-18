@@ -1,0 +1,186 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content>
+    <div #createSection id="createSection" class="card mb-3 mb-lg-5">
+      <div class="page-header">
+        <div class="media mb-3">
+          <!-- Avatar -->
+          <div class="avatar avatar-xl avatar-4by3 mr-2">
+            <img class="avatar-img" src="../../../../assets/img/customLogo.gif">
+          </div>
+          <!-- End Avatar -->
+  
+          <div class="media-body">
+            <div class="row">
+              <div class="col-lg mb-3 mb-lg-0">
+                <h1 class="page-header-title text-success text-center">LIQUIDACIÓN DE PAGO
+                </h1>
+  
+  
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Body -->
+      <div *ngIf="tipopago == 'basic'" class="card-body">
+  
+  
+        <!-- End Form Group -->
+  
+        <!-- End Form Group -->
+  
+        <!-- End Form Group -->
+  
+        <!-- Form Group --> 
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+            <i class="tio-money nav-icon"></i> Valor a pagar 
+          </label>
+  
+          <div class="col-sm-9">
+            <ion-input class="form-control"  
+            required>
+            {{valorpago| currency}}
+           
+          </ion-input>
+          </div>
+        </div>
+        <div class="row form-group">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="cash-outline"></ion-icon>Valor Capital
+          </label>
+    
+          <div class="col-sm-4">
+            <ion-input class="form-control" required readonly > 
+              {{valorcapital| currency}}
+            </ion-input>
+          </div> 
+        </div>
+        <div class="row form-group">
+          <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+            <i class="tio-credit-card nav-icon"></i> Saldo Capital
+          </label>
+  
+          <div class="col-sm-9">
+            <ion-input class="form-control" required readonly > 
+              {{saldocapital| currency}}
+            </ion-input>
+          </div>
+        </div>
+        <div style="text-align: center">
+          <ion-button fill="outline" (click)="confirmarEliminacion()">
+            <ion-icon name="bag-check-outline"></ion-icon>Aprobar
+          </ion-button>
+          <ion-button fill="outline" (click)="cancelarEliminacion()">
+            <ion-icon name="arrow-back-outline"></ion-icon>Cancelar
+          </ion-button>
+        </div>
+        
+      </div>
+      <!-- End Body -->
+
+      <div *ngIf="tipopago == 'checkint'" class="card-body">
+  
+  
+        <!-- End Form Group -->
+  
+        <!-- End Form Group -->
+  
+        <!-- End Form Group -->
+  
+        <!-- Form Group --> 
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+            <i class="tio-money nav-icon"></i> Valor a pagar 
+          </label>
+  
+          <div class="col-sm-9">
+            <ion-input class="form-control"  
+            required>
+            {{valorpago| currency}}
+           
+          </ion-input>
+          </div>
+        </div>
+        <div class="row form-group">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="cash-outline"></ion-icon>Valor Capital
+          </label>
+    
+          <div class="col-sm-4">
+            <ion-input class="form-control" required readonly > 
+              {{valorcapital| currency}}
+            </ion-input>
+          </div> 
+        </div>
+        <div class="row form-group">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="cash-outline"></ion-icon>Valor Intereses
+          </label>
+    
+          <div class="col-sm-4">
+            <ion-input class="form-control" required readonly > 
+              {{valorintereses | currency}}
+            </ion-input>
+          </div> 
+        </div>
+        <div class="row form-group">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="cash-outline"></ion-icon>GAC
+          </label>
+    
+          <div class="col-sm-4">
+            <ion-input class="form-control" required readonly > 
+              {{valorgac| currency}}
+            </ion-input>
+          </div> 
+        </div>
+        <div class="row form-group">
+          <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+            <i class="tio-credit-card nav-icon"></i> Valor a pagar
+          </label>
+  
+          <div class="col-sm-9">
+            <ion-input class="form-control" required readonly > 
+              {{valorapagar| currency}}
+            </ion-input>
+          </div>
+        </div>
+        <div class="row form-group">
+          <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+            <i class="tio-credit-card nav-icon"></i> Saldo Capital
+          </label>
+  
+          <div class="col-sm-9">
+            <ion-input class="form-control" required readonly > 
+              {{saldocapital| currency}}
+            </ion-input>
+          </div>
+        </div>
+        <div style="text-align: center">
+          <ion-button fill="outline" (click)="confirmarEliminacion()">
+            <ion-icon name="bag-check-outline"></ion-icon>Aprobar
+          </ion-button>
+          <ion-button fill="outline" (click)="cancelarEliminacion()">
+            <ion-icon name="arrow-back-outline"></ion-icon>Cancelar
+          </ion-button>
+        </div>
+        
+      </div>
+    </div>
+    
+  </ion-content>

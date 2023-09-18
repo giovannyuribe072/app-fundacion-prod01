@@ -1,0 +1,3064 @@
+<!--
+ * Separador CREAR INSTITUCIÓN
+ * Forma que empaqueta consulta de Intermediarios. 
+ * Metodo principal:verModalCreacionNew();
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo     -->
+<ion-content id="addintermediario" *ngIf="intermediario.optionintermediario == 'addintermediario'">
+
+  <div style="text-align: right;">
+    <ion-button fill="outline" (click)="closeModal()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="media mb-3">
+        <!-- Avatar -->
+        <div class="avatar avatar-xl avatar-4by3 mr-2">
+          <img  src="../../../../assets/img/LogohorizontalPNG.png">
+        </div>
+        <!-- End Avatar -->
+
+        <div class="media-body">
+          <div class="row">
+            <div class="col-lg mb-3 mb-lg-0">
+              <h1 class="page-header-title text-success text-center" *ngIf="user.role == 'Super Maestro'"> CREACIÓN DEL
+                INSTITUCIÓN </h1>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Page Header -->
+
+    <div class="row">
+      <div class="col-lg-3">
+        <!-- Navbar -->
+        <div class="navbar-vertical navbar-expand-lg mb-3 mb-lg-5">
+          <!-- Navbar Toggle -->
+          <button type="button" class="navbar-toggler btn btn-block btn-white mb-3" aria-label="Toggle navigation"
+            aria-expanded="false" aria-controls="navbarVerticalNavMenu" data-toggle="collapse"
+            data-target="#navbarVerticalNavMenu">
+            <span class="d-flex justify-content-between align-items-center">
+              <span class="h5 mb-0"></span>
+
+              <span class="navbar-toggle-default">
+                <i class="tio-menu-hamburger"></i>
+              </span>
+
+              <span class="navbar-toggle-toggled">
+                <i class="tio-clear"></i>
+              </span>
+            </span>
+          </button>
+          <!-- End Navbar Toggle -->
+
+          <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
+            <!-- Navbar Nav -->
+            <ul id="navbarSettings"
+              class="js-sticky-block js-scrollspy navbar-nav navbar-nav-lg nav-tabs card card-navbar-nav"
+              data-hs-sticky-block-options="{
+                   &quot;parentSelector&quot;: &quot;#navbarVerticalNavMenu&quot;,
+                   &quot;breakpoint&quot;: &quot;lg&quot;,
+                   &quot;startPoint&quot;: &quot;#navbarVerticalNavMenu&quot;,
+                   &quot;endPoint&quot;: &quot;#stickyBlockEndPoint&quot;,
+                   &quot;stickyOffsetTop&quot;: 20
+                 }">
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(content)">
+                  <i class="tio-user-outlined nav-icon"></i> Información básica
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(emailSection)">
+                  <i class="tio-node-multiple-outlined nav-icon"></i>Esquema 
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(passwordSection)">
+                  <i class="tio-fingerprint nav-icon"></i> Documentos
+                </a>
+              </li>
+            </ul>
+            <!-- End Navbar Nav -->
+          </div>
+        </div>
+        <!-- End Navbar -->
+      </div>
+
+      <div class="col-lg-9">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+          <!-- Profile Cover -->
+          <div class="profile-cover">
+            <div class="profile-cover-img-wrapper">
+              <img id="profileCoverImg" style="height: 100%; width: 100%;"   src="../../../../assets/img/LogohorizontalPNG.png"
+               >
+
+
+              <!-- End Custom File Cover -->
+            </div>
+          </div>
+          <!-- End Profile Cover -->
+
+          <!-- Avatar -->
+          <label class="avatar avatar-xxl avatar-circle avatar-border-lg avatar-uploader profile-cover-avatar"
+            for="avatarUploader">
+            <img id="avatarImg" class="avatar-img">
+
+            <input *ngIf="intermediario.optionintermediario == 'addintermediario'  && intermediario.nit"
+              accept="image/x-png,image/gif,image/jpeg" (change)="changeListener($event,'fotoperfil')" type="file"
+              class="js-file-attach avatar-uploader-input" id="avatarUploader" data-hs-file-attach-options="{
+                      &quot;textTarget&quot;: &quot;#avatarImg&quot;,
+                      &quot;mode&quot;: &quot;image&quot;,
+                      &quot;targetAttr&quot;: &quot;src&quot;,
+                      &quot;allowTypes&quot;: [&quot;.png&quot;, &quot;.jpeg&quot;, &quot;.jpg&quot;]
+                   }">
+
+            <span class="avatar-uploader-trigger">
+              <i class="tio-edit avatar-uploader-icon shadow-soft"></i>
+            </span>
+          </label>
+          <!-- End Avatar -->
+
+          <!-- Body -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-5">
+                <!-- Select -->
+
+                <!-- End Select -->
+              </div>
+            </div>
+            <!-- End Row -->
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div #content class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-user-outlined nav-icon"></i> INFORMACIÓN BÁSICA</h2>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+            <!-- Form -->
+            <form>
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="firstNameLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="attach-outline"></ion-icon>Tipo Identificación
+                </label>
+
+                <div class="col-sm-9">
+                  <div class="input-group input-group-sm-down-break">
+                    <ion-select class="form-control" [(ngModel)]="intermediario.tipodocumento"
+                      [ngModelOptions]="{standalone: true}" required>
+                      <ion-select-option *ngFor="let tipodocumento of tipodocumentos">
+                        {{tipodocumento.tipodocumento}}</ion-select-option>
+                    </ion-select>
+                  </div>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="emailLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-outline"></ion-icon>No. Documento
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.documento" required minlength="1"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="phoneLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="happy-outline"></ion-icon>Nombre Completo
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.nombre" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="organizationLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-circle-outline"></ion-icon>Correo Electrónico
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.email"
+                    [ngModelOptions]="{standalone: true}" type="email" required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="departmentLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="lock-closed-outline"></ion-icon>Contraseña
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.password" required type="password"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <label for="departmentLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="lock-closed-outline"></ion-icon>Confirmar Contraseña
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.passwordcheck" required type="password"
+                    [ngModelOptions]="{standalone: true}"></ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div id="accountType" class="row form-group">
+                <label class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="at-circle-outline"></ion-icon>Estado
+                </label>
+
+                <div class="col-sm-9">
+                  <div class="input-group input-group-sm-down-break">
+                    <ion-select class="form-control" [(ngModel)]="intermediario.estado"
+                      [ngModelOptions]="{standalone: true}" required>
+                      <ion-select-option *ngFor="let estado of estados">{{estado.estado}}</ion-select-option>
+                    </ion-select>
+                    <!-- End Custom Radio -->
+                  </div>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="locationLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="calendar-outline"></ion-icon>Fecha Limite Reporte
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-datetime [ngModelOptions]="{standalone: true}" displayFormat="MM DD YYYY"
+                    placeholder="Seleccione Fecha" min="2020" max="2100" [(ngModel)]="intermediario.fechalimitereporte">
+                  </ion-datetime>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="addressLine1Label" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="earth-outline"></ion-icon>Pais<span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-select class="form-control" [(ngModel)]="intermediario.pais"
+                    [ngModelOptions]="{standalone: true}" required>
+                    <ion-select-option *ngFor="let pais of paises">{{pais.pais}}</ion-select-option>
+                  </ion-select>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="addressLine2Label" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="location-outline"></ion-icon>Región <span
+                    class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-select class="form-control" [(ngModel)]="intermediario.region"
+                    [ngModelOptions]="{standalone: true}" required>
+                    <ion-select-option *ngFor="let region of regiones">{{region.region}}</ion-select-option>
+                  </ion-select>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="pin-outline"></ion-icon>Dirección <span
+                    class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.direccion" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>Teléfono
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.telefono" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group ">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="business-outline"></ion-icon>Nit
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" *ngIf="intermediario.optionintermediario == 'addintermediario'"
+                    [(ngModel)]="intermediario.nit" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Descripción
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.descripcion" required type="text"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Sigla
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.sigla" required type="text"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="business-outline"></ion-icon>Ciudad <span
+                    class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.ciudad" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="people-outline"></ion-icon>Persona Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.contacto" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Cargo Del Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.trabajocontacto" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>No. Celular Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.telefonocontacto" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-circle-outline"></ion-icon>Correo Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.emailcontacto" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="people-circle-outline"></ion-icon>Persona Contacto 2
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.personacorres" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Persona Contacto 2 Cargo
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.trabajopersonacorres" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>No. Celular Contacto 2
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.telefonopersonacorres" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-circle-outline"></ion-icon> Correo Contacto 2
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.emailpersonacorres" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+
+              <div class="d-flex justify-content-end">
+                <button (click)="registerIntermediario()" type="submit" class="btn btn-primary">Guardar
+                </button>
+              </div>
+            </form>
+            <!-- End Form -->
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div #emailSection id="emailSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-node-multiple-outlined nav-icon"></i> ESQUEMA </h2>
+          </div>
+
+          <!-- Body -->
+          <div *ngIf="intermediario.optionintermediario == 'addintermediario'  && intermediario.nit" class="card-body">
+            <ion-item>
+              <ion-label position="floating">
+                <ion-icon name="attach-outline"></ion-icon>TIPO DE ESQUEMA
+              </ion-label>
+              <ion-select  class="--padding-start" [(ngModel)]="selectlinea.idlinea"
+                [ngModelOptions]="{standalone: true}" required>
+                <ion-select-option *ngFor="let tipolinea of tiposlineas" value="{{tipolinea.idlinea}}">
+                  {{tipolinea.nombrelinea}}</ion-select-option>
+              </ion-select>
+              <ion-button fill="outline" (click)="agregarTipoEsquemaComision()">Agregar
+              </ion-button>
+            </ion-item>
+            <mat-card>
+              <mat-card-content>
+                <ion-item>
+                  <ion-input type="text" (change)="applyFilterTipoComision($event.target.value)"
+                    (keyup)="applyFilterTipoComision($event.target.value)" placeholder="Filtro de Busqueda">
+                  </ion-input>
+                </ion-item>
+                <div class="div-table">
+                  <table mat-table [dataSource]="dataSourceTipoComision" class="mat-elevation-z8">
+
+                    <!-- photo Table Column -->
+                    <ng-container matColumnDef="esquema">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>
+                        ESQUEMA </th>
+                      <td mat-cell *matCellDef="let element"> {{element.nombrelinea}} </td>
+                    </ng-container>
+
+                    <!-- charge Column -->
+                    <ng-container matColumnDef="delete">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>
+                        ELIMINAR </th>
+                      <td mat-cell *matCellDef="let element">
+                        <ion-button (click)="eliminarTipoEsquemaComision(element)">Eliminar</ion-button> 
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsTipoEsquema"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsTipoEsquema;"></tr>
+                  </table>
+                </div>
+                <mat-paginator #paginatorTipoEsquema [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+                </mat-paginator>
+              </mat-card-content>
+            </mat-card>
+            <!-- End Form -->
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div #passwordSection id="passwordSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-fingerprint nav-icon"></i> CARGUE DE DOCUMENTOS</h2>
+          </div>
+
+          <!-- Body -->
+          <div *ngIf="intermediario.optionintermediario == 'addintermediario'  && intermediario.nit" class="card-body">
+
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">Rut <span
+                  class="input-label-secondary">(Opcional)</span></label>
+
+              <div class="col-sm-9">
+                <ion-input id="rut" type="file" accept="*" (change)="changeListener($event,'Rut')" required></ion-input>
+              </div>
+            </div>
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">Camara De Comercio
+                <span class="input-label-secondary">(Opcional)</span></label>
+
+              <div class="col-sm-9">
+                <ion-input type="file" accept="*" (change)="changeListener($event,'Camara de Comercio')" required>
+                </ion-input>
+              </div>
+            </div>
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">Certificación Bancaria
+                <span class="input-label-secondary">(Opcional)</span></label>
+
+              <div class="col-sm-9">
+                <ion-input type="file" accept="*" (change)="changeListener($event,'Certificación Bancaria')" required>
+                </ion-input>
+              </div>
+            </div>
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">Contrato
+                <span class="input-label-secondary">(Opcional)</span></label>
+
+              <div class="col-sm-9">
+                <ion-input type="file" accept="*" (change)="changeListener($event,'Contrato')" required></ion-input>
+
+              </div>
+            </div>
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">Otros Si
+                <span class="input-label-secondary">(Opcional)</span></label>
+
+              <div class="col-sm-9">
+                <ion-input type="file" accept="*" (change)="changeListener($event,'Otros si')" required></ion-input>
+              </div>
+            </div>
+          </div>
+          <mat-card>
+            <mat-card-content>
+              <div class="div-table">
+                <ion-item>
+                  <ion-input type="text" (change)="applyFilterFiles($event.target.value)"
+                    (keyup)="applyFilterFiles($event.target.value)" placeholder="Filtro de Busqueda">
+                  </ion-input>
+                </ion-item>
+                <table mat-table [dataSource]="dataSourceFiles" class="mat-elevation-z8">
+
+                  <!-- photo Table Column -->
+                  <ng-container matColumnDef="nameDoc">
+                    <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> TIPO
+                      DOCUMENTO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.tipfile}} </td>
+                  </ng-container>
+
+                  <!-- name Column -->
+                  <ng-container matColumnDef="nameFile">
+                    <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>NOMBRE
+                      DOCUMENTO </th>
+                    <td mat-cell *matCellDef="let element">{{element.nombrefile}}</td>
+                  </ng-container>
+                  <!-- charge Column -->
+                  <ng-container matColumnDef="delete">
+                    <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>
+                      ELIMINAR </th>
+                    <td mat-cell *matCellDef="let element">
+                      <ion-button (click)="deleteDoc(element)">Eliminar</ion-button>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsDocs"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsDocs;"></tr>
+                </table>
+              </div>
+              <mat-paginator #paginatorFiles [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+              </mat-paginator>
+            </mat-card-content>
+          </mat-card>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Sticky Block End Point -->
+        <div id="stickyBlockEndPoint"></div>
+      </div>
+    </div>
+    <!-- End Row -->
+  </div>
+</ion-content>
+
+<!--
+ * Separador VER INSTITUCIÓN
+ * Forma que empaqueta consulta de Intermediarios. 
+ * Metodo principal:verModalCreacionNew();
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo     -->
+<ion-content id="verintermediario" *ngIf="intermediario.optionintermediario == 'verintermediario'">
+
+  <div  style="text-align: right;">
+    <ion-button fill="outline" (click)="closeSearchModal()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="media mb-3">
+        <!-- Avatar -->
+        <div class="avatar avatar-xl avatar-4by3 mr-2">
+          <img  src="../../../../assets/img/LogohorizontalPNG.png">
+        </div>
+        <!-- End Avatar -->
+
+        <div class="media-body">
+          <div class="row">
+            <div class="col-lg mb-3 mb-lg-0">
+              <h1 class="page-header-title text-success text-center" *ngIf="user.role == 'Super Maestro'"> INFORMACIÓN
+                DEL
+                INSTITUCIÓN </h1>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Page Header -->
+    <!-- End Page Header -->
+
+    <div class="row">
+      <div class="col-lg-3">
+        <!-- Navbar -->
+        <div class="navbar-vertical navbar-expand-lg mb-3 mb-lg-5">
+          <!-- Navbar Toggle -->
+          <button type="button" class="navbar-toggler btn btn-block btn-white mb-3" aria-label="Toggle navigation"
+            aria-expanded="false" aria-controls="navbarVerticalNavMenu" data-toggle="collapse"
+            data-target="#navbarVerticalNavMenu">
+            <span class="d-flex justify-content-between align-items-center">
+              <span class="h5 mb-0"></span>
+
+              <span class="navbar-toggle-default">
+                <i class="tio-menu-hamburger"></i>
+              </span>
+
+              <span class="navbar-toggle-toggled">
+                <i class="tio-clear"></i>
+              </span>
+            </span>
+          </button>
+          <!-- End Navbar Toggle -->
+
+          <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
+            <!-- Navbar Nav -->
+            <ul id="navbarSettings"
+              class="js-sticky-block js-scrollspy navbar-nav navbar-nav-lg nav-tabs card card-navbar-nav"
+              data-hs-sticky-block-options="{
+                  &quot;parentSelector&quot;: &quot;#navbarVerticalNavMenu&quot;,
+                  &quot;breakpoint&quot;: &quot;lg&quot;,
+                  &quot;startPoint&quot;: &quot;#navbarVerticalNavMenu&quot;,
+                  &quot;endPoint&quot;: &quot;#stickyBlockEndPoint&quot;,
+                  &quot;stickyOffsetTop&quot;: 20
+                }">
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(content)">
+                  <i class="tio-user-outlined nav-icon"></i> Información basica
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(emailSection)">
+                  <i class="tio-node-multiple-outlined nav-icon"></i>Esquema
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(passwordSection)">
+                  <i class="tio-fingerprint nav-icon"></i> Documentos
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(docSection)">
+                  <i class="tio-folder-add nav-icon"></i> Documentos históricos
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(auditSection)">
+                  <i class="tio-menu-vs-outlined nav-icon"></i> Auditoría
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(createSection)">
+                  <i class="tio-star-outlined nav-icon"></i> Creación de usuarios
+                </a>
+              </li> 
+            </ul>
+            <!-- End Navbar Nav -->
+          </div>
+        </div>
+        <!-- End Navbar -->
+      </div>
+
+      <div class="col-lg-9">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+          <!-- Profile Cover -->
+          <div class="profile-cover">
+            <div class="profile-cover-img-wrapper">
+              <img id="profileCoverImg"  style="height: 100%; width: 100%;"  src="../../../../assets/img/LogohorizontalPNG.png"
+               >
+
+
+              <!-- End Custom File Cover -->
+            </div>
+          </div>
+          <!-- End Profile Cover -->
+
+          <!-- Avatar -->
+          <label class="avatar avatar-xxl avatar-circle avatar-border-lg avatar-uploader profile-cover-avatar"
+            for="avatarUploader">
+            <img id="avatarImg" class="avatar-img">
+
+
+
+          </label>
+          <!-- End Avatar -->
+
+          <!-- Body -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-5">
+                <!-- Select -->
+
+                <!-- End Select -->
+              </div>
+            </div>
+            <!-- End Row -->
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div #content class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-user-outlined nav-icon"></i>INFORMACIÓN BÁSICA</h2>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+            <!-- Form -->
+            <form>
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="firstNameLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="attach-outline"></ion-icon>Tipo Identificación
+                </label>
+
+                <div class="col-sm-9">
+                  <div class="input-group input-group-sm-down-break">
+                    <ion-input readonly class="form-control"  readonly
+                      [(ngModel)]="intermediario.tipodocumento" [ngModelOptions]="{standalone: true}">
+                    </ion-input>
+                  </div>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="emailLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-outline"></ion-icon>No. Documento
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                     readonly
+                    [(ngModel)]="intermediario.documento" [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="phoneLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="happy-outline"></ion-icon>Nombre Completo
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                     [(ngModel)]="intermediario.nombre"
+                    required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="organizationLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-circle-outline"></ion-icon>Correo Electrónico
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                     [(ngModel)]="intermediario.email"
+                    [ngModelOptions]="{standalone: true}" type="email" required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div id="accountType" class="row form-group">
+                <label class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="at-circle-outline"></ion-icon>Estado
+                </label>
+
+                <div class="col-sm-9">
+                  <div class="input-group input-group-sm-down-break">
+                    <ion-input class="form-control" 
+                      readonly [(ngModel)]="intermediario.estado" [ngModelOptions]="{standalone: true}">
+                    </ion-input>
+                    <!-- End Custom Radio -->
+                  </div>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="locationLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="calendar-outline"></ion-icon>Fecha Limite Reporte
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-datetime readonly class="form-control"
+                    
+                    [ngModelOptions]="{standalone: true}" displayFormat="MM DD YYYY" placeholder="Seleccione Fecha"
+                    min="2020" max="2100" [(ngModel)]="intermediario.fechalimitereporte">
+                  </ion-datetime>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="addressLine1Label" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="earth-outline"></ion-icon>Pais<span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" 
+                    readonly [(ngModel)]="intermediario.pais" [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="addressLine2Label" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="location-outline"></ion-icon>Región <span
+                    class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" 
+                    readonly [(ngModel)]="intermediario.region" [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="pin-outline"></ion-icon>Dirección <span
+                    class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" readonly
+                    
+                    [(ngModel)]="intermediario.direccion" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>Teléfono
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" readonly
+                    *ngIf="intermediario.optionintermediario == 'verintermediario' "
+                    [(ngModel)]="intermediario.telefono" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group ">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="business-outline"></ion-icon>Nit
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                     [(ngModel)]="intermediario.nit"
+                    required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Descripción
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                    *ngIf="intermediario.optionintermediario == 'verintermediario' "
+                    [(ngModel)]="intermediario.descripcion" required type="text" [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Sigla
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                    *ngIf="intermediario.optionintermediario == 'verintermediario' " [(ngModel)]="intermediario.sigla"
+                    required type="text" [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="business-outline"></ion-icon>Ciudad <span
+                    class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                    *ngIf="intermediario.optionintermediario == 'verintermediario' " [(ngModel)]="intermediario.ciudad"
+                    required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="people-outline"></ion-icon>Persona Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                     [(ngModel)]="intermediario.contacto"
+                    required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Cargo Del Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                    *ngIf="intermediario.optionintermediario == 'verintermediario' "
+                    [(ngModel)]="intermediario.trabajocontacto" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>No. Celular Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                    *ngIf="intermediario.optionintermediario == 'verintermediario' "
+                    [(ngModel)]="intermediario.telefonocontacto" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-circle-outline"></ion-icon>Correo Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                    
+                    [(ngModel)]="intermediario.emailcontacto" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="people-circle-outline"></ion-icon>Persona Contacto 2
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                    *ngIf="intermediario.optionintermediario == 'verintermediario' "
+                    [(ngModel)]="intermediario.personacorres" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Persona Contacto 2 Cargo
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                    *ngIf="intermediario.optionintermediario == 'verintermediario' "
+                    [(ngModel)]="intermediario.trabajopersonacorres" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>No. Celular Contacto 2
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                    *ngIf="intermediario.optionintermediario == 'verintermediario' "
+                    [(ngModel)]="intermediario.telefonopersonacorres" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-circle-outline"></ion-icon> Correo Contacto 2
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control"
+                    *ngIf="intermediario.optionintermediario == 'verintermediario' "
+                    [(ngModel)]="intermediario.emailpersonacorres" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+
+            </form>
+            <!-- End Form -->
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div #emailSection id="emailSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-node-multiple-outlined  nav-icon"></i>ESQUEMA </h2>
+
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+            <mat-card>
+              <mat-card-content>
+                <div class="div-table">
+                  <ion-item>
+                    <ion-input type="text" (change)="applyFilterTipoComision($event.target.value)"
+                      (keyup)="applyFilterTipoComision($event.target.value)" placeholder="Filtro de Busqueda">
+                    </ion-input>
+                  </ion-item>
+
+
+                  <table mat-table [dataSource]="dataSourceTipoComision" class="mat-elevation-z8">
+
+                    <!-- photo Table Column -->
+                    <ng-container matColumnDef="esquema">
+                      <th mat-header-cell *matHeaderCellDef> ESQUEMA  </th>
+                      <td mat-cell *matCellDef="let element"> {{element.nombrelinea}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsTipoEsquemaver"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsTipoEsquemaver;"></tr>
+                  </table>
+                </div>
+                <mat-paginator #paginatorTipoEsquema [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+                </mat-paginator>
+              </mat-card-content>
+            </mat-card>
+            <!-- End Form -->
+          </div>
+          <!-- End Body -->
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div #passwordSection id="passwordSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-fingerprint  nav-icon"></i>DOCUMENTOS</h2>
+          </div>
+
+          <mat-card>
+            <mat-card-content>
+              <ion-item>
+                <ion-input type="text" (change)="applyFilterFiles($event.target.value)"
+                  (keyup)="applyFilterFiles($event.target.value)" placeholder="Filtro de Busqueda">
+                </ion-input>
+              </ion-item>
+              <div class="div-table">
+                <table mat-table [dataSource]="dataSourceFiles" class="mat-elevation-z8">
+
+                  <!-- name Column -->
+                  <ng-container matColumnDef="tipfile">
+                    <th mat-header-cell *matHeaderCellDef> TIPO DOCUMENTO </th>
+                    <td mat-cell *matCellDef="let element">{{element.tipfile}}</td>
+                  </ng-container>
+                  <!-- charge Column -->
+                  <!-- name Column -->
+                  <ng-container matColumnDef="file">
+                    <th mat-header-cell *matHeaderCellDef> DOCUMENTO </th>
+                    <td mat-cell *matCellDef="let element">
+                      <a target="_blank" href="{{element.urlFileUpload}}">{{element.nombrefile}}</a>
+                    </td>
+                  </ng-container>
+                  <!-- charge Column -->
+                  <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef> FECHA </th>
+                    <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsConsultDocs"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsConsultDocs;"></tr>
+                </table>
+              </div>
+              <mat-paginator #paginatorFiles [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+              </mat-paginator>
+            </mat-card-content>
+          </mat-card>
+          <!-- End Body -->
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+        <!-- Card -->
+        <div #docSection id="docSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-folder-add  nav-icon"></i>DOCUMENTOS HISTÓRICOS</h2>
+
+          </div>
+
+          <mat-card>
+            <mat-card-content>
+              <ion-item>
+                <ion-input type="text" (change)="applyFilterFilesHist($event.target.value)"
+                  (keyup)="applyFilterFilesHist($event.target.value)" placeholder="Filtro de Busqueda">
+                </ion-input>
+              </ion-item>
+              <div class="div-table">
+                <table mat-table [dataSource]="dataSourceFileshist" class="mat-elevation-z8">
+
+                  <!-- name Column -->
+                  <ng-container matColumnDef="tipfile">
+                    <th mat-header-cell *matHeaderCellDef> TIPO DOCUMENTO </th>
+                    <td mat-cell *matCellDef="let element">{{element.tipfile}}</td>
+                  </ng-container>
+                  <!-- charge Column -->
+                  <!-- name Column -->
+                  <ng-container matColumnDef="file">
+                    <th mat-header-cell *matHeaderCellDef> DOCUMENTO </th>
+                    <td mat-cell *matCellDef="let element">
+                      <a target="_blank" href="{{element.urlFileUpload}}">{{element.nombrefile}}</a>
+                    </td>
+                  </ng-container>
+                  <!-- charge Column -->
+                  <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef> FECHA </th>
+                    <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsConsultDocs"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsConsultDocs;"></tr>
+                </table>
+              </div>
+              <mat-paginator #paginatorFilesHist [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+              </mat-paginator>
+            </mat-card-content>
+          </mat-card>
+          <!-- End Body -->
+        </div>
+
+        <!-- Card -->
+        <div #auditSection id="auditSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-menu-vs-outlined  nav-icon"></i>AUDITORÍA</h2>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="body-outline"></ion-icon> Creado Por
+              </label>
+
+              <div class="col-sm-9">
+                <ion-input class="form-control" readonly [(ngModel)]="intermediario.creadopor"
+                  [ngModelOptions]="{standalone: true}"></ion-input>
+
+              </div>
+            </div>
+            <!-- End Form Group -->
+
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="calendar-outline"></ion-icon>Creado En
+              </label>
+
+              <div class="col-sm-9">
+                <ion-input class="form-control" readonly [(ngModel)]="intermediario.creadoen"
+                  [ngModelOptions]="{standalone: true}">
+                </ion-input>
+              </div>
+            </div>
+            <!-- End Form Group -->
+
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="body-outline"></ion-icon>Modificado Por
+              </label>
+
+              <div class="col-sm-9">
+                <ion-input class="form-control" readonly [(ngModel)]="intermediario.modificadopor"
+                  [ngModelOptions]="{standalone: true}">
+                </ion-input>
+              </div>
+            </div>
+            <!-- End Form Group -->
+
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="calendar-outline"></ion-icon>Modificado En
+              </label>
+
+              <div class="col-sm-9">
+                <ion-input class="form-control" readonly [(ngModel)]="intermediario.modificadoen"
+                  [ngModelOptions]="{standalone: true}">
+                </ion-input>
+
+              </div>
+            </div>
+
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="bonfire-outline"></ion-icon>Modificación Causa
+              </label>
+
+              <div class="col-sm-9">
+
+                <ion-input class="form-control" readonly [(ngModel)]="intermediario.modificacioncausa"
+                  [ngModelOptions]="{standalone: true}">
+                </ion-input>
+
+              </div>
+            </div>
+          </div>
+          <!-- End Body -->
+        </div>
+
+        <!-- Card -->
+        <div #createSection id="createSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-star-outlined  nav-icon"></i>CREACIÓN DE USUARIOS</h2>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="body-outline"></ion-icon> Rol
+              </label>
+
+              <div class="col-sm-9">
+                <ion-select class="form-control"  [(ngModel)]="newUser.role"
+                  [ngModelOptions]="{standalone: true}" required>
+                  <ion-select-option *ngFor="let roles of rol">{{roles.rol}}</ion-select-option>
+                </ion-select>
+              </div>
+            </div>
+            <!-- End Form Group -->
+
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="attach-outline"></ion-icon>Tipo Identificación
+              </label>
+
+              <div class="col-sm-9">
+                <ion-select class="form-control"  [(ngModel)]="newUser.tipodocumento"
+                  [ngModelOptions]="{standalone: true}" required>
+                  <ion-select-option *ngFor="let tipodocumento of tipodocumentos">
+                    {{tipodocumento.tipodocumento}}</ion-select-option>
+                </ion-select>
+              </div>
+            </div>
+            <!-- End Form Group -->
+
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="person-outline"></ion-icon>No. Identificación
+              </label>
+
+              <div class="col-sm-9">
+                <ion-input class="form-control" [(ngModel)]="newUser.documento" required minlength="8"
+                  [ngModelOptions]="{standalone: true}">
+                </ion-input>
+              </div>
+            </div>
+            <!-- End Form Group -->
+
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="person-circle-outline"></ion-icon>Correo Electrónico
+              </label>
+
+              <div class="col-sm-9">
+                <ion-input class="form-control" [(ngModel)]="newUser.email" [ngModelOptions]="{standalone: true}"
+                  type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                </ion-input>
+              </div>
+            </div> <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="lock-closed-outline"></ion-icon>Contraseña
+              </label>
+
+              <div class="col-sm-9">
+                <ion-input class="form-control" [(ngModel)]="newUser.password" required type="password"
+                  [ngModelOptions]="{standalone: true}">
+                </ion-input>
+              </div>
+            </div> <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="lock-closed-outline"></ion-icon>Confirmar Contraseña
+              </label>
+
+              <div class="col-sm-9">
+                <ion-input [(ngModel)]="newUser.passwordcheck" required type="password" class="form-control"
+                  [ngModelOptions]="{standalone: true}"></ion-input>
+              </div>
+            </div>
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="happy-outline"></ion-icon>Nombres y Apellidos
+              </label>
+
+              <div class="col-sm-9">
+                <ion-input class="form-control" [(ngModel)]="newUser.nombre" required
+                  [ngModelOptions]="{standalone: true}">
+                </ion-input>
+              </div>
+            </div>
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="call-outline"></ion-icon>No. Celular
+              </label>
+
+              <div class="col-sm-9">
+                <ion-input class="form-control" [(ngModel)]="newUser.telefono" required minlength="8"
+                  [ngModelOptions]="{standalone: true}">
+                </ion-input>
+              </div>
+            </div>
+            <!-- Form Group -->
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">
+                <ion-icon name="at-circle-outline"></ion-icon>Estado
+              </label>
+
+              <div class="col-sm-9">
+                <ion-select class="form-control"  [(ngModel)]="newUser.estado"
+                  [ngModelOptions]="{standalone: true}" required>
+                  <ion-select-option *ngFor="let estado of estados">{{estado.estado}}
+                  </ion-select-option>
+                </ion-select>
+              </div>
+            </div>
+            <ion-button fill="outline" (click)="RegisterUsuario()">
+              <ion-icon name="person-add-outline"></ion-icon>Crear
+            </ion-button>
+          </div>
+          <!-- End Body -->
+        </div> 
+        <!-- Sticky Block End Point -->
+
+        <!-- Sticky Block End Point -->
+        <div id="stickyBlockEndPoint"></div>
+      </div>
+    </div>
+    <!-- End Row -->
+  </div>
+</ion-content>
+<!--
+ * Separador EDITAR INSTITUCIÓN
+ * Forma que empaqueta consulta de Intermediarios. 
+ * Metodo principal:verModalCreacionNew();
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo     -->
+<ion-content id="editintermediario" *ngIf="intermediario.optionintermediario == 'editintermediario'">
+
+  <div *ngIf="intermediario.optionintermediario == 'editintermediario'" style="text-align: right;">
+    <ion-button fill="outline" (click)="closeSearchModal()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="media mb-3">
+        <!-- Avatar -->
+        <div class="avatar avatar-xl avatar-4by3 mr-2">
+          <img  src="../../../../assets/img/LogohorizontalPNG.png">
+        </div>
+        <!-- End Avatar -->
+
+        <div class="media-body">
+          <div class="row">
+            <div class="col-lg mb-3 mb-lg-0">
+              <h1 class="page-header-title text-success text-center" *ngIf="user.role == 'Super Maestro'"> EDICIÓN DEL
+                INSTITUCIÓN </h1>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Page Header -->
+
+    <div class="row">
+      <div class="col-lg-3">
+        <!-- Navbar -->
+        <div class="navbar-vertical navbar-expand-lg mb-3 mb-lg-5">
+          <!-- Navbar Toggle -->
+          <button type="button" class="navbar-toggler btn btn-block btn-white mb-3" aria-label="Toggle navigation"
+            aria-expanded="false" aria-controls="navbarVerticalNavMenu" data-toggle="collapse"
+            data-target="#navbarVerticalNavMenu">
+            <span class="d-flex justify-content-between align-items-center">
+              <span class="h5 mb-0"></span>
+
+              <span class="navbar-toggle-default">
+                <i class="tio-menu-hamburger"></i>
+              </span>
+
+              <span class="navbar-toggle-toggled">
+                <i class="tio-clear"></i>
+              </span>
+            </span>
+          </button>
+          <!-- End Navbar Toggle -->
+
+          <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
+            <!-- Navbar Nav -->
+            <ul id="navbarSettings"
+              class="js-sticky-block js-scrollspy navbar-nav navbar-nav-lg nav-tabs card card-navbar-nav"
+              data-hs-sticky-block-options="{
+                  &quot;parentSelector&quot;: &quot;#navbarVerticalNavMenu&quot;,
+                  &quot;breakpoint&quot;: &quot;lg&quot;,
+                  &quot;startPoint&quot;: &quot;#navbarVerticalNavMenu&quot;,
+                  &quot;endPoint&quot;: &quot;#stickyBlockEndPoint&quot;,
+                  &quot;stickyOffsetTop&quot;: 20
+                }">
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(content)">
+                  <i class="tio-user-outlined nav-icon"></i> Información básica
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(emailSection)">
+                  <i class="tio-node-multiple-outlined nav-icon"></i>Esquema 
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(passwordSection)">
+                  <i class="tio-fingerprint nav-icon"></i> Documentos
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(emailEditSection)">
+                  <i class="tio-online  nav-icon"></i> Email
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(paswEditSection)">
+                  <i class="tio-lock-outlined nav-icon"></i> Contraseña
+                </a>
+              </li>
+              <li *ngIf="user.role ==='Super Maestro' || user.role === 'Intermediario'" class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(valEditSection)">
+                  <i class="tio-money nav-icon"></i> Totales Base Salarial
+                </a>
+              </li>
+            </ul>
+            <!-- End Navbar Nav -->
+          </div>
+        </div>
+        <!-- End Navbar -->
+      </div>
+
+      <div class="col-lg-9">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+          <!-- Profile Cover -->
+          <div class="profile-cover">
+            <div class="profile-cover-img-wrapper">
+              <img id="profileCoverImg"  style="height: 100%; width: 100%;"  src="../../../../assets/img/LogohorizontalPNG.png"
+               >
+
+
+              <!-- End Custom File Cover -->
+            </div>
+          </div>
+          <!-- End Profile Cover -->
+
+          <!-- Avatar -->
+          <label class="avatar avatar-xxl avatar-circle avatar-border-lg avatar-uploader profile-cover-avatar"
+            for="avatarUploader">
+            <img id="avatarImg" class="avatar-img">
+
+            <input accept="image/x-png,image/gif,image/jpeg" (change)="changeListener($event,'fotoperfil')" type="file"
+              class="js-file-attach avatar-uploader-input" id="avatarUploader" data-hs-file-attach-options="{
+                     &quot;textTarget&quot;: &quot;#avatarImg&quot;,
+                     &quot;mode&quot;: &quot;image&quot;,
+                     &quot;targetAttr&quot;: &quot;src&quot;,
+                     &quot;allowTypes&quot;: [&quot;.png&quot;, &quot;.jpeg&quot;, &quot;.jpg&quot;]
+                  }">
+
+            <span class="avatar-uploader-trigger">
+              <i class="tio-edit avatar-uploader-icon shadow-soft"></i>
+            </span>
+          </label>
+          <!-- End Avatar -->
+
+          <!-- Body -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-5">
+                <!-- Select -->
+
+                <!-- End Select -->
+              </div>
+            </div>
+            <!-- End Row -->
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div #content class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-user-outlined nav-icon"></i>INFORMACIÓN BÁSICA</h2>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+            <!-- Form -->
+            <form>
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="firstNameLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="attach-outline"></ion-icon>Tipo Identificación
+                </label>
+
+                <div class="col-sm-9">
+                  <div class="input-group input-group-sm-down-break">
+                    <ion-select class="form-control" [(ngModel)]="intermediario.tipodocumento"
+                      [ngModelOptions]="{standalone: true}" required>
+                      <ion-select-option *ngFor="let tipodocumento of tipodocumentos">
+                        {{tipodocumento.tipodocumento}}</ion-select-option>
+                    </ion-select>
+                  </div>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="emailLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-outline"></ion-icon>No. Documento
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.documento" required minlength="1"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="phoneLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="happy-outline"></ion-icon>Nombre Completo
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.nombre" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+
+              <!-- Form Group -->
+              <div id="accountType" class="row form-group">
+                <label class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="at-circle-outline"></ion-icon>Estado
+                </label>
+
+                <div class="col-sm-9">
+                  <div class="input-group input-group-sm-down-break">
+                    <ion-select class="form-control" [(ngModel)]="intermediario.estado"
+                      [ngModelOptions]="{standalone: true}" required>
+                      <ion-select-option *ngFor="let estado of estados">{{estado.estado}}</ion-select-option>
+                    </ion-select>
+                    <!-- End Custom Radio -->
+                  </div>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="locationLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="calendar-outline"></ion-icon>Fecha Limite Reporte
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-datetime [ngModelOptions]="{standalone: true}" displayFormat="MM DD YYYY"
+                    placeholder="Seleccione Fecha" min="2020" max="2100" [(ngModel)]="intermediario.fechalimitereporte">
+                  </ion-datetime>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="addressLine1Label" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="earth-outline"></ion-icon>Pais<span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-select class="form-control" [(ngModel)]="intermediario.pais"
+                    [ngModelOptions]="{standalone: true}" required>
+                    <ion-select-option *ngFor="let pais of paises">{{pais.pais}}</ion-select-option>
+                  </ion-select>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="addressLine2Label" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="location-outline"></ion-icon>Región <span
+                    class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-select class="form-control" [(ngModel)]="intermediario.region"
+                    [ngModelOptions]="{standalone: true}" required>
+                    <ion-select-option *ngFor="let region of regiones">{{region.region}}</ion-select-option>
+                  </ion-select>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="pin-outline"></ion-icon>Dirección <span
+                    class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.direccion" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>Teléfono
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.telefono" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Descripción
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.descripcion" required type="text"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Sigla
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.sigla" required type="text"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="business-outline"></ion-icon>Ciudad <span
+                    class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.ciudad" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="people-outline"></ion-icon>Persona Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.contacto" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Cargo Del Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.trabajocontacto" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon> No. Celular Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.telefonocontacto" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-circle-outline"></ion-icon>Correo Contacto
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.emailcontacto" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="people-circle-outline"></ion-icon>Persona Contacto 2
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.personacorres" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="people-circle-outline"></ion-icon>Persona Contacto 2 Cargo
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.trabajopersonacorres" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>No. Celular Contacto 2
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.telefonopersonacorres" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-circle-outline"></ion-icon> Correo Contacto 2
+                  <span class="input-label-secondary">(Opcional)</span>
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.emailpersonacorres" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label  class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="newspaper-outline"></ion-icon>Modificación Causa
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" [(ngModel)]="intermediario.modificacioncausaedit" required type="text"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+
+              <div class="d-flex justify-content-end">
+                <button (click)="editarIntermediario()" type="submit" class="btn btn-primary">Editar
+                </button>
+              </div>
+            </form>
+            <!-- End Form -->
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div #emailSection id="emailSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"> <i class="tio-node-multiple-outlined nav-icon"></i> ESQUEMA 
+            </h2>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+            <ion-item>
+              <ion-label position="floating">
+                <ion-icon name="attach-outline"></ion-icon>TIPO DE ESQUEMA 
+              </ion-label>
+              <ion-select  class="--padding-start" [(ngModel)]="selectlinea.idlinea"
+                [ngModelOptions]="{standalone: true}" required>
+                <ion-select-option *ngFor="let tipolinea of tiposlineas" value="{{tipolinea.idlinea}}">
+                  {{tipolinea.nombrelinea}}</ion-select-option>
+              </ion-select>
+              <ion-button fill="outline" (click)="agregarTipoEsquemaComision()">Agregar
+              </ion-button>
+            </ion-item>
+            <mat-card>
+              <mat-card-content>
+                <ion-item>
+                  <ion-input type="text" (change)="applyFilterTipoComision($event.target.value)"
+                    (keyup)="applyFilterTipoComision($event.target.value)" placeholder="Filtro de Busqueda">
+                  </ion-input>
+                </ion-item>
+                <div class="div-table">
+                  <table mat-table [dataSource]="dataSourceTipoComision" class="mat-elevation-z8">
+
+                    <!-- photo Table Column -->
+                    <ng-container matColumnDef="esquema">
+                      <th mat-header-cell *matHeaderCellDef> ESQUEMA  </th>
+                      <td mat-cell *matCellDef="let element"> {{element.nombrelinea}} </td>
+                    </ng-container>
+
+                    <!-- charge Column -->
+                    <ng-container matColumnDef="delete">
+                      <th mat-header-cell *matHeaderCellDef>ELIMINAR </th>
+                      <td mat-cell *matCellDef="let element">
+                        <ion-button (click)="eliminarTipoEsquemaConfirmacion(element)">Eliminar</ion-button>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsTipoEsquema"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsTipoEsquema;"></tr>
+                  </table>
+                </div>
+                <mat-paginator #paginatorTipoEsquema [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+                </mat-paginator>
+              </mat-card-content>
+            </mat-card>
+            <!-- End Form -->
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div #passwordSection id="passwordSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-fingerprint nav-icon"></i>CARGUE DE DOCUMENTOS</h2>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">Rut <span
+                  class="input-label-secondary">(Opcional)</span></label>
+
+              <div class="col-sm-9">
+                <ion-input id="rut" type="file" accept="*" (change)="changeListener($event,'Rut')" required></ion-input>
+              </div>
+            </div>
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">Camara De Comercio
+                <span class="input-label-secondary">(Opcional)</span></label>
+
+              <div class="col-sm-9">
+                <ion-input type="file" accept="*" (change)="changeListener($event,'Camara de Comercio')" required>
+                </ion-input>
+              </div>
+            </div>
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">Certificación Bancaria
+                <span class="input-label-secondary">(Opcional)</span></label>
+
+              <div class="col-sm-9">
+                <ion-input type="file" accept="*" (change)="changeListener($event,'Certificación Bancaria')" required>
+                </ion-input>
+              </div>
+            </div>
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">Contrato
+                <span class="input-label-secondary">(Opcional)</span></label>
+
+              <div class="col-sm-9">
+                <ion-input type="file" accept="*" (change)="changeListener($event,'Contrato')" required></ion-input>
+
+              </div>
+            </div>
+            <div class="row form-group">
+              <label  class="col-sm-3 col-form-label input-label">Otros Si
+                <span class="input-label-secondary">(Opcional)</span></label>
+
+              <div class="col-sm-9">
+                <ion-input type="file" accept="*" (change)="changeListener($event,'Otros si')" required></ion-input>
+              </div>
+            </div>
+          </div>
+          <mat-card>
+            <mat-card-content>
+              <div class="div-table">
+                <ion-item>
+                  <ion-input type="text" (change)="applyFilterFiles($event.target.value)"
+                    (keyup)="applyFilterFiles($event.target.value)" placeholder="Filtro de Busqueda">
+                  </ion-input>
+                </ion-item>
+
+                <table mat-table [dataSource]="dataSourceFiles" class="mat-elevation-z8">
+
+                  <!-- photo Table Column -->
+                  <ng-container matColumnDef="nameDoc">
+                    <th mat-header-cell *matHeaderCellDef> TIPO DOCUMENTO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.tipfile}} </td>
+                  </ng-container>
+
+                  <!-- name Column -->
+                  <ng-container matColumnDef="nameFile">
+                    <th mat-header-cell *matHeaderCellDef>NOMBRE DOCUMENTO </th>
+                    <td mat-cell *matCellDef="let element">{{element.nombrefile}}</td>
+                  </ng-container>
+                  <!-- charge Column -->
+                  <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef>ELIMINAR </th>
+                    <td mat-cell *matCellDef="let element">
+                      <ion-button (click)="deleteDoc(element)">Eliminar</ion-button>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsDocs"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsDocs;"></tr>
+                </table>
+              </div>
+              <mat-paginator #paginatorFiles [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+              </mat-paginator>
+            </mat-card-content>
+          </mat-card>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+        <!-- Card -->
+        <div #emailEditSection id="emailEditSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-online  nav-icon"></i>EDICIÓN DE EMAIL</h2>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+            <ion-col size-lg="4" size-md="4" size-sm="6" size="12"
+              *ngIf="intermediario.optionintermediario == 'editintermediario'">
+              <ion-button fill="outline" (click)="openEditEmail()">Editar Email
+              </ion-button>
+              <ion-col *ngIf="intermediario.optionedituserintermediario == 'open'">
+
+                <ion-item>
+                  <ion-label position="floating">
+                    <ion-icon name="person-circle-outline"></ion-icon>CORREO ELECTRÓNICO ANTERIOR
+                  </ion-label>
+                  <ion-input [(ngModel)]="intermediario.emailold" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">
+                    <ion-icon name="person-circle-outline"></ion-icon>CORREO ELECTRÓNICO NUEVO
+                  </ion-label>
+                  <ion-input [(ngModel)]="intermediario.emailnew" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">
+                    <ion-icon name="person-circle-outline"></ion-icon>CONFIRMAR CORREO ELECTRÓNICO
+                  </ion-label>
+                  <ion-input [(ngModel)]="intermediario.emailcheck" required [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-col>
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+        <!-- Card -->
+        <div #paswEditSection id="paswEditSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"><i class="tio-lock-outlined nav-icon"></i>EDICIÓN DE CONTRASEÑA</h2>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+            <ion-col  size-lg="4" size-md="4" size-sm="6" size="12">
+              <ion-button  fill="outline"
+                (click)="openEditPassword()">Editar Contraseña
+              </ion-button> 
+              <ion-col size-lg="4" size-md="4" size-sm="6" size="12" *ngIf="intermediario.optioneditpassword == 'open'">
+                <ion-item>
+                  <ion-label position="floating">
+                    <ion-icon name="lock-closed-outline"></ion-icon>CONTRASEÑA ANTERIOR
+                  </ion-label>
+                  <ion-input [(ngModel)]="intermediario.passwordold" required type="password"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">
+                    <ion-icon name="lock-closed-outline"></ion-icon>CONTRASEÑA NUEVA
+                  </ion-label>
+                  <ion-input [(ngModel)]="intermediario.passwordnew" required type="password"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">
+                    <ion-icon name="lock-closed-outline"></ion-icon>CONFIRMAR CONTRASEÑA
+                  </ion-label>
+                  <ion-input [(ngModel)]="intermediario.passwordcheck" required type="password"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-col> 
+          </div>
+          <!-- End Body -->
+        </div>
+
+        <div #valEditSection id="valEditSection" class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"> <i class="tio-money nav-icon"></i> EDICIÓN DE VALORES TOTALES DE
+              BASE SALARIAL </h2>
+          </div>
+          <div class="card-body">
+            <ion-col size-lg="4" size-md="4" size-sm="6" size="12">
+              <ion-button
+                *ngIf="user.role === 'Super Maestro' || user.role === 'Intermediario'"
+                fill="outline" (click)="editarValoresIntermediario()">Editar Valores
+              </ion-button>
+            </ion-col>
+
+          </div>
+
+
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+        <!-- Sticky Block End Point -->
+        <div id="stickyBlockEndPoint"></div>
+      </div>
+    </div>
+    <!-- End Row -->
+  </div>
+</ion-content>
+
+<!--
+ * Separador CONSULTA INSTITUCIÓN
+ * Forma que empaqueta consulta de Intermediarios. 
+ * Metodo principal:verModalCreacionNew();
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo     -->
+<ion-content id="searchusersintermediario" *ngIf="intermediario.optionsearch=='searchusersintermediario'">
+
+  <div style=" text-align: right;">
+    <ion-button fill="outline" (click)="closeSearchModal()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <!--
+        separador BUSCAR USUARIOS
+      -->
+  <ion-card>
+    <ion-card-header>
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="media mb-3">
+          <!-- Avatar -->
+          <div class="mr-2">
+            <img  src="../../../../assets/img/LogohorizontalPNG.png">
+          </div>
+          <!-- End Avatar -->
+
+          <div class="media-body">
+            <div class="row">
+              <div class="col-lg mb-3 mb-lg-0">
+                <h1 class="page-header-title text-success text-center" *ngIf="user.role == 'Super Maestro'"> CONSULTA DE
+                  USUARIOS
+                  INSTITUCIÓN</h1>
+                <h1 class="page-header-title text-success text-center" *ngIf="user.role != 'Super Maestro'"> CONSULTA DE
+                  USUARIOS
+                  INSTITUCIÓN</h1>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-card-header>
+    <ion-card>
+      <ion-item>
+        <ion-input type="text" (change)="applyFilterUsers($event.target.value)"
+          (keyup)="applyFilterUsers($event.target.value)" placeholder="Filtro de Busqueda"></ion-input>
+      </ion-item>
+      <div class="div-table">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <!-- photo Table Column -->
+          <ng-container class="ng-container" matColumnDef="documento">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> DOCUMENTO </th>
+            <td class="ng-container" mat-cell *matCellDef="let element"> {{element.documento}} </td>
+          </ng-container>
+
+          <!-- photo Table Column -->
+          <ng-container class="ng-container" matColumnDef="nombre">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> NOMBRE </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element"> {{element.nombre}}
+            </td>
+          </ng-container>
+
+          <!-- photo Table Column -->
+          <!-- photo Table Column -->
+          <ng-container class="ng-container" matColumnDef="telefono">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> TELEFONO </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+              {{element.telefono}} </td>
+          </ng-container>
+
+          <!-- photo Table Column -->
+          <!-- photo Table Column -->
+          <ng-container class="ng-container" matColumnDef="role">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> ROL</th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element"> {{element.role}}
+            </td>
+          </ng-container>
+
+          <!-- photo Table Column -->
+          <ng-container class="ng-container" matColumnDef="email">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> EMAIL </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element"> {{element.email}}
+            </td>
+          </ng-container>
+
+          <!-- charge Column -->
+          <ng-container class="ng-container" matColumnDef="ver">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> VER </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+              <ion-button (click)="openVer(element)">
+                <ion-icon name="eye-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </ng-container>
+
+          <!-- charge Column -->
+          <ng-container class="ng-container" matColumnDef="edit">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> EDITAR </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+              <ion-button (click)="openEdit(element)">
+                <ion-icon name="pencil-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </ng-container>
+
+          <!-- photo Table Column -->
+          <!-- charge Column -->
+          <ng-container class="ng-container" matColumnDef="delete">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> ELIMINAR </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+              <ion-button (click)="eliminarUsuarioConfirmacion(element)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <mat-paginator #paginatorUsurs [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+      </mat-paginator>
+    </ion-card>
+    <!--
+        separador EDITAR USUARIOAS
+      -->
+
+    <!--
+        separador
+      -->
+  </ion-card>
+
+</ion-content>
+<!--
+ * Separador CONSULTA INSTITUCIÓN
+ * Forma que empaqueta consulta de Intermediarios. 
+ * Metodo principal:verModalCreacionNew();
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo     -->
+<ion-content id="edit" *ngIf="intermediario.optionsearch=='edit'">
+
+  <!-- Card -->
+  <div #content class="card mb-3 mb-lg-5">
+    <div class="card-header">
+      <h2 class="card-title h4 text-success"><i class="tio-user-outlined nav-icon"></i>INFORMACIÓN BÁSICA</h2>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body">
+      <!-- Form -->
+      <form>
+
+
+        <!-- End Form Group -->
+
+
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="at-circle-outline"></ion-icon>Estado
+          </label>
+
+          <div class="col-sm-9">
+            <ion-select class="form-control"  [(ngModel)]="intermediario.userupdate.estado"
+              [ngModelOptions]="{standalone: true}" required>
+              <ion-select-option *ngFor="let estado of estados">{{estado.estado}}</ion-select-option>
+            </ion-select>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div class="row form-group ">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="lock-closed-outline"></ion-icon>Contraseña Actual
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" [(ngModel)]="intermediario.userupdate.passactual" required type="password"
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+
+        <!-- Form Group -->
+        <div class="row form-group ">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="lock-closed-outline"></ion-icon>Contraseña Nueva
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" [(ngModel)]="intermediario.userupdate.passnueva" required type="password"
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="newspaper-outline"></ion-icon>Modificacición Causa
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userupdate.causamodificacion" required
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+
+        <!-- End Form Group -->
+
+      </form>
+      <!-- End Form -->
+    </div>
+    <!-- End Body -->
+  </div>
+  <div style=" text-align: center;">
+    <ion-button (click)="updateUser()">Actualizar</ion-button>
+    <ion-button (click)="closeEdit()">Cerrar</ion-button>
+  </div>
+</ion-content>
+<!--
+ * Separador CONSULTA INSTITUCIÓN
+ * Forma que empaqueta consulta de Intermediarios. 
+ * Metodo principal:verModalCreacionNew();
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo     -->
+<ion-content id="ver" *ngIf="intermediario.optionsearch=='ver'">
+
+  <!-- Card -->
+  <div #content class="card mb-3 mb-lg-5">
+    <div class="card-header">
+      <h2 class="card-title h4 text-success"><i class="tio-user-outlined nav-icon"></i>INFORMACIÓN BÁSICA</h2>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body">
+      <!-- Form -->
+      <form>
+
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label for="emailLabel" class="col-sm-3 col-form-label input-label">
+            <ion-icon name="body-outline"></ion-icon>Rol
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.role"
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label for="phoneLabel" class="col-sm-3 col-form-label input-label">
+            <ion-icon name="attach-outline"></ion-icon>Tipo Identificación
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.tipodocumento"
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label for="organizationLabel" class="col-sm-3 col-form-label input-label">
+            <ion-icon name="person-outline"></ion-icon>No. Identificación
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.documento"
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div id="accountType" class="row form-group">
+          <label class="col-sm-3 col-form-label input-label">
+            <ion-icon name="person-circle-outline"></ion-icon>Correo Electrónico
+          </label>
+
+          <div class="col-sm-9">
+            <div class="input-group input-group-sm-down-break">
+              <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.email"
+                [ngModelOptions]="{standalone: true}">
+              </ion-input>
+              <!-- End Custom Radio -->
+            </div>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label for="locationLabel" class="col-sm-3 col-form-label input-label">
+            <ion-icon name="happy-outline"></ion-icon>Nombre Completo
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.nombre"
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label for="addressLine1Label" class="col-sm-3 col-form-label input-label">
+            <ion-icon name="call-outline"></ion-icon>No. Celular
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.telefono" required
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label for="addressLine2Label" class="col-sm-3 col-form-label input-label">
+            <ion-icon name="at-circle-outline"></ion-icon>Estado
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.estado" required
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="pin-outline"></ion-icon>Creado Por
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.creadopor" required
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="calendar-outline"></ion-icon>Credo En
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.creadoen" required
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div class="row form-group ">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="business-outline"></ion-icon>Modificado Por
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.modificadopor" required
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+
+        <!-- Form Group -->
+        <div class="row form-group ">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="calendar-outline"></ion-icon>Modificado En
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.modificadoen" required
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <!-- Form Group -->
+        <div class="row form-group">
+          <label  class="col-sm-3 col-form-label input-label">
+            <ion-icon name="newspaper-outline"></ion-icon>Modificación Causa
+          </label>
+
+          <div class="col-sm-9">
+            <ion-input class="form-control" readonly [(ngModel)]="intermediario.userdoc.modificacioncausa" required
+              [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </div>
+
+        <!-- End Form Group -->
+
+      </form>
+      <!-- End Form -->
+    </div>
+    <!-- End Body -->
+  </div>
+  <!-- End Card -->
+  <div style=" text-align: center;">
+    <ion-button (click)="closeEdit()">Cerrar</ion-button>
+  </div>
+</ion-content>
+<!--
+ * Separador CONSULTA INSTITUCIÓN
+ * Forma que empaqueta consulta de Intermediarios. 
+ * Metodo principal:verModalCreacionNew();
+ * AUTH GOOGLE CLOUD FIREBASE SERVICE
+ * @author Giovanny Uribe Acevedo     -->
+<ion-content id="searchintermediario" *ngIf="intermediario.optionsearchintermediario =='searchintermediario'">
+  <div style="text-align: right;">
+    <ion-button fill="outline" (click)="closeModal()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="media mb-3">
+        <!-- Avatar -->
+        <div class="avatar avatar-xl avatar-4by3 mr-2">
+          <img  src="../../../../assets/img/LogohorizontalPNG.png">
+        </div>
+        <!-- End Avatar -->
+
+        <div class="media-body">
+          <div class="row">
+            <div class="col-lg mb-3 mb-lg-0">
+              <h1 class="page-header-title text-success text-center" *ngIf="user.role == 'Super Maestro'"> CONSULTA DE
+                INSTITUCIÓNES </h1>
+              <h1 class="page-header-title text-success text-center" *ngIf="user.role != 'Super Maestro'">CONSULTA DE
+                INSTITUCIÓN
+              </h1>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Media -->
+
+    <ion-card>
+      <ion-item>
+        <ion-input type="text" (change)="applyFilterIntermediarios($event.target.value)"
+          (keyup)="applyFilterIntermediarios($event.target.value)" placeholder="Filtro de Busqueda">
+        </ion-input>
+      </ion-item>
+      <div class="div-table">
+
+        <table *ngIf="user.role ==='Super Maestro'" mat-table [dataSource]="dataSourceIntermediario"
+          class="mat-elevation-z8">
+
+          <!--  
+   * Separador INSTITUCIÓN Column
+   * Forma que empaqueta boton de ver el Intermediario. 
+   * Metodo principal:verModalCreacionVer(element);
+   * AUTH GOOGLE CLOUD FIREBASE SERVICE
+   * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="nombre">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef>
+              INSTITUCIÓN </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+              {{element.sigla}} </td>
+          </ng-container>
+
+          <!--  
+   * Separador VER Column
+   * Forma que empaqueta boton de ver el Intermediario. 
+   * Metodo principal:verModalCreacionVer(element);
+   * AUTH GOOGLE CLOUD FIREBASE SERVICE
+   * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="vermas">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> VER
+            </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+              <ion-button  color="success" (click)="verModalCreacionVer(element)">
+                <ion-icon name="eye-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </ng-container>
+          <!--  
+   * Separador EDITAR Column
+   * Forma que empaqueta boton de editar el Intermediario. 
+   * Metodo principal:verModalCreacionEdit(element);
+   * AUTH GOOGLE CLOUD FIREBASE SERVICE
+   * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="edit">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> EDITAR
+            </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+              <ion-button color="success" (click)="verModalCreacionEdit(element)">
+                <ion-icon name="pencil-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </ng-container>
+          <!--  
+    * Separador USUARIOS Column
+    * Forma que empaqueta boton de consulta usuario del Intermediario. 
+    * Metodo principal:consultarUsuarios(element);
+    * AUTH GOOGLE CLOUD FIREBASE SERVICE
+    * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="users">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef>
+              USUARIOS </th>
+            <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+              <ion-button color="success" (click)="consultarUsuarios(element)">
+                <ion-icon name="people-circle-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </ng-container>
+
+          <!--  
+    * Separador SALDO COBERTURA Column
+    * Forma que empaqueta boton de consulta usuario del Intermediario. 
+    * Metodo principal:consultarUsuarios(element);
+    * AUTH GOOGLE CLOUD FIREBASE SERVICE
+    * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="cobertura">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef>BASE SALARIAL </th>
+            <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+              {{element.coberturacreditomora| currency}}
+            </td>
+          </ng-container>
+          <!--  
+    * Separador SALDO COBERTURA Column
+    * Forma que empaqueta boton de consulta usuario del Intermediario. 
+    * Metodo principal:consultarUsuarios(element);
+    * AUTH GOOGLE CLOUD FIREBASE SERVICE
+    * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="administracion">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef>
+              ADMINISTRACIÓN </th>
+            <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+              {{element.administracion| currency}}
+            </td>
+          </ng-container>
+          <!--  
+    * Separador SALDO COBERTURA Column
+    * Forma que empaqueta boton de consulta usuario del Intermediario. 
+    * Metodo principal:consultarUsuarios(element);
+    * AUTH GOOGLE CLOUD FIREBASE SERVICE
+    * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="ivaadministracion">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef>IVA
+              ADMINISTRACIÓN </th>
+            <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+              {{element.ivaadministracion| currency}}
+            </td>
+          </ng-container>
+          <!--  
+    * Separador SALDO COBERTURA Column
+    * Forma que empaqueta boton de consulta usuario del Intermediario. 
+    * Metodo principal:consultarUsuarios(element);
+    * AUTH GOOGLE CLOUD FIREBASE SERVICE
+    * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="comisiontotal">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef>
+               TOTAL</th>
+            <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+              {{element.comisiontotal| currency}}
+            </td>
+          </ng-container>
+          <!--  
+    * Separador SALDO COBERTURA Column
+    * Forma que empaqueta boton de consulta usuario del Intermediario. 
+    * Metodo principal:consultarUsuarios(element);
+    * AUTH GOOGLE CLOUD FIREBASE SERVICE
+    * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="cantidadgarantias">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef>
+              CRÉDITOS</th>
+            <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+              {{element.cantidadgarantias}}
+            </td>
+          </ng-container>
+          <!--  
+    * Separador SALDO COBERTURA Column
+    * Forma que empaqueta boton de consulta usuario del Intermediario. 
+    * Metodo principal:consultarUsuarios(element);
+    * AUTH GOOGLE CLOUD FIREBASE SERVICE
+    * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="saldototal">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef>
+              VALOR CRÉDITO AFIANZADO</th>
+            <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+              {{element.saldototal| currency}}
+            </td>
+          </ng-container>
+
+          <ng-container class="ng-container" matColumnDef="cert">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef>
+              CERTIFICADO </th>
+            <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+              <ion-button color="success" (click)="generateCert(element)">
+                <ion-icon name="cloud-download-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsIntermediarios"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsIntermediarios;"></tr>
+        </table>
+        <!--  
+  * Separador TABLA INSTITUCIÓN  
+  * Forma que empaqueta boton de ver el Intermediario. 
+  * Metodo principal:verModalCreacionVer(element);
+  * AUTH GOOGLE CLOUD FIREBASE SERVICE
+  * @author Giovanny Uribe Acevedo  -->
+        <table *ngIf="user.role ==='Intermediario'" mat-table [dataSource]="dataSourceIntermediario"
+          class="mat-elevation-z8">
+
+          <!--  
+  * Separador INSTITUCIÓN Column
+  * Forma que empaqueta boton de ver el Intermediario. 
+  * Metodo principal:verModalCreacionVer(element);
+  * AUTH GOOGLE CLOUD FIREBASE SERVICE
+  * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="nombre">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef>
+              INSTITUCIÓN </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+              {{element.sigla}} </td>
+          </ng-container>
+
+          <!--  
+  * Separador VER Column
+  * Forma que empaqueta boton de ver el Intermediario. 
+  * Metodo principal:verModalCreacionVer(element);
+  * AUTH GOOGLE CLOUD FIREBASE SERVICE
+  * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="vermas">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> VER
+            </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+              <ion-button color="success" (click)="verModalCreacionVer(element)">
+                <ion-icon name="eye-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </ng-container>
+          <!--  
+  * Separador EDITAR Column
+  * Forma que empaqueta boton de editar el Intermediario. 
+  * Metodo principal:verModalCreacionEdit(element);
+  * AUTH GOOGLE CLOUD FIREBASE SERVICE
+  * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="edit">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> EDITAR
+            </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+              <ion-button color="success" *ngIf="user.role=='Intermediario'||user.role=='Super Maestro'"
+                (click)="verModalCreacionEdit(element)">
+                <ion-icon name="pencil-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </ng-container>
+          <!--  
+  * Separador USUARIOS Column
+  * Forma que empaqueta boton de consulta usuario del Intermediario. 
+  * Metodo principal:consultarUsuarios(element);
+  * AUTH GOOGLE CLOUD FIREBASE SERVICE
+  * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="users">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef>
+              USUARIOS </th>
+            <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+              <ion-button color="success" (click)="consultarUsuarios(element)">
+                <ion-icon name="people-circle-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </ng-container>
+
+          <!--  
+  * Separador SALDO COBERTURA Column
+  * Forma que empaqueta boton de consulta usuario del Intermediario. 
+  * Metodo principal:consultarUsuarios(element);
+  * AUTH GOOGLE CLOUD FIREBASE SERVICE
+  * @author Giovanny Uribe Acevedo  -->
+          <ng-container class="ng-container" matColumnDef="cobertura">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+              *matHeaderCellDef> BASE SALARIAL </th>
+            <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+              {{element.coberturacreditomora| currency}}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsIntermediario"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsIntermediario;"></tr>
+        </table>
+      </div>
+      <mat-paginator #paginatorIntermediarios [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+      </mat-paginator>
+    </ion-card>
+  </div>
+</ion-content>

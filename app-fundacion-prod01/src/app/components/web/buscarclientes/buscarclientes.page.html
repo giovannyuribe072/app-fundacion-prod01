@@ -1,0 +1,133 @@
+<ion-content>
+  <div id="main">
+    <div class="content-page">
+      <!-- Start content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="container">
+            <div class="content container-fluid">
+              <!-- Page Header -->
+              <div class="page-header text-center">
+                <div class="row align-items-center">
+                  <div class="col-sm mb-0 mb-sm-0">
+                    <h1 class="page-header-title text-uppercase text-success">Buscar Clientes
+                    </h1>
+                  </div>
+
+                </div>
+              </div>
+              <!-- End Page Header -->
+
+              <!-- Stats -->
+              <div class="row gx-2 gx-lg-3">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <div class="input-group">
+                      <input [ngModelOptions]="{standalone: true}" [(ngModel)]="documento" type="number"
+                        class="form-control bg-light border-0 small" placeholder="Cédula Cobranza..."
+                        aria-label="Search" aria-describedby="basic-addon2">
+                      <div class="input-group-append">
+                        <button (click)="openConsultar()" class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div> 
+              
+              <ion-card>
+                <div class="div-table"> 
+                  <table   mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                    <!--- Note that these columns can be defined in any order.
+                            The actual rendered columns are set as a property on the row definition" -->
+                    <!-- cobertura Column --> 
+            
+                    <ng-container matColumnDef="identificacion">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> IDENTIFICACIÓN
+                      </th>
+                      <td style="text-align: center;  " mat-cell *matCellDef="let element"> {{element.ceduladeudor}} </td>
+                    </ng-container>
+            
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="nombres">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> NOMBRES </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.nombredeudor}} </td>
+                    </ng-container>
+            
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="apellidos">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> CELULAR </th>
+                      <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.celular}} </td>
+                    </ng-container>
+            
+                    <!-- administracion Column -->
+                    <ng-container matColumnDef="saldo">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>  VALOR CAPITAL </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.valorcapital| currency}} </td>
+                    </ng-container>
+                      <!-- administracion Column --> 
+                    <!-- administracion Column -->
+                    <ng-container matColumnDef="nrocredito">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> NRO. PAGARE </th>
+                      <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.nropagare}} </td>
+                    </ng-container>
+            
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="pagare">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> FECHA PRESTAMO 
+                      </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.fechaprestamo}}
+                      </td>
+                    </ng-container>
+             
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="estado">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> FECHA VENCIMIENTO
+                      </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.fechavencimiento}}
+                      </td>
+                    </ng-container>
+                    
+                    <!-- VER Column -->
+                    <ng-container class="ng-container" matColumnDef="intermediario">
+                      <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                        *matHeaderCellDef> INSTITUCIÓN </th>
+                        <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.intermediariodes}}
+                        </td>
+                    </ng-container>
+                      <!-- VER Column -->
+                      <ng-container class="ng-container" matColumnDef="valorcuota">
+                        <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                          *matHeaderCellDef> VALOR CUOTA </th>
+                          <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.valorcuota| currency}}
+                          </td>
+                      </ng-container> 
+                        <!-- VER Column -->
+                    <ng-container class="ng-container" matColumnDef="cuotas">
+                      <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                        *matHeaderCellDef> CUOTAS </th>
+                        <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.coutas}}
+                        </td>
+                    </ng-container>  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsCartera"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsCartera;"></tr>
+                  </table>
+                </div>
+                <mat-paginator #paginatorGarantias [pageSizeOptions]="[10, 15, 30]" showFirstLastButtons>
+                </mat-paginator>
+              </ion-card>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- END container-fluid -->
+      </div>
+      <!-- END content -->
+    </div>
+    <!-- END content-page -->
+  </div>
+</ion-content>

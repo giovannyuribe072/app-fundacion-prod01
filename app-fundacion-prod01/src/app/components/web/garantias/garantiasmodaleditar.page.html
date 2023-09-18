@@ -1,0 +1,93 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content>
+        <ion-card-header> 
+           <ion-card-title style="text-align: center;" class="text-success">EDICIÓN DEL REPORTE DE CRÉDITOS AFIANZADOS # {{garantiasTotal.idgarantia}}</ion-card-title> 
+            <ion-card>
+                <div class="div-table">
+                  <ion-item> 
+                    <ion-input type="text" (change)="applyFilterGarantias($event.target.value)"
+                    (keyup)="applyFilterGarantias($event.target.value)" placeholder="Filtro de Busqueda">
+                  </ion-input>
+                  </ion-item>
+                  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+                    <!-- cobertura Column -->
+                    <ng-container matColumnDef="idgarantia">
+                      <th style="text-align: center; width: 100px; color: black;"  mat-header-cell *matHeaderCellDef> ID GARANTÍA </th>
+                      <td style="text-align: center; "  mat-cell *matCellDef="let element"> {{element.idgarantiaregistro}} </td>
+                    </ng-container>
+                    <!-- administracion Column -->
+                    <ng-container matColumnDef="identificacion">
+                      <th style="text-align: center; width: 100px; color: black;" mat-header-cell *matHeaderCellDef> IDENTIFICACIÓN </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.identificacion}} </td>
+                    </ng-container>
+            
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="nombres">
+                      <th style="text-align: center; width: 100px; color: black;" mat-header-cell *matHeaderCellDef> NOMBRES </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+                    </ng-container> 
+                    <!-- administracion Column -->
+                    <ng-container matColumnDef="saldo">
+                      <th style="text-align: center; width: 100px; color: black;"  mat-header-cell *matHeaderCellDef> SALDO </th>
+                      <td style="text-align: center;  " mat-cell *matCellDef="let element"> {{element.saldo| currency}} </td>
+                    </ng-container>
+                    <!-- administracion Column -->
+                    <ng-container matColumnDef="cobertura">
+                      <th style="text-align: center; width: 100px; color: black;"mat-header-cell *matHeaderCellDef> COBERTURA </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.cobertura| currency}} </td>
+                    </ng-container>
+            
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="administracion">
+                      <th  style="text-align: center; width: 100px; color: black;"mat-header-cell *matHeaderCellDef> ADMINISTRACIÓN </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.administracion| currency}} </td>
+                    </ng-container>
+            
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="ivaadministracion">
+                      <th style="text-align: center; width: 100px; color: black;"mat-header-cell *matHeaderCellDef> IVA </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.ivaadministracion| currency}} </td>
+                    </ng-container>
+            
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="comisiontotal">
+                      <th style="text-align: center; width: 100px; color: black;" mat-header-cell *matHeaderCellDef> COMISIÓN TOTAL </th>
+                      <td style="text-align: center;  " mat-cell *matCellDef="let element"> {{element.comisiontotal| currency }} </td>
+                    </ng-container>
+            
+                    <!-- VER Column -->
+                    <ng-container class="ng-container" matColumnDef="editar">
+                      <th style="text-align: center; width: 100px; color: black;" class="ng-container" mat-header-cell *matHeaderCellDef> EDITAR </th>
+                      <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+                        <ion-button fill="outline" (click)="openEditar(element)">
+                          <ion-icon name="pencil-outline"></ion-icon>
+                        </ion-button>
+                      </td>
+                    </ng-container>
+            
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsGarantias"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsGarantias;"></tr>
+                  </table>
+                </div>
+                <mat-paginator #paginatorGarantias [pageSizeOptions]="[10, 15, 30]" showFirstLastButtons>
+                </mat-paginator>
+              </ion-card>
+              <div style=" text-align: center;">
+                <ion-button (click)="cancelarEliminacion()">Cancelar</ion-button> 
+              </div>
+        </ion-card-header> 
+    </ion-content>

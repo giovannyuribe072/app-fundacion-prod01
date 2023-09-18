@@ -1,0 +1,154 @@
+<ion-content>
+  <div id="main">
+    <div class="content-page">
+      <!-- Start content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="container">
+            <div class="content container-fluid">
+              <!-- Page Header -->
+              <div class="page-header text-center">
+                <div class="row align-items-center">
+                  <div class="col-sm mb-0 mb-sm-0">
+                    <h1 class="page-header-title text-uppercase text-success">Soporte De Pago Crédito Afianzado
+                    </h1>
+                  </div>
+
+                </div>
+              </div>
+              <!-- End Page Header -->
+  
+              <div style="text-align: right;"> 
+                <ion-button fill="outline" (click)="exporter.exportTable('xlsx',{fileName:'garantiascobradas'})">
+                  <ion-icon name="cloud-download-outline"></ion-icon>
+                </ion-button>
+              </div>
+              <ion-card>
+                <ion-item>
+                  <ion-input type="text" (change)="applyFilterGarantias($event.target.value)"
+                    (keyup)="applyFilterGarantias($event.target.value)" placeholder="Filtro de Busqueda">
+                  </ion-input></ion-item>
+                <div class="div-table"> 
+                  <table #exporter="matTableExporter" matTableExporter mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+ 
+                    <ng-container matColumnDef="intermediario">
+                      <th style="text-align: center;width: 150px; color: black;" mat-header-cell *matHeaderCellDef>
+                     INSTITUCIÓN </th>
+                      <td style="text-align: center;  " mat-cell *matCellDef="let element"> {{element.intermediariodes}}
+                      </td>
+                    </ng-container>
+
+                 <!-- administracion Column -->
+                    <ng-container matColumnDef="identificacion">
+                      <th style="text-align: center;width: 150px; color: black;" mat-header-cell *matHeaderCellDef>
+                     NO.  IDENTIFICACIÓN </th>
+                      <td style="text-align: center;  " mat-cell *matCellDef="let element"> {{element.identificacion}}
+                      </td>
+                    </ng-container>
+
+                   
+
+                    <!-- administracion Column -->
+                    <ng-container matColumnDef="saldo">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>
+                        VALOR COBRADO </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.saldocobrado| currency}}
+                      </td>
+                    </ng-container>
+                    <!-- administracion Column -->
+                    <ng-container matColumnDef="pagare">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>
+                        PAGARÉ</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+                          <a target="_blank" href="{{element.pagareurlFileUpload}}"><ion-icon  name="checkmark-circle-outline"></ion-icon></a>
+                        </td>
+                    </ng-container>
+
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="cartaintruccion">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>
+                        CARTA INSTRUCCIÓN </th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+                          <a target="_blank" href="{{element.cartainstruccionurlFileUpload}}"><ion-icon  *ngIf="element.cartainstruccion" name="checkmark-circle-outline"></ion-icon></a>
+                        </td>
+                    </ng-container>
+
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="liquidacioncredito">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>
+                        FORMATO COBRO GARANTIA </th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+                          <a target="_blank" href="{{element.liquidacioncreditourlFileUpload}}"><ion-icon   *ngIf="element.liquidacioncredito"  name="checkmark-circle-outline"></ion-icon></a>
+                        </td>
+                    </ng-container>
+
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="anexoservicio">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>
+                        ANEXO SERVICIO FIANZA </th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+                          <a target="_blank" href="{{element.anexoserviciourlFileUpload}}"><ion-icon *ngIf="element.anexoservicio"  name="checkmark-circle-outline"></ion-icon></a>
+                        </td>
+                    </ng-container>
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="certificacionriesgo">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>
+                        CERTIFICACIÓN CENTRALES RIESGO </th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+                          <a target="_blank" href="{{element.certificacionriesgourlFileUpload}}"><ion-icon  *ngIf="element.certificacionriesgo"  name="checkmark-circle-outline"></ion-icon></a>
+                        </td>
+                    </ng-container>
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="cedulaciudadania">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>
+                        CÉDULA CIUDADANIA </th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+                          <a target="_blank" href="{{element.cedulaciudadaniaurlFileUpload}}"><ion-icon *ngIf="element.cedulaciudadania"   name="checkmark-circle-outline"></ion-icon></a>
+                        </td>
+                    </ng-container>
+
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="garantiapagada">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>
+                        SOPORTE DE PAGO </th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+                          <a target="_blank" href="{{element.liquidaciongarantiaurlFileUpload}}"><ion-icon *ngIf="element.liquidaciongarantia"   name="checkmark-circle-outline"></ion-icon></a>
+                        </td>
+                    </ng-container>
+                   
+                    <ng-container class="ng-container" matColumnDef="eliminar">
+                      <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                        *matHeaderCellDef> ELIMINAR </th>
+                      <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+                        <ion-button *ngIf="user.role === 'Super Maestro'" (click)="openDevolverModal(element)">
+                          <ion-icon name="trash-outline"></ion-icon>
+                        </ion-button>
+                      </td>
+                    </ng-container> <!-- VER Column -->
+                    <ng-container class="ng-container" matColumnDef="cargardoc">
+                      <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                        *matHeaderCellDef> CARGAR SOPORTE </th>
+                      <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+                        <ion-button *ngIf="user.role === 'Super Maestro'" (click)="openLiquidacionModal(element)">
+                          <ion-icon name="extension-puzzle-outline"></ion-icon></ion-button>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsGarantias"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsGarantias;"></tr>
+                  </table>
+                </div>
+                <mat-paginator #paginatorGarantias [pageSizeOptions]="[10, 15, 30]" showFirstLastButtons>
+                </mat-paginator>
+              </ion-card>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- END container-fluid -->
+      </div>
+      <!-- END content -->
+    </div>
+    <!-- END content-page -->
+  </div>
+</ion-content>

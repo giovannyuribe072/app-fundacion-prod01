@@ -1,0 +1,335 @@
+<ion-content>
+  <div id="main">
+    <div class="content-page">
+      <!-- Start content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="container">
+            <div class="content container-fluid">
+              <!-- Page Header -->
+              <div class="page-header text-center">
+                <div class="row align-items-center">
+                  <div class="col-sm mb-0 mb-sm-0">
+                    <h1 class="page-header-title text-uppercase text-success">Seguimiento
+                    </h1>
+                  </div>
+
+                </div>
+              </div>
+              <!-- End Page Header -->
+
+              <!-- Stats -->  
+                  <div class="col-auto">
+                    <div class="row form-group">
+                      <label  class="col-sm-3 col-form-label input-label">
+                        <ion-icon name="id-card-outline"></ion-icon>Cédula
+                      </label>
+                
+                      <div class="col-sm-4">
+                        <ion-item><ion-input  type="number" class="form-control" required [(ngModel)]="documento" >  
+                        </ion-input> <div class="input-group-append">
+                          <button (click)="openConsultar()" class="btn btn-primary" type="button">
+                            <i class="fas fa-search fa-sm"></i>
+                          </button>
+                        </div> 
+                      </ion-item>
+                        
+                       
+                      </div>
+                      <label  class=" col-form-label input-label">
+                        <ion-icon name="cash-outline"></ion-icon>Valor Pago
+                      </label> 
+                      <div class="col-sm-3">
+                        <ion-item><ion-input  type="number" class="form-control" required [(ngModel)]="seguimiento.valorpago" >  
+                        </ion-input> <div class="input-group-append">
+                          <button (click)="liquidar()" class="btn btn-primary" type="button">
+                            <ion-icon name="card-outline"></ion-icon>
+                          </button>
+                        </div></ion-item>
+                        
+                       
+                      </div>
+                    </div>
+                    <div class="row form-group">
+                      <label  class="col-sm-3 col-form-label input-label">
+                        <ion-icon name="happy-outline"></ion-icon>Nombre
+                      </label>
+                
+                      <div class="col-sm-4">
+                        <ion-input class="form-control" required  [(ngModel)]="carteras.carteralobj.nombredeudor"> 
+                        </ion-input>
+                      </div>
+                      <label  class=" col-form-label input-label">
+                        <ion-icon name="cash-outline"></ion-icon>Valor Capital
+                      </label>
+                
+                      <div class="col-sm-3">
+                        <ion-input class="form-control" required readonly > 
+                          {{carteras.carteralobj.valorcapital| currency}}
+                        </ion-input>
+                      </div> 
+                     </div> 
+                    <div class="row form-group">
+                      <label  class="col-sm-3 col-form-label input-label">
+                        <ion-icon name="call-outline"></ion-icon>Celular
+                      </label>
+                
+                      <div class="col-sm-4">
+                        <ion-input class="form-control" required  [(ngModel)]="carteras.carteralobj.celular" > 
+                        </ion-input>
+                      </div>
+                      <label  class=" col-form-label input-label">
+                        <ion-icon name="alarm-outline"></ion-icon>Dias en Mora
+                      </label>
+                
+                      <div class="col-sm-3">
+                        <ion-input class="form-control" required readonly [(ngModel)]="carteras.carteralobj.diasmora"> 
+                        </ion-input>
+                      </div> 
+                    </div> 
+                    <div class="row form-group">
+                      <label  class="col-sm-3 col-form-label input-label">
+                        <ion-icon name="pin-outline"></ion-icon>Dirección
+                      </label>
+                
+                      <div class="col-sm-4">
+                        <ion-input class="form-control" required   [(ngModel)]="carteras.carteralobj.direccion"  > 
+                        </ion-input>
+                      </div>
+                      <label *ngIf="checkint"  class=" col-form-label input-label">
+                        <ion-icon name="alert-circle-outline"></ion-icon>Tasa en Mora %
+                      </label>
+                
+                      <div *ngIf="checkint" class="col-sm-1">
+                        <ion-input class="form-control" required readonly [(ngModel)]="seguimiento.intereses"> 
+                        </ion-input>
+                      </div> 
+                      <div class="col-sm-2">
+                        <ion-checkbox slot="start" (click)="isAllSelected()"></ion-checkbox> Cobrar Int. Mora y GAC
+                      </div>
+                    </div> 
+                    <div class="row form-group">
+                      <label  class="col-sm-3 col-form-label input-label">
+                        <ion-icon name="person-circle-outline"></ion-icon>Mail
+                      </label>
+                
+                      <div class="col-sm-4">
+                        <ion-input class="form-control" required  [(ngModel)]="carteras.carteralobj.mail"    > 
+                        </ion-input>
+                      </div>
+                      <label *ngIf="checkint" class=" col-form-label input-label">
+                        <ion-icon name="bag-remove-outline"></ion-icon>GAC %
+                      </label>
+                
+                      <div *ngIf="checkint" class="col-sm-1">
+                        <ion-input class="form-control" required min="1" max="100" readonly [(ngModel)]="seguimiento.gac"> 
+                        </ion-input>
+                      </div>  
+                    </div>  
+                    <div class="row form-group"> 
+                      <div class="col-sm-4">
+                        <ion-item>
+                          <ion-label position="floating">
+                            <ion-icon name="book-outline"></ion-icon>Seguimiento
+                          </ion-label>
+                          <ion-textarea  required type="text" [(ngModel)]="seguimiento.seguimiento" >
+                          </ion-textarea>
+                        </ion-item> 
+                      </div>
+                      <div class="col-sm-7">
+                        <div class="row form-group">
+                          <label  class="col-sm-3 col-form-label input-label">
+                            <ion-icon name="analytics-outline"></ion-icon>Fecha Compromiso
+                          </label>
+                    
+                          <div class="col-sm-4">
+                            <ion-datetime  displayFormat="MM DD YYYY" [(ngModel)]="seguimiento.fechacompromiso"
+                            placeholder="Seleccione Fecha" min="2020" max="2100" >
+                          </ion-datetime>
+                          </div>
+                          <label  *ngIf="checkint" class=" col-form-label input-label">
+                            <ion-icon name="bag-remove-outline"></ion-icon>Intereses
+                          </label>
+                    
+                          <div *ngIf="checkint" class="col-sm-3">
+                            <ion-input class="form-control" required readonly > 
+                              {{seguimiento.valorintereses | currency}}
+                            </ion-input>
+                          </div> 
+                        </div>  
+                        <div class="row form-group">
+                          <label  class="col-sm-3 col-form-label input-label">
+                            <ion-icon name="calendar-outline"></ion-icon>Fecha Proxima
+                          </label>
+                    
+                          <div class="col-sm-4">
+                            <ion-datetime  displayFormat="MM DD YYYY" [(ngModel)]="seguimiento.fechaproxima"
+                            placeholder="Seleccione Fecha" min="2020" max="2100" >
+                          </ion-datetime>
+                          </div>
+                          <label *ngIf="checkint"  class=" col-form-label input-label">
+                            <ion-icon name="bag-remove-outline"></ion-icon>GAC
+                          </label>
+                    
+                          <div *ngIf="checkint" class="col-sm-3">
+                            <ion-input class="form-control" required  readonly> 
+                              {{seguimiento.valorgac|currency}} 
+                            </ion-input>
+                          </div> 
+                        </div> 
+                      </div> 
+                    </div> 
+                    <div class="row form-group">
+                      <label class="col-sm-3 col-form-label input-label">
+                        <ion-icon name="at-circle-outline"></ion-icon>Caracterización
+                      </label>
+      
+                      <div class="col-sm-4">
+                        <div class="input-group input-group-sm-down-break">
+                          <ion-select class="form-control"  
+                             required [(ngModel)]="seguimiento.caracterizacion">
+                            <ion-select-option *ngFor="let managerc of managersups" value="{{managerc.descripcion}}">{{managerc.descripcion}}</ion-select-option>
+                          </ion-select>
+                          <!-- End Custom Radio -->
+                        </div>
+                      </div>
+                      <label  class=" col-form-label input-label">
+                        <ion-icon name="cash-outline"></ion-icon>Valor a Pagar
+                      </label>
+                
+                      <div class="col-sm-3">
+                        <ion-input class="form-control" required readonly > 
+                          {{seguimiento.valorapagar|currency}} 
+                        </ion-input>
+                      </div> 
+                    </div>
+                    <div class="row form-group">
+                      <label class="col-sm-3 col-form-label input-label">
+                        <ion-icon name="code-working-outline"></ion-icon>Final de llamada
+                      </label>
+      
+                      <div class="col-sm-4">
+                        <div class="input-group input-group-sm-down-break">
+                          <ion-select class="form-control"  
+                             required [(ngModel)]="seguimiento.finllamada">
+                            <ion-select-option *ngFor="let managerf of managerfins" value="{{managerf.descripcion}}">{{managerf.descripcion}}</ion-select-option>
+                          </ion-select>
+                          <!-- End Custom Radio -->
+                        </div>
+                      </div>
+                      <a class="btn btn-primary" (click)="guardarSeguimiento();"> Guardar Seguimiento</a>
+                    </div>
+                </div> 
+              
+            
+                <ion-card>
+                  <div class="div-table"> 
+                    <table   mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                     
+              
+                      <!-- ivaadministracion Column -->
+                      <ng-container matColumnDef="apellidos">
+                        <th style="text-align: center;width: 150px; color: black;" mat-header-cell *matHeaderCellDef> SEGUIMIENTO </th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.seguimiento}} </td>
+                      </ng-container>
+              
+                      <!-- administracion Column -->
+                      <ng-container matColumnDef="saldo">
+                        <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>  CARACTERIZACIÓN </th>
+                        <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.caracterizacion}} </td>
+                      </ng-container>
+                        <!-- administracion Column --> 
+                      <!-- administracion Column -->
+                      <ng-container matColumnDef="nrocredito">
+                        <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> FINAL LLAMADA </th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.finllamada}} </td>
+                      </ng-container>
+              
+                      <!-- ivaadministracion Column -->
+                      <ng-container matColumnDef="pagare">
+                        <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> FECHA COMPROMISO 
+                        </th>
+                        <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.fechacompromiso}}
+                        </td>
+                      </ng-container>
+               
+                      <!-- ivaadministracion Column -->
+                      <ng-container matColumnDef="estado">
+                        <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> FECHA PROXIMA
+                        </th>
+                        <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.fechaproxima}}
+                        </td>
+                      </ng-container>
+                      
+                      <!-- VER Column -->
+                      <ng-container class="ng-container" matColumnDef="intermediario">
+                        <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                          *matHeaderCellDef> FECHA SEGUIMIENTO </th>
+                          <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.creadoen}}
+                          </td>
+                      </ng-container>
+                        <!-- VER Column -->
+                        <ng-container class="ng-container" matColumnDef="valorcuota">
+                          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                            *matHeaderCellDef> VALOR CAPITAL </th>
+                            <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.valorcapital| currency}}
+                            </td>
+                        </ng-container>
+                        <!-- VER Column -->
+                        <ng-container class="ng-container" matColumnDef="creadopor">
+                          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                            *matHeaderCellDef> CREADO POR </th>
+                            <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.creadopor}}
+                            </td>
+                        </ng-container>     
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsCartera"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumnsCartera;"></tr>
+                    </table>
+                  </div>
+                  <mat-paginator #paginatorGarantias [pageSizeOptions]="[10, 15, 30]" showFirstLastButtons>
+                  </mat-paginator>
+                </ion-card>
+
+                <ion-card>
+                  <div class="div-table"> 
+                    <table   mat-table [dataSource]="dataSourceInt" class="mat-elevation-z8">
+
+                     
+              
+                      <!-- ivaadministracion Column -->
+                      <ng-container matColumnDef="apellidos">
+                        <th style="text-align: center;width: 150px; color: black;" mat-header-cell *matHeaderCellDef> INSTITUCIÓN CARTERA </th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.intermediariodes}} </td>
+                      </ng-container>
+              
+                      <!-- administracion Column -->
+                      <ng-container matColumnDef="saldo">
+                        <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>  NRO.PAGARÉ </th>
+                        <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.nropagare}} </td>
+                      </ng-container>
+                        <!-- administracion Column --> 
+                      <!-- administracion Column -->
+                      <ng-container matColumnDef="nrocredito">
+                        <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> VALOR CAPITAL </th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.valorcapital}} </td>
+                      </ng-container>
+                
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsCarteraInt"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumnsCarteraInt;"></tr>
+                    </table>
+                  </div>
+                  <mat-paginator #paginatorInt [pageSizeOptions]="[10, 15, 30]" showFirstLastButtons>
+                  </mat-paginator>
+                </ion-card>
+            </div>
+          </div>
+
+        </div>
+        <!-- END container-fluid -->
+      </div>
+      <!-- END content -->
+    </div>
+    <!-- END content-page -->
+  </div>
+</ion-content>

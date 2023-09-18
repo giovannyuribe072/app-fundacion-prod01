@@ -1,0 +1,241 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FIGARANTÍAS EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FIGARANTÍAS Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FIGARANTÍAS, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content *ngIf="optionsearch=='search'">
+  <ion-card-header>
+    <div style=" text-align: right;">
+      <ion-button fill="outline" (click)="cerrarConsultar()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <div class="page-header">
+      <div class="media mb-3">
+        <!-- Avatar -->
+        <div class="avatar avatar-xl avatar-4by3 mr-2">
+          <img class="avatar-img" src="../../../../assets/img/customLogo.gif" alt="Image Description">
+        </div>
+        <!-- End Avatar -->
+
+        <div class="media-body">
+          <div class="row">
+            <div class="col-lg mb-3 mb-lg-0">
+              <h1 class="page-header-title text-success text-center"> TOTALES COBRANZA</h1>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-card-header>
+
+  <ion-card>
+    <ion-item>
+      <ion-input type="text" (change)="applyFilterCarteraTotal($event.target.value)"
+        (keyup)="applyFilterCarteraTotal($event.target.value)" placeholder="Filtro de Busqueda">
+      </ion-input>
+    </ion-item>
+    <div class="div-table">
+      <table #exporter="matTableExporter" matTableExporter mat-table [dataSource]="dataSourceTotal"
+        class="mat-elevation-z8">
+        <!-- cobertura Column -->
+        <ng-container matColumnDef="idgarantia">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> ID CARGUE
+            CARTERA </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.idgarantia}} </td>
+        </ng-container>
+        <!-- cobertura Column -->
+        <ng-container matColumnDef="estado">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> ESTADO </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.estado}}</td>
+        </ng-container>
+        <!-- cobertura Column -->
+        <ng-container matColumnDef="idcomision">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> VALOR CAPITAL
+            TOTAL </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.valorcapitaltotal| currency}}
+          </td>
+        </ng-container>
+        <!-- administracion Column -->
+        <ng-container matColumnDef="cobertura">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> CANTIDAD CARTERA
+          </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.cantidadgarantias}} </td>
+        </ng-container>
+
+        <!-- administracion Column -->
+        <ng-container matColumnDef="administracion">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> CREACIÓN CARTERA
+          </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.creadoen}} </td>
+        </ng-container>
+        <!-- ELIMINAR Column -->
+        <ng-container class="ng-container" matColumnDef="descargar">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+            *matHeaderCellDef> DESCARGAR </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element">
+              <a target="_blank" href="{{element.nombrefiledownload}}"><ion-icon   *ngIf="element.nombrefile"  name="checkmark-circle-outline"></ion-icon></a>
+            </td>
+        </ng-container>
+            <!-- ELIMINAR Column -->
+            <ng-container class="ng-container" matColumnDef="cartera">
+              <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                *matHeaderCellDef> DIA CARTERA </th>
+                <td style="text-align: center;" mat-cell *matCellDef="let element">
+                  <ion-button fill="outline" (click)="exportGarantias(element)">
+                    <ion-icon name="cloud-download-outline"></ion-icon>
+                  </ion-button> </td>
+            </ng-container>
+        <!-- ELIMINAR Column -->
+        <!-- VER Column -->
+        <ng-container class="ng-container" matColumnDef="editar">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell *matHeaderCellDef> EDITAR </th>
+          <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+            <ion-button *ngIf="user.role === 'Super Maestro' " fill="outline" (click)="openEditarModal(element)">
+              <ion-icon name="create"></ion-icon>
+            </ion-button>
+          </td>
+        </ng-container>
+        <ng-container class="ng-container" matColumnDef="eliminar">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+            *matHeaderCellDef> ELIMINAR </th>
+          <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+            <ion-button (click)="openEliminar(element)">
+              <ion-icon name="trash-bin-outline"></ion-icon>
+            </ion-button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsCarteraTotal"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsCarteraTotal;"></tr>
+      </table>
+    </div>
+    <mat-paginator #paginatorCarteraTotal [pageSizeOptions]="[10, 15, 30]" showFirstLastButtons>
+    </mat-paginator>
+
+  </ion-card>
+
+</ion-content>
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FIGARANTÍAS EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FIGARANTÍAS Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FIGARANTÍAS, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FIGARANTÍAS EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FIGARANTÍAS Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FIGARANTÍAS, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+
+<ion-card hidden>  
+  <ion-button id="garantiasexcel" fill="outline" (click)="exporters.exportTable('xlsx',{fileName:'Cartera_Dia'})"> 
+  </ion-button> 
+<table #exporters="matTableExporter" matTableExporter mat-table [dataSource]="dataSource"
+  class="mat-elevation-z8">
+  <!--  
+* Separador EMAIL Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+  <ng-container class="ng-container" matColumnDef="intermediario">
+    <th class="ng-container" mat-header-cell *matHeaderCellDef> INSTITUCIÓN </th>
+    <td class="ng-container" mat-cell *matCellDef="let element"> {{element.intermediario}} </td>
+  </ng-container>
+  <ng-container class="ng-container" matColumnDef="ceduladeudor">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> CEDULA DEUDOR </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.ceduladeudor}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="nombredeudor">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> NOMBRE DEUDOR </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.nombredeudor}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="celular">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> CELULAR </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.celular}} </td>
+    </ng-container>
+    <!--  
+* Separador EMAIL Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+  <ng-container class="ng-container" matColumnDef="mail">
+    <th class="ng-container" mat-header-cell *matHeaderCellDef> MAIL </th>
+    <td class="ng-container" mat-cell *matCellDef="let element"> {{element.mail}} </td>
+  </ng-container>
+  <ng-container class="ng-container" matColumnDef="direccion">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> DIRECCION </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="ciudad">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> CIUDAD </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.ciudad}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="departamento">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> DEPARTAMENTO </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.departamento}} </td>
+    </ng-container>
+    <!--  
+* Separador EMAIL Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+  <ng-container class="ng-container" matColumnDef="nropagare">
+    <th class="ng-container" mat-header-cell *matHeaderCellDef> NRO PAGARE </th>
+    <td class="ng-container" mat-cell *matCellDef="let element"> {{element.nropagare}} </td>
+  </ng-container>
+  <ng-container class="ng-container" matColumnDef="valorcapital">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> VALOR CAPITAL </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.valorcapital}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="fechaprestamo">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> FECHA PRESTAMO </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.fechaprestamo}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="fechavencimiento">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> FECHA VENCIMIENTO </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.fechavencimiento}} </td>
+    </ng-container>
+    <!--  
+* Separador EMAIL Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+  <ng-container class="ng-container" matColumnDef="valorcuota">
+    <th class="ng-container" mat-header-cell *matHeaderCellDef> VALOR CUOTAS </th>
+    <td class="ng-container" mat-cell *matCellDef="let element"> {{element.valorcuota}} </td>
+  </ng-container>
+  <ng-container class="ng-container" matColumnDef="coutas">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> CUOTAS </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.coutas}} </td>
+    </ng-container> 
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsCarteraExcel"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumnsCarteraExcel;"></tr>
+</table>
+</ion-card>

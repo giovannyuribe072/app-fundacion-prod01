@@ -1,0 +1,353 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+@media screen and (min-width: 500px) {
+ 
+
+.sc-ion-alert-md-h {
+  --min-width: 600px;
+  --width: auto;
+  --min-height: auto;
+  --height: auto;
+  --max-height: 90%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  outline: none;
+  font-family: var(--ion-font-family, inherit);
+  contain: strict;
+  -ms-touch-action: none;
+  touch-action: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 1001;
+}
+}
+
+
+@media screen and (max-width: 500px) {
+ 
+
+  .sc-ion-alert-md-h {
+    --min-width: 400px;
+    --width: auto;
+    --min-height: auto;
+    --height: auto;
+    --max-height: 90%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    outline: none;
+    font-family: var(--ion-font-family, inherit);
+    contain: strict;
+    -ms-touch-action: none;
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: 1001;
+  }
+  }
+.picker-wrapper.sc-ion-picker-md {
+  margin-left: unset;
+  margin-right: unset;
+  -webkit-margin-start: auto;
+  margin-inline-start: auto;
+  -webkit-margin-end: auto;
+  margin-inline-end: auto;
+  border-radius: 50px;
+}
+.popover-viewport.sc-ion-popover-md {
+  --ion-safe-area-top: 0px;
+  --ion-safe-area-right: 0px;
+  --ion-safe-area-bottom: 0px;
+  --ion-safe-area-left: 0px;
+  
+}
+ 
+.my-custom-class {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    contain: strict;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    background-color: rgb(255, 255, 255);
+    opacity: .9;
+}
+
+.my-custom-class .modal-wrapper {
+    width: 220px;
+    height: 270px; 
+  } 
+
+  .my-custom-class-parametriza-garantia {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    contain: strict;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(158, 172, 204, 0.459);
+}
+.my-custom-class-parametriza-garantia .modal-wrapper {
+  width: 500px;
+  height: 400px;
+  border-radius: 20px;
+}
+.my-custom-class-garantia .modal-wrapper {
+    width: 70%;
+    height: 70%;
+    border-radius: 20px;
+  }
+
+  .my-custom-class-garantia {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    contain: strict;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(158, 172, 204, 0.459);
+}
+@media screen and (max-width: 400px) {
+  .my-custom-class-garantia .modal-wrapper {
+    width: 100%;
+    height: 90%;
+    border-radius: 20px;
+  }
+}
+
+.my-custom-class-parametriza-cobrar {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  contain: strict;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(158, 172, 204, 0.459);
+}
+
+.my-custom-class-parametriza-cobrar .modal-wrapper {
+    width: 600px;
+    height: 400px;
+    border-radius: 20px;
+  }
+.my-custom-class-parametriza {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  contain: strict;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(158, 172, 204, 0.459);
+}
+
+.my-custom-class-parametriza .modal-wrapper {
+    width: 300px;
+    height: 400px;
+    border-radius: 20px;
+  }
+  .my-custom-class-ver {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    contain: strict;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-custom-class-ver .modal-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .my-custom-class-parametriza-80 {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    contain: strict;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(158, 172, 204, 0.459);
+  }
+  
+  .my-custom-class-parametriza-80 .modal-wrapper {
+      width: 80%;
+      height: 80%;
+      border-radius: 80px;
+    }
+  
+ 
+  .spinner {
+    margin: 100px auto;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    text-align: center;
+    
+    -webkit-animation: sk-rotate 2.0s infinite linear;
+    animation: sk-rotate 2.0s infinite linear;
+  }
+  
+  .dot1, .dot2 {
+    width: 60%;
+    height: 60%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    background-color: rgb(56,118,29);
+    border-radius: 100%;
+    
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+  }
+  
+  .dot2 {
+    top: auto;
+    bottom: 0;
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+  }
+  
+  @-webkit-keyframes sk-rotate { 100% { -webkit-transform: rotate(360deg) }}
+  @keyframes sk-rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}
+  
+  @-webkit-keyframes sk-bounce {
+    0%, 100% { -webkit-transform: scale(0.0) }
+    50% { -webkit-transform: scale(1.0) }
+  }
+  
+  @keyframes sk-bounce {
+    0%, 100% { 
+      transform: scale(0.0);
+      -webkit-transform: scale(0.0);
+    } 50% { 
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+    }
+  }
+
+  
+  .my-custom-class-privacity {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    contain: strict;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-custom-class-privacity .modal-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .my-custom-class-chrome {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    contain: strict;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-custom-class-chrome .modal-wrapper {
+    width: 30%;
+    height: 20%;
+  }
+
+
+  .content-page {
+    margin-left: 250px;
+    overflow: hidden;
+  }
+  
+  .content-page .content {
+    margin-top: 90px;
+  }
+   
+  @media screen and (max-width: 420px) {
+    .content-page {
+      margin-left: 47px;
+      overflow: hidden;
+    }
+    
+    .content-page .content {
+      margin-top: 90px;
+    }
+  }

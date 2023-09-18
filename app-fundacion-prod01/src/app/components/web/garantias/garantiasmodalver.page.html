@@ -1,0 +1,1394 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FIGARANTÍAS EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FIGARANTÍAS Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FIGARANTÍAS, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content *ngIf="optionsearch=='search'">
+  <ion-card-header>
+    <div style=" text-align: right;">
+      <ion-button fill="outline" (click)="cerrarConsultar()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <div class="page-header">
+      <div class="media mb-3">
+        <!-- Avatar -->
+        <div class="avatar avatar-xl avatar-4by3 mr-2">
+          <img class="avatar-img" src="../../../../assets/img/customLogo.gif" alt="Image Description">
+        </div>
+        <!-- End Avatar -->
+
+        <div class="media-body">
+          <div class="row">
+            <div class="col-lg mb-3 mb-lg-0">
+              <h1 class="page-header-title text-success text-center" > TOTALES CARGUE DE GARANTÍAS</h1> 
+
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-card-header>
+  <div style="text-align: right;">
+    <ion-button fill="outline" (click)="sumarCargues()">
+      <ion-icon name="albums"></ion-icon>
+    </ion-button>
+    <ion-button fill="outline" (click)="exporter.exportTable('xlsx',{fileName:'garantiastotales'})">
+      <ion-icon name="cloud-download-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <ion-card>
+    <ion-item> 
+      <ion-input type="text" (change)="applyFilterGarantiasTotal($event.target.value)"
+      (keyup)="applyFilterGarantiasTotal($event.target.value)" placeholder="Filtro de Busqueda">
+    </ion-input>
+    </ion-item>
+    <div class="div-table"> 
+      <table #exporter="matTableExporter" matTableExporter mat-table [dataSource]="dataSourceTotal"
+        class="mat-elevation-z8">
+        <!-- cobertura Column -->
+        <ng-container matColumnDef="idgarantia">
+          <th style="text-align: center;width: 130px; color: black;"  mat-header-cell *matHeaderCellDef> ID CARGUE GARANTÍAS </th>
+          <td style="text-align: center;"  mat-cell *matCellDef="let element"> {{element.idgarantia}} </td>
+        </ng-container> 
+        <!-- cobertura Column -->
+        <ng-container matColumnDef="estado">
+          <th style="text-align: center;width: 130px; color: black;"  mat-header-cell *matHeaderCellDef> ESTADO </th>
+          <td style="text-align: center;"  mat-cell *matCellDef="let element"> {{element.estado}}</td>
+        </ng-container>
+        <!-- cobertura Column -->
+        <ng-container matColumnDef="idcomision">
+          <th style="text-align: center;width: 130px; color: black;"  mat-header-cell *matHeaderCellDef> FECHA REPORTE </th>
+          <td style="text-align: center;"  mat-cell *matCellDef="let element"> {{element.fechareporte}}</td>
+        </ng-container>
+        <!-- administracion Column -->
+        <ng-container matColumnDef="cobertura">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> COBERTURA </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.cobertura| currency}} </td>
+        </ng-container>
+        <!-- ivaadministracion Column -->
+        <ng-container matColumnDef="administracion">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> ADMINISTRACIÓN </th>
+          <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.administracion| currency}} </td>
+        </ng-container>
+        <!-- ivaadministracion Column -->
+        <ng-container matColumnDef="ivaadministracion">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> IVA </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.ivaadministracion| currency}} </td>
+        </ng-container>
+        <!-- ivaadministracion Column -->
+        <ng-container matColumnDef="comisiontotal">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> COMISIÓN TOTAL </th>
+          <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.comisiontotal| currency}} </td>
+        </ng-container>
+        <!-- file Column -->
+        <ng-container matColumnDef="nombrefile">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> ARCHIVO GARANTÍAS </th>
+          <td style="text-align: center; " mat-cell *matCellDef="let element">
+            <ion-button fill="outline" (click)="exportGarantias(element)">
+              <ion-icon name="cloud-download-outline"></ion-icon>
+            </ion-button>
+          </td>
+        </ng-container>
+        <!-- VER Column -->
+        <ng-container class="ng-container" matColumnDef="aprobar">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell *matHeaderCellDef> APROBAR </th>
+          <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+            <ion-button fill="outline" (click)="openAprobar(element)">
+              <ion-icon name="cash-outline"></ion-icon>
+            </ion-button>
+          </td>
+        </ng-container>
+        <!-- VER Column -->
+        <ng-container class="ng-container" matColumnDef="editar">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell *matHeaderCellDef> EDITAR </th>
+          <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+            <ion-button *ngIf="user.role === 'Super Maestro' " fill="outline" (click)="openEditar(element)">
+              <ion-icon name="create"></ion-icon>
+            </ion-button>
+          </td>
+        </ng-container>
+        <!-- ELIMINAR Column -->
+        <ng-container class="ng-container" matColumnDef="eliminar">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell *matHeaderCellDef> ELIMINAR </th>
+          <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+            <ion-button  (click)="openEliminar(element)">
+              <ion-icon name="trash-bin-outline"></ion-icon>
+            </ion-button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsGarantiasTotal"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsGarantiasTotal;"></tr>
+      </table>
+    </div>
+    <mat-paginator #paginatorGarantiasTotal [pageSizeOptions]="[10, 15, 30]" showFirstLastButtons>
+    </mat-paginator>
+    
+  <form hidden method="POST"> 
+    &nbsp; 
+    <div class="row textcont">
+        <div class="col-md-6"> 
+            <input type="text" class="form-control" [(ngModel)]="correoinfo.nom" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-md-6"> 
+            <input type="text" class="form-control" [(ngModel)]="correoinfo.ent" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-md-6"> 
+            <input type="text" class="form-control" [(ngModel)]="correoinfo.tel" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-md-6"> 
+            <input type="text" class="form-control" [(ngModel)]="correoinfo.ciu" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-md-12"> 
+            <input type="text" class="form-control" [(ngModel)]="correoinfo.ema" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-md-12"> 
+            <textarea class="form-control" [(ngModel)]="correoinfo.des" [ngModelOptions]="{standalone: true}"></textarea>
+        </div> 
+    </div>
+    &nbsp; 
+    <div class="text-center"> 
+        <button (click)="contactSend()" class="btn btn-primary btn-xl text-uppercase" id="sendMessageButton" type="submit"></button>
+    </div>  
+</form>
+  </ion-card>
+  <ion-card-header>
+    <div class="page-header">
+      <div class="media mb-3">
+        <!-- Avatar -->
+   
+        <!-- End Avatar -->
+
+        <div class="media-body">
+          <div class="row">
+            <div class="col-lg mb-3 mb-lg-0">
+              <h1 class="page-header-title text-success text-center" >  CONSULTA DE GARANTÍA</h1> 
+
+              <div class="row align-items-center">
+                <div class="col-auto">
+                  <div class="input-group">
+                    <input [ngModelOptions]="{standalone: true}" [(ngModel)]="documento" type="text"
+                      class="form-control bg-light border-0 small" placeholder="Cédula Garantía..."
+                      aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button (click)="openConsultar()" class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div> 
+  </ion-card-header>
+  <ion-card hidden>  
+      <ion-button id="garantiasexcel" fill="outline" (click)="exporters.exportTable('xlsx',{fileName:'garantias'})"> 
+      </ion-button> 
+    <table #exporters="matTableExporter" matTableExporter mat-table [dataSource]="dataSource"
+      class="mat-elevation-z8">
+      <!--  
+* Separador EMAIL Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="intermediario">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> INSTITUCIÓN </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.intermediario}} </td>
+      </ng-container>
+      <!--  
+* Separador INSTITUCIÓN Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="tipoidentificacion">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> TIPO IDENTIFICACIÓN </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.tipoidentificacion}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="identificacion">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> IDENTIFICACIÓN </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.identificacion}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="codigociiu">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> CODIGO CIIU </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.codigociiu}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="apellidos">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> APELLIDOS </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="nombres">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> NOMBRES </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="municipiocliente">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> MUNICIPIO CLIENTE </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.municipiocliente}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="direccionclienteuno">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> DIRECCIÓN CLIENTE UNO </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.direccionclienteuno}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="direccionclientedos">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> DIRECCIÓN CLIENTE DOS </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.direccionclientedos}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="telefonouno">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> TELEFONO UNO </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.telefonouno}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="telefonodos">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> TELEFONO DOS </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.telefonodos}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="celular">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> CELULAR </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.celular}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="correoelectronico">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> CORREO ELECTRÓNICO </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.correoelectronico}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="nombrecodeudor">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> NOMBRE CODEUDOR </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.nombrecodeudor}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="identificacioncodeudor">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> IDENTIFICACIÓN CODEUDOR </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.identificacioncodeudor}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="direccioncodeudor">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> DIRECCIÓN CODEUDOR </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.direccioncodeudor}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="telefonocodeudor">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> TELEFONO CODEUDOR </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.telefonocodeudor}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="celularcodeudor">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> CELULAR CODEUDOR </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.celularcodeudor}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="credito">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> CREDITO </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.credito}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="pagare">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> NRO. PAGARE </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.pagare}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="plazo">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> PLAZO </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.plazo}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="periodo">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> PERIODO </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.periodo}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="tasa">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> TASA </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.tasa}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="fechadesembolso">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> FECHA DESEMBOLSO </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.fechadesembolso}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="fechavencimiento">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> FECHA VENCIMIENTO </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.fechavencimiento}} </td>
+      </ng-container>
+      
+            <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+<ng-container class="ng-container" matColumnDef="amortizacion">
+  <th class="ng-container" mat-header-cell *matHeaderCellDef> AMORTIZACIÓN </th>
+  <td class="ng-container" mat-cell *matCellDef="let element"> {{element.amortizacion}} </td>
+</ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="periodogracia">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> PERIODO GRACIA </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.periodogracia}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="valormontodesembolsado">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> VALOR MONTO DESEMBOLSADO </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.valormontodesembolsado| currency}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="saldo">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> SALDO </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.saldo| currency}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="cobertura">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> COBERTURA </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.cobertura | currency}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="administracion">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> ADMINISTRACIÓN </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.administracion| currency}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="ivaadministracion">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> IVA ADMINISTRACIÓN</th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.ivaadministracion| currency}} </td>
+      </ng-container>
+      <!--  
+* Separador TELEFONO Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+      <ng-container class="ng-container" matColumnDef="comisiontotal">
+        <th class="ng-container" mat-header-cell *matHeaderCellDef> COMISIÓN TOTAL </th>
+        <td class="ng-container" mat-cell *matCellDef="let element"> {{element.comisiontotal| currency}} </td>
+      </ng-container> 
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsGarantiasExcel"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsGarantiasExcel;"></tr>
+    </table>
+  </ion-card>
+</ion-content>
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FIGARANTÍAS EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FIGARANTÍAS Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FIGARANTÍAS, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ --><ion-content *ngIf="optionsearch==='consultar'">
+  <ion-card-header>
+    <div class="page-header">
+      <div class="media mb-3">
+        <!-- Avatar -->
+        <div class="avatar avatar-xl avatar-4by3 mr-2">
+          <img class="avatar-img" src="../../../../assets/img/customLogo.gif" alt="Image Description">
+        </div>
+        <!-- End Avatar -->
+  
+        <div class="media-body">
+          <div class="row">
+            <div class="col-lg mb-3 mb-lg-0">
+              <h1 class="page-header-title text-success text-center" >GARANTÍAS</h1> 
+   
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div> 
+  </ion-card-header>
+    <ion-card>
+      <div class="div-table">
+        <ion-item>
+        <ion-input type="text" (change)="applyFilterGarantias($event.target.value)"
+          (keyup)="applyFilterGarantias($event.target.value)" placeholder="Filtro de Busqueda">
+        </ion-input></ion-item>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+          <!-- cobertura Column -->
+          <ng-container matColumnDef="idgarantia">
+            <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> ID CARGUE GARANTÍAS </th>
+            <td style="text-align: center;  " mat-cell *matCellDef="let element"> {{element.idgarantia}} </td>
+          </ng-container>
+          <!-- administracion Column -->
+          <ng-container matColumnDef="identificacion">
+            <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> IDENTIFICACIÓN </th>
+            <td style="text-align: center;  " mat-cell *matCellDef="let element"> {{element.identificacion}} </td>
+          </ng-container>
+  
+          <!-- ivaadministracion Column -->
+          <ng-container matColumnDef="nombres">
+            <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> NOMBRES </th>
+            <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+          </ng-container>
+  
+          <!-- ivaadministracion Column -->
+          <ng-container matColumnDef="apellidos">
+            <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> APELLIDOS </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+          </ng-container>
+  
+          <!-- administracion Column -->
+          <ng-container matColumnDef="saldo">
+            <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> SALDO </th>
+            <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.saldo| currency}} </td>
+          </ng-container>
+          <!-- administracion Column -->
+          <ng-container matColumnDef="cobertura">
+            <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> COBERTURA </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.cobertura| currency}} </td>
+          </ng-container>
+  
+          <!-- ivaadministracion Column -->
+          <ng-container matColumnDef="administracion">
+            <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> ADMINISTRACIÓN </th>
+            <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.administracion| currency}} </td>
+          </ng-container>
+  
+          <!-- ivaadministracion Column -->
+          <ng-container matColumnDef="ivaadministracion">
+            <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> IVA </th>
+            <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.ivaadministracion| currency}} </td>
+          </ng-container>
+  
+          <!-- ivaadministracion Column -->
+          <ng-container matColumnDef="comisiontotal">
+            <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> COMISIÓN TOTAL </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.comisiontotal| currency }} </td>
+          </ng-container>
+  
+          <!-- VER Column -->
+          <ng-container class="ng-container" matColumnDef="ver">
+            <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell *matHeaderCellDef> VER </th>
+            <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+              <ion-button (click)="openVer(element)">
+                <ion-icon name="eye-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsGarantias"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsGarantias;"></tr>
+        </table>
+      </div>
+      <mat-paginator #paginatorGarantias [pageSizeOptions]="[10, 15, 30]" showFirstLastButtons>
+      </mat-paginator>
+    </ion-card>
+    <div style=" text-align: center;">
+      <ion-button (click)="close()">Cerrar</ion-button>
+    </div>
+  </ion-content>
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FIGARANTÍAS EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FIGARANTÍAS Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FIGARANTÍAS, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content id="verintermediario" *ngIf="optionsearch=='ver'">
+
+ 
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="media mb-3">
+        <!-- Avatar -->
+        <div class="avatar avatar-xl avatar-4by3 mr-2">
+          <img class="avatar-img" src="../../../../assets/img/customLogo.gif" alt="Image Description">
+        </div>
+        <!-- End Avatar -->
+
+        <div class="media-body">
+          <div class="row">
+            <div class="col-lg mb-3 mb-lg-0">
+              <h1 class="page-header-title text-success text-center"  > INFORMACIÓN DE LA
+                GARANTÍA </h1> 
+ 
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div> 
+    <!-- End Page Header -->
+
+    <div class="row">
+      <div class="col-lg-3">
+        <!-- Navbar -->
+        <div class="navbar-vertical navbar-expand-lg mb-3 mb-lg-5">
+          <!-- Navbar Toggle -->
+          <button type="button" class="navbar-toggler btn btn-block btn-white mb-3" aria-label="Toggle navigation"
+            aria-expanded="false" aria-controls="navbarVerticalNavMenu" data-toggle="collapse"
+            data-target="#navbarVerticalNavMenu">
+            <span class="d-flex justify-content-between align-items-center">
+              <span class="h5 mb-0"></span>
+
+              <span class="navbar-toggle-default">
+                <i class="tio-menu-hamburger"></i>
+              </span>
+
+              <span class="navbar-toggle-toggled">
+                <i class="tio-clear"></i>
+              </span>
+            </span>
+          </button>
+          <!-- End Navbar Toggle -->
+
+          <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
+            <!-- Navbar Nav -->
+            <ul id="navbarSettings"
+              class="js-sticky-block js-scrollspy navbar-nav navbar-nav-lg nav-tabs card card-navbar-nav"
+              data-hs-sticky-block-options="{
+                  &quot;parentSelector&quot;: &quot;#navbarVerticalNavMenu&quot;,
+                  &quot;breakpoint&quot;: &quot;lg&quot;,
+                  &quot;startPoint&quot;: &quot;#navbarVerticalNavMenu&quot;,
+                  &quot;endPoint&quot;: &quot;#stickyBlockEndPoint&quot;,
+                  &quot;stickyOffsetTop&quot;: 20
+                }">
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="" (click)="scrollToElement(content)">
+                  <i class="tio-user-outlined nav-icon"></i> Información Garantía
+                </a>
+              </li>
+            </ul>
+            <!-- End Navbar Nav -->
+          </div>
+        </div>
+        <!-- End Navbar -->
+      </div>
+
+      <div class="col-lg-9">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+          <!-- Profile Cover -->
+          <div class="profile-cover">
+            <div class="profile-cover-img-wrapper">
+              <img id="profileCoverImg" class="profile-cover-img" src="../../../../assets/img/trescru.gif"
+                alt="Image Description">
+
+
+              <!-- End Custom File Cover -->
+            </div>
+          </div>
+          <!-- End Profile Cover -->
+
+          <!-- Avatar -->
+          <label class="avatar avatar-xxl avatar-circle avatar-border-lg avatar-uploader profile-cover-avatar"
+            for="avatarUploader">
+            <img class="avatar-img">
+
+
+
+          </label>
+          <!-- End Avatar -->
+
+          <!-- Body -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-5">
+                <!-- Select -->
+
+                <!-- End Select -->
+              </div>
+            </div>
+            <!-- End Row -->
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div #content class="card mb-3 mb-lg-5">
+          <div class="card-header">
+            <h2 class="card-title h4 text-success"> <i class="tio-pages-outlined nav-icon"></i>INFORMACIÓN GARANTÍA</h2>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+            <!-- Form -->
+            <form>
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="firstNameLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="key-outline"></ion-icon> Identificación Perido De Comisión
+                </label>
+
+                <div class="col-sm-9">
+                  <div class="input-group input-group-sm-down-break">
+                    <ion-input readonly class="form-control" readonly [(ngModel)]="garantia.idcomision"
+                      [ngModelOptions]="{standalone: true}">
+                    </ion-input>
+                  </div>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="emailLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="finger-print-outline"></ion-icon>Código Linea De Crédito
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" readonly [(ngModel)]="garantia.codigolineacrediticio"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="phoneLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="attach-outline"></ion-icon>Tipo Identificación
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.tipoidentificacion" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="organizationLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-outline"></ion-icon>No. Identificación
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" readonly [(ngModel)]="garantia.identificacion"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div id="accountType" class="row form-group">
+                <label class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="stats-chart-outline"></ion-icon>Código CIIU
+                </label>
+
+                <div class="col-sm-9">
+                  <div class="input-group input-group-sm-down-break">
+                    <ion-input class="form-control" readonly [(ngModel)]="garantia.codigociiu"
+                      [ngModelOptions]="{standalone: true}">
+                    </ion-input>
+                    <!-- End Custom Radio -->
+                  </div>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="locationLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="happy-outline"></ion-icon> Apellidos
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" readonly [(ngModel)]="garantia.codigociiu"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="addressLine1Label" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="happy-outline"></ion-icon> Nombres
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" readonly [(ngModel)]="garantia.nombres"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="addressLine2Label" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="location-outline"></ion-icon>Municipio Cliente
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" readonly [(ngModel)]="garantia.municipiocliente"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="pin-outline"></ion-icon>Dirección Cliente 1
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" readonly [(ngModel)]="garantia.direccionclienteuno" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="pin-outline"></ion-icon>Dirección Cliente 2
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" readonly [(ngModel)]="garantia.direccionclientedos" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>Teléfono 1
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" readonly [(ngModel)]="garantia.telefonouno" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>Teléfono 2
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input class="form-control" readonly [(ngModel)]="garantia.telefonodos" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- Form Group -->
+              <div class="row form-group ">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon> No. Celular
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.celular" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-circle-outline"></ion-icon> Correo Electrónico
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.correoelectronico" required type="text"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="happy-outline"></ion-icon>Nombre Codeudor
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.nombrecodeudor" required type="text"
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="person-outline"></ion-icon>No. Identificación Codeudor
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.identificacioncodeudor" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="pin-outline"></ion-icon>Dirección Codeudor
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.direccioncodeudor" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>Teléfono Codeudor
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.telefonocodeudor" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="call-outline"></ion-icon>No. Celular Codeudor
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.celularcodeudor" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="pricetags-outline"></ion-icon>No. De Crédito
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.credito" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="document-attach-outline"></ion-icon>No. Pagaré
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.pagare" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="calendar-outline"></ion-icon>Plazo Obligación
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.plazo" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="pricetags-outline"></ion-icon>Periodo cobertura
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.periodo" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+                </div>
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="code-working-outline"></ion-icon>Tasa E.A Aplicada
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.tasa" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="calendar-outline"></ion-icon>Fecha Desembolso (DD/MM/AAAA)
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.fechadesembolso" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="calendar-outline"></ion-icon>Fecha De Vencimiento
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.fechavencimiento" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="color-wand-outline"></ion-icon>Amortización
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.amortizacion" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="podium-outline"></ion-icon>Periodo De Gracia
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.periodogracia" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="journal-outline"></ion-icon>Valor Monto Desembolsado
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.valormontodesembolsado" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="wallet-outline"></ion-icon>Saldo
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.saldo" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="calculator-outline"></ion-icon>Cobertura
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.cobertura" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="briefcase-outline"></ion-icon>Administración
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.administracion" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="cafe-outline"></ion-icon>Iva Administración
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.ivaadministracion" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="pricetags-outline"></ion-icon>Comisión Total
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.comisiontotal" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="cafe-outline"></ion-icon>Estado
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.estado" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="body-outline"></ion-icon>Creado Por
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.creadopor" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="calendar-outline"></ion-icon>Creado En
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.creadoen" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="body-outline"></ion-icon>Modificado Por
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.modificadopor" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="calendar-outline"></ion-icon>Modificado En
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.modificadoen" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+              <!-- End Form Group -->
+              <!-- End Form Group -->
+              <!-- Form Group -->
+              <div class="row form-group">
+                <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+                  <ion-icon name="bonfire-outline"></ion-icon>Modificación Causa
+                </label>
+
+                <div class="col-sm-9">
+                  <ion-input readonly class="form-control" [(ngModel)]="garantia.modificacioncausa" required
+                    [ngModelOptions]="{standalone: true}">
+                  </ion-input>
+
+                </div>
+              </div>
+            </form>
+            <!-- End Form -->
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Sticky Block End Point -->
+        <div id="stickyBlockEndPoint"></div>
+      </div>
+    </div>
+    <!-- End Row -->
+  </div>
+  <div style=" text-align: center;">
+    <ion-button (click)="closeConsult()">Cerrar</ion-button>
+  </div>
+</ion-content>

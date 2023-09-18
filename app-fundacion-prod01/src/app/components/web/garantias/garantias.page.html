@@ -1,0 +1,185 @@
+<!-- /*!
+* GARANTÍAS  PAGINA SOFTWARE FIGARANTÍAS EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FIGARANTÍAS Authors
+* pathweb=(HASTECNOLOGIA SAS/menu/garantias)
+* pathAplicationConfig=garantias.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* garantias v0.0.1 (HASTECNOLOGIA SAS/menu/garantias) 
+* Copyright 2020-2021 FIGARANTÍAS, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content>
+  <div id="main" >
+    <div class="content-page">
+      <!-- Start content -->
+      <div class="content">
+        <div class="content container-fluid">
+          <div class="row align-items-sm-center py-sm-10">
+            <div class="col-sm-6">
+              <div class="text-center text-sm-right mr-sm-4 mb-5 mb-sm-0">
+                <img class="w-60 w-sm-100 mx-auto" src="../../../../assets/img/samuel4.png"  style="max-width: 23rem;min-width: 15rem;">
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4 text-center text-sm-left">
+              <h1 class="display-1 mb-0 text-success">CARGUE DE GARANTÍAS</h1>
+              <p class="lead">Consulta y carga el reporte de créditos afianzados.</p>
+              <!--
+                       * Separador SELECCIÓN DE INSTITUCIÓN
+                       * Forma que empaqueta tabla Intermediarios. 
+                       * Metodo principal:selectIntermediario()
+                       * AUTH GOOGLE CLOUD FIREBASE SERVICE
+                       * @author Giovanny Uribe Acevedo  -->
+              <ion-col>
+
+                <!--
+        * Separador SELECCIÓN DE INSTITUCIÓN
+        * Forma que empaqueta tabla Intermediarios. 
+        * Metodo principal:selectIntermediario()
+        * AUTH GOOGLE CLOUD FIREBASE SERVICE
+        * @author Giovanny Uribe Acevedo  -->
+                <div *ngIf="optionselectintermediario == 'close' && user.role === 'Super Maestro'">
+                  <ion-card-header>
+                    <ion-card-title>Selección de intermediario</ion-card-title>
+                  </ion-card-header>
+                  <ion-card class="shadow">
+                    <div class="div-table">
+                      <ion-item>
+                        <ion-input type="text" (change)="applyFilterIntermediarios($event.target.value)"
+                          (keyup)="applyFilterIntermediarios($event.target.value)" placeholder="Filtro de Busqueda">
+                        </ion-input>
+                      </ion-item>
+                      <table mat-table [dataSource]="dataSourceIntermediario" class="mat-elevation-z8">
+                        <!-- nombre Table Column -->
+                        <ng-container class="ng-container" matColumnDef="nombre">
+                          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                            *matHeaderCellDef> INSTITUCIÓN </th>
+                          <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+                            {{element.sigla}} </td>
+                        </ng-container>
+
+                        <!--  
+        * Separador SELECCIONAR Column
+        * Forma que empaqueta boton de seleccionar el Intermediario. 
+        * Metodo principal:selectIntermediario(element);
+        * AUTH GOOGLE CLOUD FIREBASE SERVICE
+        * @author Giovanny Uribe Acevedo  -->
+                        <ng-container class="ng-container" matColumnDef="select">
+                          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                            *matHeaderCellDef> SELECCIONAR </th>
+                          <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+                            <ion-button (click)="selectIntermediario(element)">
+                              <ion-icon name="checkmark-done-outline"></ion-icon>
+                            </ion-button>
+                          </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsIntermediario"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsIntermediario;"></tr>
+                      </table>
+                    </div>
+                    <mat-paginator #paginatorIntermediarios [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+                    </mat-paginator>
+                  </ion-card>
+                </div>
+                <div *ngIf=" optionselectintermediario == 'open'">
+                  <!--
+        * Separador SELECCIÓN DE OTRO INSTITUCIÓN
+        * Forma que empaqueta BUSQUEDA Intermediarios. 
+        * Metodo principal:selectOtherIntermediario()
+        * AUTH GOOGLE CLOUD FIREBASE SERVICE
+        * @author Giovanny Uribe Acevedo  -->
+                  <ion-button *ngIf="user.role === 'Super Maestro'" (click)="selectOtherIntermediario()">Seleccionar
+                    Otro</ion-button>
+                  <!--
+        * Separador SELECCIÓN DE TIPO DE COMISIÓN 
+        * Forma que empaqueta tabla Intermediarios. 
+        * Metodo principal:getTiposLineas()
+        * AUTH GOOGLE CLOUD FIREBASE SERVICE
+        * @author Giovanny Uribe Acevedo  -->
+                  <ion-item>
+                    <ion-label position="floating">
+                      <ion-icon name="attach-outline"></ion-icon>TIPO DE COMISIÓN
+                    </ion-label>
+                    <ion-select [(ngModel)]="comision.idcomision" [ngModelOptions]="{standalone: true}" required>
+                      <ion-select-option *ngFor="let comision of comisiones" value="{{comision.idcomision}}">
+                        {{comision.idcomision}}. {{comision.descripcion}}. COMISIÓN TOTAL: {{comision.comisiontotal}}%
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  <!--
+        * Separador LEER ARCHIVO GARANTÍAS INSTITUCIÓN
+        * Forma que empaqueta GARANTÍAS Intermediarios. 
+        * Metodo principal:changeListener()
+        * AUTH GOOGLE CLOUD FIREBASE SERVICE
+        * @author Giovanny Uribe Acevedo  -->
+                  <ion-item *ngIf="optionselectintermediario == 'open'">
+                    <ion-label position="floating">
+                      <ion-icon name="newspaper-outline"></ion-icon>GARANTÍAS
+                    </ion-label>
+                    <br>
+                    <ion-input id="comisiones" type="file" accept="*" (change)="changeListener($event,'garantias')"
+                      required></ion-input>
+                  </ion-item>
+                  <!--
+        * Separador CARGUE GARANTÍAS INSTITUCIÓN
+        * Forma que empaqueta CARGUE COMISIONES Intermediarios. 
+        * Metodo principal:crearComisiones()
+        * AUTH GOOGLE CLOUD FIREBASE SERVICE
+        * @author Giovanny Uribe Acevedo  -->
+                  <ion-item>
+                    <ion-label position="floating">
+                      <ion-icon name="calendar-outline"></ion-icon>FECHA DEL REPORTE
+                    </ion-label>
+                    <ion-datetime displayFormat="MM YYYY" placeholder="Seleccionar Fecha" min="2000" max="2999"
+                      [(ngModel)]="fechareporte" [ngModelOptions]="{standalone: true}">
+                    </ion-datetime>
+                  </ion-item>
+                  <!--
+        * Separador CARGUE GARANTÍAS INSTITUCIÓN
+        * Forma que empaqueta CARGUE COMISIONES Intermediarios. 
+        * Metodo principal:crearComisiones()
+        * AUTH GOOGLE CLOUD FIREBASE SERVICE
+        * @author Giovanny Uribe Acevedo  -->
+                  <br>
+                  <ion-item>
+                    <ion-icon name="wallet-outline"></ion-icon>
+                    <ion-button fill="outline" (click)="crearGarantiasComisiones()">Cargue Garantías</ion-button>
+                  </ion-item>
+                  <!--
+* Separador CONSULTA COMISIONES INSTITUCIÓN
+* Forma que empaqueta CONSULTA COMISIONES Intermediarios. 
+* Metodo principal:consultarComisiones()
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+                  <ion-item>
+                    <ion-icon name="card-outline"></ion-icon>
+                    <ion-button fill="outline" (click)="consultarGarantias()">Consultar Garantías</ion-button>
+                  </ion-item>
+
+                  <!--
+* Separador CONSULTA COMISIONES INSTITUCIÓN
+* Forma que empaqueta CONSULTA COMISIONES Intermediarios. 
+* Metodo principal:consultarComisiones()
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+                  <ion-item>
+                    <ion-icon name="albums-outline"></ion-icon>
+                    <ion-button fill="outline" (click)="sumarCargueGarantiasFechaSinComision()">Suma Garantías</ion-button>
+                  </ion-item> 
+                </div>
+
+
+              </ion-col>
+            </div>
+          </div>
+          <!-- End Row -->
+        </div>
+        <!-- END container-fluid -->
+      </div>
+      <!-- END content -->
+    </div>
+    <!-- END content-page -->
+  </div>
+</ion-content>

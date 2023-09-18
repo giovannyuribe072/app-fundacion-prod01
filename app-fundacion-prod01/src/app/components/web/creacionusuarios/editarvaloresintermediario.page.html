@@ -1,0 +1,168 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content *ngIf="user.role === 'Super Maestro' ">
+  <div #createSection id="createSection" class="card mb-3 mb-lg-5">
+    <div class="card-header">
+      <h4 class="card-title ">   </h4>
+    </div>
+    <ion-card-title style="text-align: center;" class="text-success">
+      EDICIÓN DE VALORES TOTALES DE BASE SALARIAL
+    </ion-card-title>
+    <!-- Body -->
+    <div class="card-body">
+ 
+      <!-- Form Group -->
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+          <ion-icon name="calculator-outline"></ion-icon>Cobertura
+        </label>
+
+        <div class="col-sm-9">
+          <ion-input  class="form-control" type="number"  [(ngModel)]="intermediario.coberturacreditomora" [ngModelOptions]="{standalone: true}">
+          </ion-input>
+        </div>
+      </div>
+      <!-- End Form Group -->
+
+      <!-- Form Group -->
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+          <ion-icon name="briefcase-outline"></ion-icon>Administración
+        </label>
+
+        <div class="col-sm-9">
+          <ion-input class="form-control"  type="number" [(ngModel)]="intermediario.administracion" [ngModelOptions]="{standalone: true}">
+          </ion-input>
+        </div>
+      </div> <!-- Form Group -->
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+          <ion-icon name="cafe-outline"></ion-icon>Iva
+        </label>
+
+        <div class="col-sm-9">
+          <ion-input class="form-control"  type="number"  [(ngModel)]="intermediario.ivaadministracion" required
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+        </div>
+      </div> <!-- Form Group -->
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+           <i class="tio-money"> </i>  Comisión Total
+        </label>
+
+        <div class="col-sm-9"> 
+          <ion-input class="form-control" type="number"  [(ngModel)]="intermediario.comisiontotal" required
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+        </div>
+      </div>
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+           <i class="tio-money"> </i>  Saldo Base Salarial
+        </label>
+ 
+        <div class="col-sm-9"> 
+          <ion-input class="form-control" type="number"  [(ngModel)]="intermediario.saldocreditocobrado" required
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+        </div>
+      </div>
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+           <i class="tio-receipt"> </i>  Cantidad de Créditos Con Cobertura
+        </label>
+
+        <div class="col-sm-9"> 
+          <ion-input class="form-control" type="number"  [(ngModel)]="intermediario.cantidadgarantias" required
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+        </div>
+      </div>
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+           <i class="tio-savings"> </i>  Tasa Mora %
+        </label>
+
+        <div class="col-sm-9"> 
+          <ion-input class="form-control" type="number"  [(ngModel)]="intermediario.intereses" required
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+        </div>
+      </div>
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+           <i class="tio-wallet"> </i>  GAC %
+        </label>
+
+        <div class="col-sm-9"> 
+          <ion-input class="form-control" type="number"  [(ngModel)]="intermediario.gac" required
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+        </div>
+      </div>
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+           <i class="tio-wallet"> </i>  Recuperación %
+        </label>
+
+        <div class="col-sm-9"> 
+          <ion-input class="form-control" type="number"  [(ngModel)]="intermediario.recuperacion" required
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+        </div>
+      </div>
+      <div style=" text-align: center;"> 
+         <ion-button (click)="calcular()">Calcular</ion-button> 
+        <ion-button (click)="cancelarEliminacion()">Cancelar</ion-button> 
+      </div>
+    </div>
+    <!-- End Body -->
+  </div>
+       
+    </ion-content>
+
+    
+<ion-content *ngIf="user.role === 'Intermediario' ">
+  <div #createSection id="createSection" class="container col d-flex justify-content-center centrardiv card mb-3 mb-lg-5">
+    <div class="card-header">
+      <h4 class="card-title ">   </h4>
+    </div>
+    <ion-card-title style="text-align: center;" class="text-success">
+      EDICIÓN DE SALDO DE CRÉDITOS CON COBERTURA
+    </ion-card-title>
+    <!-- Body -->
+    <div class="card-body">
+  
+      <!-- End Form Group -->
+  
+      <div class="row form-group">
+        <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+           <i class="tio-money"> </i>  Saldo Crédito Con Cobertura
+        </label>
+
+        <div class="col-sm-9"> 
+          <ion-input class="form-control" type="number"  [(ngModel)]="intermediario.saldocreditocobrado" required
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+        </div>
+      </div>  
+      <div style=" text-align: center;"> 
+         <ion-button (click)="calcularInt()">Calcular</ion-button> 
+        <ion-button (click)="cancelarEliminacion()">Cancelar</ion-button> 
+      </div>
+    </div>
+    <!-- End Body -->
+  </div>
+       
+    </ion-content>

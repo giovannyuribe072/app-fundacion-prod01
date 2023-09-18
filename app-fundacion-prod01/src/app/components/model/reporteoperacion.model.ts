@@ -1,0 +1,22 @@
+export class ReporteOperacion {
+    nit;
+    sigla;
+    cobertura;
+    fechareporte;
+    movilizado;
+    movilizaciones;
+    reclamado;
+    reclamos;
+    riesgo;
+    recuperado;
+    recuperaciones;
+    recuperacion;
+    desde;
+    hasta;
+    disponible;
+    histcobertura;
+    histopera;
+    histreclamado;
+    histrecuperado;
+    b64;
+}

@@ -1,0 +1,151 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content>
+  <div #createSection id="createSection" class="card mb-3 mb-lg-5">
+    <div class="page-header">
+      <div class="media mb-3">
+        <!-- Avatar -->
+        <div class="avatar avatar-xl avatar-4by3 mr-2">
+          <img class="avatar-img" src="../../../../assets/img/customLogo.gif">
+        </div>
+        <!-- End Avatar -->
+
+        <div class="media-body">
+          <div class="row">
+            <div class="col-lg mb-3 mb-lg-0">
+              <h1 class="page-header-title text-success text-center"> ADMINISTRACIÓN DE CARACTERIZACIÓN Y FINAL DE LLAMADA
+              </h1>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Body -->
+    <div #emailSection id="emailSection" class="card mb-3 mb-lg-5">
+      <div class="card-header">
+        <h2 class="card-title h4 text-success"> <i class="tio-node-multiple-outlined nav-icon"></i> CARACTERIZACIÓN
+        </h2>
+      </div>
+
+      <!-- Body -->
+      <div class="card-body"> 
+          <div class="row form-group">
+            <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+              <ion-icon name="pulse-outline"></ion-icon>Tipo Caracterización
+            </label>
+    
+            <div class="col-sm-9">
+              <ion-input class="form-control" required  [(ngModel)]="managersup.descripcion" [ngModelOptions]="{standalone: true}">
+              </ion-input>
+            </div>
+          </div>
+          <ion-button fill="outline" (click)="agregarTipoCaracterizacion()">Agregar
+          </ion-button> 
+        <mat-card>
+          <mat-card-content>
+            <ion-item>
+              <ion-input type="text" (change)="applyFilterdataSourceSuper($event.target.value)"
+                (keyup)="applyFilterdataSourceSuper($event.target.value)" placeholder="Filtro de Busqueda">
+              </ion-input>
+            </ion-item>
+            <div class="div-table">
+              <table mat-table [dataSource]="dataSourceSuper" class="mat-elevation-z8">
+
+                <!-- photo Table Column -->
+                <ng-container matColumnDef="esquema">
+                  <th mat-header-cell *matHeaderCellDef> CARACTERIZACIÓN </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>
+
+                <!-- charge Column -->
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef>ELIMINAR </th>
+                  <td mat-cell *matCellDef="let element">
+                    <ion-button (click)="eliminarTipoCaracterizacion(element)">Eliminar</ion-button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsTipoEsquema"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsTipoEsquema;"></tr>
+              </table>
+            </div>
+            <mat-paginator #paginatorSuper [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+            </mat-paginator>
+          </mat-card-content>
+        </mat-card>
+        <!-- End Form -->
+      </div>
+      <!-- End Body -->
+    </div>
+    <!-- End Body -->
+    <div #emailSection id="emailSection" class="card mb-3 mb-lg-5">
+      <div class="card-header">
+        <h2 class="card-title h4 text-success"> <i class="tio-node-multiple-outlined nav-icon"></i> FINAL DE LLAMADA
+        </h2>
+      </div>
+
+      <!-- Body -->
+      <div class="card-body"> 
+          <div class="row form-group">
+            <label for="zipCodeLabel" class="col-sm-3 col-form-label input-label">
+              <ion-icon name="print-outline"></ion-icon>Tipo Final
+            </label>
+    
+            <div class="col-sm-9">
+              <ion-input class="form-control" required  [(ngModel)]="managerfin.descripcion" [ngModelOptions]="{standalone: true}"> 
+              </ion-input>
+            </div>
+          </div>
+          <ion-button fill="outline" (click)="agregarTipoFinal()">Agregar
+          </ion-button> 
+        <mat-card>
+          <mat-card-content>
+            <ion-item>
+              <ion-input type="text" (change)="applyFilterdataSourceFinal($event.target.value)"
+                (keyup)="applyFilterdataSourceFinal($event.target.value)" placeholder="Filtro de Busqueda">
+              </ion-input>
+            </ion-item>
+            <div class="div-table">
+              <table mat-table [dataSource]="dataSourceFinal" class="mat-elevation-z8">
+
+                <!-- photo Table Column -->
+                <ng-container matColumnDef="esquema">
+                  <th mat-header-cell *matHeaderCellDef> FINAL LLAMADA </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>
+
+                <!-- charge Column -->
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef>ELIMINAR </th>
+                  <td mat-cell *matCellDef="let element">
+                    <ion-button (click)="eliminarTipoFinal(element)">Eliminar</ion-button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsTipoEsquema"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsTipoEsquema;"></tr>
+              </table>
+            </div>
+            <mat-paginator #paginatorFinal [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+            </mat-paginator>
+          </mat-card-content>
+        </mat-card>
+        <!-- End Form -->
+      </div>
+      <!-- End Body -->
+    </div>
+  </div>
+  
+   
+</ion-content>

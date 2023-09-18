@@ -1,0 +1,52 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content>
+    <div id="main">
+        <div class="content-page">
+            <div style="margin-top: 95px;"></div>
+            <!-- Page Header -->
+            <div class="page-header text-center">
+                <div class="row align-items-center">
+                    <div class="col-sm mb-0 mb-sm-0">
+                        <h1 class="page-header-title text-uppercase text-success">REPROCESOS OPERACIONES
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <ion-item >
+                        <ion-label position="floating">
+                          <ion-icon name="newspaper-outline"></ion-icon>APLICAR PAGOS
+                        </ion-label>
+                        <br>
+                        <ion-input id="comisiones" type="file" accept="*" (change)="changeListener($event,'garantias')"
+                          required></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-icon name="wallet-outline"></ion-icon>
+                        <ion-button fill="outline" (click)="crearCrucePagos()">Cargue Pagos</ion-button>
+                      </ion-item>
+                      <ion-item>
+                        <ion-icon name="wallet-outline"></ion-icon>
+                        <ion-button fill="outline" (click)="compararCruce()">Aplicar Pagos</ion-button>
+                      </ion-item>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+
+</ion-content>

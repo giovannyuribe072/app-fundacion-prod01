@@ -1,0 +1,113 @@
+<ion-content>
+    <div id="main" >
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="content container-fluid">
+                            <!-- Page Header -->
+                            <div class="page-header text-center">
+                                <div class="row align-items-center">
+                                    <div class="col-sm mb-0 mb-sm-0">
+                                        <h1 class="page-header-title text-uppercase text-success">Consolidado</h1>
+                                    </div>
+ 
+                                </div>
+                            </div>
+                            <!-- End Page Header -->
+
+                            <!-- Stats -->
+                            <div *ngIf="user.role == 'Super Maestro'|| user.role == 'Maestro'||user.role == 'Intermediario'" class="row gx-2 gx-lg-3">
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <!-- Card -->
+                                    <a  class="card card-hover-shadow h-100">
+                                        <div class="card-body">
+                                            <h6 class="text-xs font-weight-bold  text-uppercase mb-1">Base salarial</h6> 
+                                            <div class="row align-items-center gx-2 mb-1"> 
+                                                    <div class="col-auto">
+                                                        <div class="h6 mb-0 mr-3 font-weight-bold text-gray-800">{{saldo | currency}} <a  [routerLink]="" (click)="generateReport()" *ngIf="user.role == 'Maestro'||user.role == 'Intermediario'" style="text-align: right;"> 
+                                                            <ion-icon style="width: 15px;top: 10px;" name="cloud-download-outline"></ion-icon> 
+                                                        </a></div>
+                                                    </div>    
+                                                    
+                                            </div>  
+                                            
+                                        </div>
+                                    </a>
+                                    <!-- End Card -->
+                                </div>
+
+                                <div *ngIf="user.role == 'Super Maestro' " class="col-xl-3 col-md-6 mb-4">
+                                    <!-- Card -->
+                                    <a class="card card-hover-shadow h-100">
+                                        <div class="card-body">
+                                            <h6 class="text-xs font-weight-bold  text-uppercase mb-1">Cantidad de créditos reportados</h6>
+
+                                            <div class="row align-items-center gx-2 mb-1">
+                                                <div class="col-auto">
+                                                    <span class="h6 mb-0 mr-3 font-weight-bold text-gray-800">{{creditosreportador}}</span>
+                                                </div> 
+                                            </div>
+                                            <!-- End Row --> 
+                                        </div>
+                                    </a>
+                                    <!-- End Card -->
+                                </div>
+
+                                <div *ngIf="user.role == 'Super Maestro' " class="col-xl-3 col-md-6 mb-4">
+                                    <!-- Card -->
+                                    <a class="card card-hover-shadow h-100">
+                                        <div class="card-body">
+                                            <h6 class="text-xs font-weight-bold  text-uppercase mb-1">Saldo Crédito Con Cobertura</h6>
+
+                                            <div class="row align-items-center gx-2 mb-1"> 
+                                                    <div class="col-auto">
+                                                        <div class="h6 mb-0 mr-3 font-weight-bold text-gray-800">{{saldocreditocobrado | currency}}</div>
+                                                  </div>   
+                                            </div>
+                                           </div>
+                                    </a>
+                                    <!-- End Card -->
+                                </div>
+
+                                <div *ngIf="user.role == 'Super Maestro' " class="col-xl-3 col-md-6 mb-4">
+                                    <!-- Card -->
+                                    <a class="card card-hover-shadow h-100">
+                                        <div class="card-body">
+                                            <h6 class="text-xs font-weight-bold  text-uppercase mb-1">Cantidad de crédito colocado</h6>
+
+                                            <div class="row align-items-center gx-2 mb-1">
+                                                <div class="container">
+                                                    <span class="h7 mb-0 mr-3 font-weight-bold text-gray-800">{{cantidadcreditocolocado | currency}}</span>
+                                                </div>
+ 
+                                            </div> 
+                                         </div>
+                                    </a>
+                                    <!-- End Card -->
+                                </div>
+                            </div>
+                            <div class="row justify-content-sm-center text-center py-10">
+                                <div class="col-sm-7 col-md-7">
+                                    <video controls src="{{nombrevideo}}" *ngIf="tipovideo === 'mp4'" id='video_player' 
+                                    width="100%" height="100%" #videoPlayer   playsinline class="_makina">
+                                        <source  src="{{nombrevideo}}" type="video/mp4">
+                                    </video> 
+                                    <img width="100%" height="60%" id="imgPlayer" alt="Reproductor"
+                                      #imgPlayer *ngIf="tipovideo === 'img'">
+                                   
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+
+                </div>
+                <!-- END container-fluid -->
+            </div>
+            <!-- END content -->
+        </div>
+        <!-- END content-page -->
+    </div>
+</ion-content>

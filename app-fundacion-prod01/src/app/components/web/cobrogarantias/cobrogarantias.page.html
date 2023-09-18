@@ -1,0 +1,140 @@
+<ion-content>
+  <div id="main">
+    <div class="content-page">
+      <!-- Start content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="container">
+            <div class="content container-fluid">
+              <!-- Page Header -->
+              <div class="page-header text-center">
+                <div class="row align-items-center">
+                  <div class="col-sm mb-0 mb-sm-0">
+                    <h1 class="page-header-title text-uppercase text-success">Cobro De Créditos Afianzados
+                    </h1>
+                  </div>
+
+                </div>
+              </div>
+              <!-- End Page Header -->
+
+              <!-- Stats -->
+              <div class="row gx-2 gx-lg-3">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <div class="input-group">
+                      <input [ngModelOptions]="{standalone: true}" [(ngModel)]="documento" type="text"
+                        class="form-control bg-light border-0 small" placeholder="Cédula Garantía..."
+                        aria-label="Search" aria-describedby="basic-addon2">
+                      <div class="input-group-append">
+                        <button (click)="openConsultar()" class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                        </button>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+                </div>
+              </div> 
+              <div style="text-align: right;"> 
+                <ion-button fill="outline" (click)="exporter.exportTable('xlsx',{fileName:'garantiascobradas'})">
+                  <ion-icon name="cloud-download-outline"></ion-icon>
+                </ion-button>
+              </div>
+              <ion-card>
+                <div class="div-table"> 
+                  <table #exporter="matTableExporter" matTableExporter mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                    <!--- Note that these columns can be defined in any order.
+                            The actual rendered columns are set as a property on the row definition" -->
+                    <!-- cobertura Column --> 
+            
+                    <ng-container matColumnDef="intermediario">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> INSTITUCIÓN
+                      </th>
+                      <td style="text-align: center;  " mat-cell *matCellDef="let element"> {{element.intermediariodes}} </td>
+                    </ng-container>
+                    <!--- Note that these columns can be defined in any order.
+                            The actual rendered columns are set as a property on the row definition" -->
+                    <!-- cobertura Column --> 
+            
+                    <ng-container matColumnDef="identificacion">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> IDENTIFICACIÓN
+                      </th>
+                      <td style="text-align: center;  " mat-cell *matCellDef="let element"> {{element.identificacion}} </td>
+                    </ng-container>
+            
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="nombres">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> NOMBRES </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+                    </ng-container>
+            
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="apellidos">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> APELLIDOS </th>
+                      <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+                    </ng-container>
+            
+                    <!-- administracion Column -->
+                    <ng-container matColumnDef="saldo">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef>  VALOR CRÉDITO AFIANZADO </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.saldo| currency}} </td>
+                    </ng-container>
+                      <!-- administracion Column -->
+                      <ng-container  matColumnDef="saldorestante">
+                        <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> VALOR CRÉDITO RESTANTE
+                        </th>
+                        <td style="text-align: center;  " mat-cell *matCellDef="let element">{{element.saldorestante| currency}} </td>
+                      </ng-container>
+                    <!-- administracion Column -->
+                    <ng-container matColumnDef="nrocredito">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> NRO. CRÉDITO </th>
+                      <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.credito}} </td>
+                    </ng-container>
+            
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="pagare">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> PAGARE
+                      </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.pagare}}
+                      </td>
+                    </ng-container>
+             
+                    <!-- ivaadministracion Column -->
+                    <ng-container matColumnDef="estado">
+                      <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> ESTADO
+                      </th>
+                      <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.estado}}
+                      </td>
+                    </ng-container>
+                    <!-- VER Column -->
+                    <ng-container class="ng-container" matColumnDef="cargar">
+                      <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+                        *matHeaderCellDef> CARGAR DOCUMENTOS </th>
+                      <td style="text-align: center;" class="ng-container" mat-cell *matCellDef="let element">
+                        <ion-button (click)="openAprobar(element)">
+                          <ion-icon  name="wallet-outline"></ion-icon>
+                        </ion-button>
+                      </td>
+                    </ng-container> 
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsGarantias"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsGarantias;"></tr>
+                  </table>
+                </div>
+                <mat-paginator #paginatorGarantias [pageSizeOptions]="[10, 15, 30]" showFirstLastButtons>
+                </mat-paginator>
+              </ion-card>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- END container-fluid -->
+      </div>
+      <!-- END content -->
+    </div>
+    <!-- END content-page -->
+  </div>
+</ion-content>

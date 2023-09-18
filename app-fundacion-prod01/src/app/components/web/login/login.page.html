@@ -1,0 +1,102 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content>
+  <div class="container-fluid px-3">
+    <div class="row">
+      <!-- Cover -->
+      <div
+        class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center min-vh-lg-100 position-relative bg-light px-0">
+       <a (click)="paginaweb()" [routerLink]="">
+        <img src="./../../../../assets/img/LogoverticalPNG.png" >
+       </a> 
+       
+        <!-- End Logo & Language -->
+         
+      </div>
+      <!-- End Cover -->
+
+      <div class="col-lg-6 d-flex justify-content-center align-items-center min-vh-lg-100">
+        <div class="w-100 pt-10 pt-lg-7 pb-7" style="max-width: 25rem;">
+          <!-- Form -->
+          <div class="col  d-flex justify-content-center">
+
+            <a [routerLink]="" (click)="paginaweb()">
+              <div style="margin-top: 95px;"></div> <img src="./../../../../assets/img/LogohorizontalPNG.png" width="300px">
+            </a>
+          </div>
+          <div class="text-center" style="width: 25rem;">
+            <div class="card-body">
+              <h5 class="card-title "><ion-icon slot="start" name="accessibility-outline"></ion-icon>Iniciar sesión</h5>
+              <h5 class="card-title "><ion-icon slot="start" name="attach-outline"></ion-icon>Ingrese sus datos por favor!</h5>
+
+              <!--
+    * Separador ingreso usuario plataforma fundacion-san-jose.
+    * Forma que empaqueta informacion usuario para ingreso a la plataforma. 
+    * Metodo principal:selectOtherIntermediario()
+    * AUTH GOOGLE CLOUD FIREBASE SERVICE
+    * @author Giovanny Uribe Acevedo  -->
+              <ion-card-content>
+                <ion-item>
+                  <ion-label position="floating"><ion-icon name="person-circle-outline"></ion-icon>Usuario</ion-label>
+                  <ion-input [formControl]="userControler" [(ngModel)]="user.email" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating"><ion-icon name="lock-closed-outline"></ion-icon>Contraseña</ion-label>
+                  <ion-input [formControl]="passwordControler" [(ngModel)]="user.password" required
+                    type="password"></ion-input>
+                </ion-item>
+              </ion-card-content>
+
+              <!--
+            * Separador boton ingresar
+            * Forma que empaqueta ingreso a la plataforma. 
+            * Metodo principal:signIn()
+            * AUTH GOOGLE CLOUD FIREBASE SERVICE
+            * @author Giovanny Uribe Acevedo  -->
+
+              <ion-button fill="outline" slot="end" (ngSubmit)="signIn()" (click)="signIn()"
+                [disabled]="!(userControler.valid && passwordControler.valid)"> Ingresar</ion-button><br>
+
+            </div>
+          </div>
+          <!-- End Form -->
+        </div>
+      </div>
+    </div>
+    <!-- End Row -->
+  </div>
+ 
+</ion-content>
+<!-- /*!
+* PIE DEL LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<footer class="bg-light text-center text-lg-start">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color:#fff">
+    © 2023 - {{dates}} Copyright: INSTITUCIÓN SAN JOSÉ Todos los derechos reservados
+    <p class="text-muted small mb-0">Developed by &copy; HASTECNOLOGIA SAS 2020</p>
+  </div>
+  <div class="text-center p-3" style="background-color:#fff">
+    Version © V-01
+  </div>
+  <!-- Copyright -->
+</footer>

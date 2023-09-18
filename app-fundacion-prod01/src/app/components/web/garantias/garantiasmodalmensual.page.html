@@ -1,0 +1,103 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-card-header>
+
+  <div class="media-body">
+    <div class="row">
+      <div class="col-lg mb-3 mb-lg-0">
+        <h1 class="page-header-title text-success text-center">APROBACIÓN REPORTE CRÉDITOS AFIANZADOS POR PLAZO MENSUAL RECAUDADO</h1>
+      </div>
+
+    </div>
+  </div>
+  <ion-card>
+    <ion-item>
+      <ion-label position="floating">
+        <ion-icon name="newspaper-outline"></ion-icon>GARANTÍAS
+      </ion-label>
+      <br>
+      <ion-input id="comisiones" type="file" accept="*" (change)="changeListener($event,'garantias')" required>
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="wallet-outline"></ion-icon>
+      <ion-button fill="outline" (click)="crearGarantiasComisiones()">Cargue Garantías</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" (change)="applyFilterGarantiasTotal($event.target.value)"
+        (keyup)="applyFilterGarantiasTotal($event.target.value)" placeholder="Filtro de Busqueda">
+      </ion-input>
+    </ion-item>
+    <div class="div-table">
+      <table r mat-table [dataSource]="dataSourceTotal" class="mat-elevation-z8">
+        <!-- cobertura Column -->
+        <ng-container matColumnDef="idgarantia">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> ID CARGUE
+            GARANTÍAS </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.idgarantia}} </td>
+        </ng-container>
+        <!-- cobertura Column -->
+        <ng-container matColumnDef="estado">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> ESTADO </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.estado}}</td>
+        </ng-container>
+        <!-- cobertura Column -->
+        <ng-container matColumnDef="idcomision">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> FECHA REPORTE
+          </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.fechareporte}}</td>
+        </ng-container>
+        <!-- administracion Column -->
+        <ng-container matColumnDef="cobertura">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> COBERTURA </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.cobertura| currency}} </td>
+        </ng-container>
+        <!-- ivaadministracion Column -->
+        <ng-container matColumnDef="administracion">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> ADMINISTRACIÓN
+          </th>
+          <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.administracion| currency}}
+          </td>
+        </ng-container>
+        <!-- ivaadministracion Column -->
+        <ng-container matColumnDef="ivaadministracion">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> IVA </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.ivaadministracion| currency}}
+          </td>
+        </ng-container>
+        <!-- ivaadministracion Column -->
+        <ng-container matColumnDef="comisiontotal">
+          <th style="text-align: center;width: 130px; color: black;" mat-header-cell *matHeaderCellDef> COMISIÓN TOTAL
+          </th>
+          <td style="text-align: center; " mat-cell *matCellDef="let element"> {{element.comisiontotal| currency}} </td>
+        </ng-container>
+       
+        <!-- VER Column -->
+        <ng-container class="ng-container" matColumnDef="aprobar">
+          <th style="text-align: center;width: 130px; color: black;" class="ng-container" mat-header-cell
+            *matHeaderCellDef> APROBAR </th>
+          <td style="text-align: center; " class="ng-container" mat-cell *matCellDef="let element">
+            <ion-button fill="outline" (click)="openAprobar(element)">
+              <ion-icon name="cash-outline"></ion-icon>
+            </ion-button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsGarantiasTotal"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsGarantiasTotal;"></tr>
+      </table>
+    </div>
+    <mat-paginator #paginatorGarantiasTotal [pageSizeOptions]="[10, 15, 30]" showFirstLastButtons>
+    </mat-paginator>
+  </ion-card>
+</ion-card-header>
+<ion-button style="text-align: center;" (click)="cancelarEliminacion()">Cancelar</ion-button>

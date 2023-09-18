@@ -1,0 +1,476 @@
+<!-- /*!
+* LOGIN PAGINA SOFTWARE FUNDACION SAN JOSE EN IONIC 5 ANGULAR 9 MATERIAL 9 Bootstrap 4.5.3 - Agency v1 (HASTECNOLOGIA SAS)
+* Copyright 2020-2021 Start HASTECNOLOGIA S.A.S 
+* @author HASTECNOLOGIA S.A.S Copyright 2020-2021 The FUNDACION SAN JOSE Authors
+* pathweb=(HASTECNOLOGIA SAS/login/)
+* pathAplicationConfig=login.page.html
+* SecurityContext: @angular/fire/auth, APPLICATION_XML,'Access-Control-Allow-Origin' (solo por peticion Get se accede a este metodo)
+*/*!
+* login v0.0.1 (HASTECNOLOGIA SAS/login) 
+* Copyright 2020-2021 FUNDACION SAN JOSE, Inc. 
+* Licensed under MIT (HASTECNOLOGIA SAS)
+*/ -->
+<ion-content>
+    <div #pagetop id="pagetop"></div>
+    <nav #navbarback class="navbarback navbar sticky-top navbar-light bg-light navbar-expand-lg shadow">
+
+        <a href="javascript:window.location.reload(true)">
+            <img #menuimg class="img-fluid">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-0 mx-lg-1"><a style="background-color: #fff;" [routerLink]=""
+                        class="nav-link py-3 px-0 px-lg-3 rounded " data-target="#navbarResponsive"
+                        (click)="scrollToElement(pagetop)" aria-controls="navbarResponsive"
+                        aria-expanded="false">{{menu6}}</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a style="background-color: #fff;" [routerLink]=""
+                        data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                        aria-expanded="false" class="nav-link py-3 px-0 px-lg-3 rounded "
+                        (click)="scrollToElement(about)">{{menu1}}</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a style="background-color: #fff;" [routerLink]=""
+                        data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                        aria-expanded="false" class="nav-link py-3 px-0 px-lg-3 rounded "
+                        (click)="scrollToElement(servicios)">{{menu2}}</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a style="background-color: #fff;" [routerLink]=""
+                        data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                        aria-expanded="false" class="nav-link py-3 px-0 px-lg-3 rounded "
+                        (click)="scrollToElement(clientessatisfechos)">{{menu3}}</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a style="background-color: #fff;" [routerLink]=""
+                        data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                        aria-expanded="false" class="nav-link py-3 px-0 px-lg-3 rounded "
+                        (click)="scrollToElement(videos)">{{menu4}}</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a style="background-color: #fff;" [routerLink]=""
+                        data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                        aria-expanded="false" class="nav-link py-3 px-0 px-lg-3 rounded "
+                        (click)="scrollToElement(localizacion)">{{menu7}}</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a style="background-color: #fff;" [routerLink]=""
+                        data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                        aria-expanded="false" class="nav-link py-3 px-0 px-lg-3 rounded "
+                        (click)="scrollToElement(contacto)">{{menu8}}</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a style="background-color: #fff;" [routerLink]=""
+                        data-togform-control:focusgle="collapse" data-target="#navbarResponsive"
+                        aria-controls="navbarResponsive" aria-expanded="false"
+                        class="nav-link py-3 px-0 px-lg-3 rounded "
+                        (click)="scrollToElement(publicaciones)">{{menu9}}</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a style="background-color: #fff;" [routerLink]=""
+                        data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                        aria-expanded="false" class="nav-link py-3 px-0 px-lg-3 rounded "
+                        (click)="scrollToElement(deportes)">{{menu10}}</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a style="background-color: #fff;" [routerLink]=""
+                        data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                        aria-expanded="false" class="nav-link py-3 px-0 px-lg-3 rounded "
+                        (click)="scrollToElement(calendario)">{{menu11}}</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a style="display: flex;background-color: #fff;"
+                        class="nav-link py-3 px-0 px-lg-3 rounded " [routerLink]="" (click)="login()"> {{menu5}} &nbsp;
+                        <ion-icon style="color:rgb(56,118,29)" name="person"></ion-icon></a></li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="text-center">
+        <b style="color:rgb(56,118,29);font-family:georgia,serif;font-size:xx-large;text-align:center">¡CONSTRUYENDO
+            FUTURO, GENERANDO BIENESTAR!</b>
+    </div>
+    <br>
+    <video *ngIf="tipovideo === 'mp4'" id='video_player' width="100%" height="80%" #videoPlayer autoplay playsinline
+        class="_makina">
+        <source src="{{nombrevideo}}" type="video/mp4">
+    </video>
+    <div class="text-center">
+        <img width="90%" height="90%" id="imgPlayer" #imgPlayer *ngIf="tipovideo === 'img'">
+
+    </div>
+
+    <div id="sonidohidden" *ngIf="optionuser === 'sonidohidden'">
+        <input type='button' value='Activar Sonido 🔊' id='sonido' (click)="toggleMuteAudio()">
+    </div>
+    <div style="margin-top: 95px;"></div>
+    <div class="container-fluid" id="sobrenosotros">
+        <div class="row bordegris">
+            <div class="col-md-12 col-sm-12 ">&nbsp;</div>
+            <div class="col-md-6 col-sm-12 text-center ">
+                <img class="sombradiv img-fluid rounded" style="box-shadow: 5px 5px 5px 5px #999  !important;"
+                    #sobrenosotrosimg>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                &nbsp;
+                <h1 class="textonosotros"><strong>{{sobrenosotrostext}}</strong></h1><br><br>
+                <div class="container text-justify">
+                    <span class="fontptextnosotros">{{sobrenosotrostextbody}}</span>
+                    <br>
+                    <img class="sombradiv img-fluid rounded" style="box-shadow: 5px 5px 5px 5px #999  !important;"
+                        #servicio1img>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 ">&nbsp;</div>
+        </div>
+    </div>
+    <br>
+
+    <div #about></div>
+    <div style="margin-top: 95px;"></div>
+    <div class="container" id="servicios">
+        <h1 class="textonosotros text-center"><strong>{{serviciostext}}</strong></h1>
+        <div class="container"> <span class="fontext1 text-justify"> {{serviciostextbody}} </span></div>
+
+        <div class="row ">
+            <div class="col-md-12 col-sm-12 ">&nbsp;</div>
+            <div class="col-md-6 col-sm-12 text-center ">
+                <iframe width="500" height="100%" class="sombradiv   rounded"
+                    style="box-shadow: 5px 5px 5px 5px #999  !important;"
+                    src="https://www.youtube.com/embed/1u62omKfVTQ" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                &nbsp;
+                <h3 class="textonosotros"><strong>{{servicio1}} </strong></h3>
+                <div class="container text-justify"><span class=" text-justify">{{servicio1body1}}</span> </div>
+            </div>
+            <div class="col-md-12 col-sm-12 ">&nbsp;</div>
+
+            <div class="col-md-12 col-sm-12 ">&nbsp;</div>
+            <div class="col-md-6 col-sm-12 text-center ">
+                <img class="sombradiv img-fluid rounded" style="box-shadow: 5px 5px 5px 5px #999  !important;"
+                    #servicio2img>
+
+            </div>
+            <div class="col-md-6 col-sm-12">
+                &nbsp;
+                <h3 class="textonosotros"><strong>{{servicio2}} </strong></h3><br><br>
+                <div class="container text-justify"><span class=" text-justify">{{servicio2body1}}</span> </div>
+            </div>
+            <div class="col-md-12 col-sm-12 ">&nbsp;</div>
+        </div>
+    </div>
+
+    <div #servicios></div>
+    <br>
+    <div style="margin-top: 95px;"></div>
+    <div class="container" id="servicios">
+        <h1 class="textonosotros text-center"><strong>{{servicio1body2}}</strong></h1>
+        <div class="container bordegris"> <span class="fontext1 text-center"> {{servicio1body3}} </span></div>
+    </div>
+    <div #clientessatisfechos></div>
+    <div style="margin-top: 95px;"></div>
+    <div class="container" id="clientessatisfechos">
+        <h1 class="textonosotros text-center"><strong>{{clientessatisfechostext}}</strong></h1>
+    </div>
+    <div class="container text-center bordegris">
+        <div>
+            <div class="sites-embed-align-left-wrapping-off">
+                <div class="sites-embed-border-on sites-embed sites-embed-full-width" style="width:100%;">
+                    <div class="sites-embed-content sites-embed-type-text">
+                        <div class="sites-embed-content-textbox">
+                            <div dir="ltr">
+                                <p style="text-align:center"><b>
+                                        <font size="3">INSTITUTO COLOMBIANO DE BIENESTAR FAMILIAR</font>
+                                    </b></p>
+                                <p style="text-align:center"><span
+                                        style="color:rgb(107,107,107);font-family:Montserrat,sans-serif;font-size:14px;text-align:start">El
+                                        Instituto Colombiano de Bienestar Familiar - ICBF, es la entidad del estado
+                                        colombiano que trabaja por la prevención y protección integral de la primera
+                                        infancia, la niñez, la adolescencia y el bienestar de las familias en Colombia,
+                                        brindando atención especialmente a aquellos en condiciones de amenaza,
+                                        inobservancia o vulneración de sus derechos, llegando a más de 8 millones de
+                                        colombianos con sus programas, estrategias y servicios de atención con 33 sedes
+                                        regionales y 214 centros zonales en todo el país.</span></p>
+                                <p style="text-align:center"><b>
+                                        <font size="3">CLINICA VALLE DEL LILI</font>
+                                    </b></p>
+                                <p style="text-align:center">
+                                    <font size="3">Servicios de salud, urgencias hospitalización, exámenes médicos
+                                    </font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Asignación médico pediatra </font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Asignación odontólogo<span>&nbsp; </span>y auxiliar de odontología
+                                    </font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Medica neuróloga </font>
+                                </p>
+                                <p style="text-align:center"><b>
+                                        <font size="3">UNIVERSIDAD AUTONOMA<span>&nbsp;&nbsp; </span></font>
+                                    </b></p>
+                                <p style="text-align:center">
+                                    <font size="3">Pasantes y practicantes </font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Donación de equipos como computadores y proyectores. </font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Apoyo a universitarios.</font>
+                                </p>
+                                <p style="text-align:center"><b>
+                                        <font size="3">CALZATODO </font>
+                                    </b></p>
+                                <p style="text-align:center">
+                                    <font size="3">Donación anual<span>&nbsp; </span>de zapatos</font>
+                                </p>
+                                <p style="text-align:center"><b>
+                                        <font size="3">FUNDACION RESTREPO BARCO</font>
+                                    </b></p>
+                                <p style="text-align:center">
+                                    <font size="3">Donación<span>&nbsp; </span>en Dinero</font>
+                                </p>
+                                <p style="text-align:center"><b>
+                                        <font size="3">ROSQUILLAS CALEÑAS </font>
+                                    </b></p>
+                                <p style="text-align:center">
+                                    <font size="3">Fiestas de<span>&nbsp; </span>navidad</font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Donación de <span>&nbsp;</span>útiles escolares </font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Donación de comestibles.</font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3"><b>FUNDACION SEMANA DEL MENOR</b> </font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Donaciones varias</font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3"><b>BANCO DE ALIMENTOS</b> </font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Captaciones en manipulación de alimentos </font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">BPM </font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Acceso a los servicios que ofrece el banco.</font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3"><b>JUGAR POR UN SUEÑO</b><span>&nbsp;&nbsp; </span></font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Implementos deportivos</font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Aportes para entrenadores </font>
+                                </p>
+                                <p style="text-align:center">
+                                    <font size="3">Gastos de los clubes deportivos.</font>
+                                </p>
+                                <div style="text-align:center"><br></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div #videos></div>
+    <div style="margin-top: 95px;"></div>
+    <div class="container-fluid" id="videos">
+        <div class="row bordegris">
+            <div class="col-md-12 col-sm-12 ">&nbsp;</div>
+            <div class="col-md-6 col-sm-12 text-center ">
+                <iframe width="500" height="100%" class="sombradiv   rounded"
+                    style="box-shadow: 5px 5px 5px 5px #999  !important;"
+                    src="https://www.youtube.com/embed/aeTdmOJM7kk" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                &nbsp;
+                <h1 class="textonosotros text-center"><strong>{{servicio1body4}}</strong></h1><br><br>
+                <div class="container text-justify">
+                    <span class="fontptextnosotros">{{servicio1body5}}</span>
+                    <br>
+                    <div class="text-center">
+                        <iframe width="500" height="500px" class="sombradiv   rounded"
+                            style="box-shadow: 5px 5px 5px 5px #999  !important;"
+                            src="https://www.youtube.com/embed/VHaKNBrvKm8" frameborder="0" allowfullscreen></iframe>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 ">&nbsp;</div>
+        </div>
+    </div>
+    <br><div #localizacion></div>
+    <div style="margin-top: 95px;"></div> 
+    <div class="container" id="localizacion">
+        <h1 class="textonosotros text-center"><strong>{{count1}}</strong></h1>
+        <div class="container bordegris"> <span class="fontext1 text-center"> {{count2}} </span>
+            <div class="text-center"><iframe
+                    src="https://www.google.com/maps/d/embed?mid=1ip389DrRfTLJATwY1PJYWTnufKBke3o&ehbc=2E312F"
+                    width="640" height="480"></iframe>
+            </div>
+        </div>
+    </div>
+    <div #contacto></div>
+    <div style="margin-top: 80px;"></div>
+    <div id="imagen" #contactoimg class="formContact container-fluid" id="contacto">
+        <div class="container" style="color: #38761d;">
+            <p>&nbsp;</p>
+            <h1 class="labeCont text-center"><strong>{{contacttext}}</strong></h1>
+            <form method="POST">
+                &nbsp;
+                <div class="row textcont">
+                    <div class="col-md-6">
+                        <label>{{contactbody1}}</label>
+                        <input type="text" class="form-control" [(ngModel)]="contact.nom"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-6">
+                        <label>{{contactbody1Id}}</label>
+                        <input type="number" class="form-control" [(ngModel)]="contact.ident"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-6">
+                        <label>{{contactbody2}} </label>
+                        <input type="text" class="form-control" [(ngModel)]="contact.ent"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-6">
+                        <label>{{contactbody3}} </label>
+                        <input type="number" class="form-control" [(ngModel)]="contact.tel"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-6">
+                        <label>{{contactbody4}}</label>
+                        <input type="text" class="form-control" [(ngModel)]="contact.ciu"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-6">
+                        <label>{{contactbody5}}</label>
+                        <input type="email" id="email" required pattern=".+@globex\.com" class="form-control"
+                            [(ngModel)]="contact.ema" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-12">
+                        <label>{{contactbody6}}</label>
+                        <textarea class="form-control" [(ngModel)]="contact.des"
+                            [ngModelOptions]="{standalone: true}"></textarea>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="text-center">
+                    <div id="success"></div>
+                    <button (click)="contactSend()" class="btn btn-success btn-xl text-uppercase" id="sendMessageButton"
+                        type="submit">{{textbutton}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div #publicaciones id="publicaciones"></div>
+    <div style="margin-top: 80px;"></div>
+    <div class="text-center">
+        <b style="color:rgb(56,118,29);font-family:georgia,serif;font-size:xx-large;text-align:center">PUBLICACIONES
+            ACERCA DE LA INSTITUCIÓN SAN JOSÉ</b>
+        <div class="sites-layout-tile sites-tile-name-content-1">
+            <div dir="ltr">
+                <div>
+                    <div class="sites-embed-align-left-wrapping-off">
+                        <div class="sites-embed-border-on sites-embed sites-embed-full-width" style="width:100%;">
+                            <div class="sites-embed-content sites-embed-type-text">
+                                <div class="sites-embed-content-textbox">
+                                    <div dir="ltr">
+                                        <ul>
+                                            <li><span style="color:rgb(9,9,9)">
+                                                    <font face="arial, sans-serif" size="3"><a
+                                                            href="https://www.elpais.com.co/educacion/hijos-del-estado-historias-de-jovenes-que-crecieron-bajo-la-proteccion-institucional.html"
+                                                            target="_blank">'Hijos del Estado', historias de jóvenes que
+                                                            crecieron bajo la protección institucional</a></font>
+                                                </span></li>
+                                            <li>
+                                                <font size="3"><a
+                                                        href="https://www.elpais.com.co/cali/institucion-san-jose-una-luz-contra-la-sombra-de-la-calle-en.html"
+                                                        target="_blank">Institución San José: una luz contra la sombra
+                                                        de la calle en Cali</a></font>
+                                            </li>
+                                            <li>
+                                                <font size="3"><a
+                                                        href="http://historico.elpais.com.co/paisonline/calionline/notas/Octubre282009/salvavidaninos.html"
+                                                        target="_blank">San José, salvavidas para niños</a></font>
+                                            </li>
+                                            <li>
+                                                <font size="3"><b style="color:rgb(78,78,78);font-family:Verdana">
+                                                        <font size="2"><a
+                                                                href="http://historico.elpais.com.co/historico/nov012009/SOC/"
+                                                                target="_blank">Institución celebra 50 años</a></font>
+                                                    </b></font>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div #deportes id="deportes"></div>
+    <div style="margin-top: 80px;"></div>
+    <div class="text-center">
+        <b style="color:rgb(56,118,29);font-family:georgia,serif;font-size:xx-large;text-align:center">CAPACITACIÓN
+            DEPORTIVA</b>
+        <img border="0" src="../../../../assets/img/cap.jpg" style="width:100%">
+    </div>
+    <div #calendario id="calendario"></div>
+    <div style="margin-top: 80px;"></div>
+    <div class="text-center">
+        <b style="color:rgb(56,118,29);font-family:georgia,serif;font-size:xx-large;text-align:center">CALENDARIO</b>
+        <div class="sites-layout-tile sites-tile-name-content-1">
+            <div dir="ltr">
+                <div>
+                    <div class="sites-embed-align-left-wrapping-off">
+                        <div class="sites-embed-border-off sites-embed sites-embed-full-width" style="width:100%;">
+                            <div class="sites-embed-object-title" style="display:none;">Eventos</div>
+                            <div class="sites-embed-content sites-embed-type-calendar"><iframe id="935398709"
+                                    src="http://www.google.com/calendar/embed?src=institucionsanjose.org_th8iou304s6fin23ej36qr0f4s@group.calendar.google.com&amp;color=%23668CD9&amp;showTitle=0&amp;showNav=1&amp;showDate=1&amp;showTabs=1&amp;showCalendars=0&amp;hl=es"
+                                    title="Eventos" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <footer class="footer fontazul">
+            <div class="row justify-content-end">
+                <div class="col-md-4 col-sm-12">
+                    <h3>{{contactbody7}}</h3>
+                    <a target="_blank" href="https://www.facebook.com/InstitucionSanjose01"><img width="40px"
+                            src="../../../../assets/img/redes/facebook.png"></a>&nbsp;
+                    <a target="_blank" href="https://www.instagram.com/institucionsanjose/?hl=es-la/"><img width="40px"
+                            src="../../../../assets/img/redes/instagram.png"></a>&nbsp;
+                    <a target="_blank" href="https://co.linkedin.com/in/jose-antonio-valencia-798582165"><img
+                            width="40px" src="../../../../assets/img/redes/linkedin.png"></a>
+                </div>
+                <div class="col-md-4 col-sm-12 text-left">
+                    <h3>{{contactbody8}}:</h3>
+                    <span>{{direccion}}</span><br>
+                    <span>{{contactbody9}}: {{pbx}}</span><br>
+                    <span>{{contactbody10}}: {{cel}}</span><br>
+                    <a style="color: rgb(105, 183, 255);" [routerLink]="" class="mr-3" (click)="presentModal()">Política
+                        de privacidad</a>
+                    <a style="color: rgb(105, 183, 255);" [routerLink]="" (click)="presentModal()">Condiciones de
+                        uso</a>
+                </div>
+            </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; FUNDACION SAN JOSE 2020 - {{dates}}</span>
+                    </div>
+                </div>
+            </footer>
+        </footer>
+        <p class="text-muted small mb-0">Design by &copy; HASTECNOLOGIA 2023</p>
+        <p class="text-muted small mb-0">Developed by &copy; HASTECNOLOGIA SAS 2023</p>
+        <p class="text-muted small mb-0">Version &copy; V-01 </p>
+    </div>
+    <br>
+    &nbsp;
+</ion-content>

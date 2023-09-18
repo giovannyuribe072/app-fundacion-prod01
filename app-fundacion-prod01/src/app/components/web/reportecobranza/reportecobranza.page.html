@@ -1,0 +1,292 @@
+<ion-content>
+  <div id="main">
+    <div class="content-page">
+      <!-- Start content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="container">
+            <div class="content container-fluid">
+              <!-- Page Header -->
+              <div class="page-header text-center">
+                <div class="row align-items-center">
+                  <div class="col-sm mb-0 mb-sm-0">
+                    <h1 class="page-header-title text-uppercase text-success">Reportes Cobranza
+                    </h1>
+                  </div>
+
+                </div>
+              </div>
+              <!-- End Page Header -->
+
+              <!-- Stats -->
+              <div class="row gx-2 gx-lg-3">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <div class="input-group">
+                      <a class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline" (click)="consultarPagos()">
+                                        <ion-icon name="card-outline"></ion-icon>Reporte de pagos
+                                    </a> 
+                                       
+                    </div>
+                  </div>
+                  <a class="card card-hover-shadow h-100">
+                    <div class="card-body">
+                        <ion-label position="floating">
+                            <ion-icon name="calendar-outline"></ion-icon>FECHA DEL CONSOLIDADO
+                        </ion-label>
+                        <ion-datetime displayFormat="YYYY" placeholder="Seleccionar Fecha"
+                            min="2000" max="2999" [(ngModel)]="fechareportepago"
+                            [ngModelOptions]="{standalone: true}">
+                        </ion-datetime>
+                    </div>
+                </a>  
+                </div>
+              </div> 
+              <br>
+              <div class="row gx-2 gx-lg-3">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <div class="input-group">
+                      <a class="btn btn-primary btn-xl js-scroll-trigger text-white" fill="outline" (click)="consultarSeguimientos()">
+                      <ion-icon name="pricetags-outline"></ion-icon>Reporte de Gestión
+                  </a>
+                                
+                    </div>
+                  </div>
+                  <a class="card card-hover-shadow h-100">
+                    <div class="card-body">
+                        <ion-label position="floating">
+                            <ion-icon name="calendar-outline"></ion-icon>FECHA DEL CONSOLIDADO
+                        </ion-label>
+                        <ion-datetime displayFormat="YYYY" placeholder="Seleccionar Fecha"
+                            min="2000" max="2999" [(ngModel)]="fechareporteseguimiento"
+                            [ngModelOptions]="{standalone: true}">
+                        </ion-datetime>
+                    </div>
+                </a> 
+                <div style="margin: 20px;" class=" ">
+                  <label for="zipCodeLabel"   >
+                    <ion-icon name="ban-outline"></ion-icon>Filtro
+                  </label>
+          
+                  <div class="">
+                    <ion-select class="form-control"  [(ngModel)]="rolef"
+                      [ngModelOptions]="{standalone: true}" required>
+                      <ion-select-option *ngFor="let rol of role">{{rol.rol}}</ion-select-option>
+                    </ion-select>
+                  </div>
+                </div>
+                </div>
+              </div> 
+              
+            </div>
+          </div>
+
+        </div>
+        <!-- END container-fluid -->
+      </div>
+      <!-- END content -->
+    </div>
+    <!-- END content-page -->
+  </div>
+</ion-content>
+
+<ion-card id="reporteSeguimiento" hidden>  
+  <ion-button id="seguimientosexcel" fill="outline" (click)="exporters.exportTable('xlsx',{fileName:'Reporte_seguimiento'})"> 
+  </ion-button> 
+<table #exporters="matTableExporter" matTableExporter mat-table [dataSource]="dataSourceSeguimiento"
+  class="mat-elevation-z8">
+  <!--  
+* Separador EMAIL Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+<ng-container class="ng-container" matColumnDef="intermediario">
+  <th class="ng-container" mat-header-cell *matHeaderCellDef> INSTITUCIÓN </th>
+  <td class="ng-container" mat-cell *matCellDef="let element"> {{element.intermediario}} </td>
+</ng-container>
+  <ng-container class="ng-container" matColumnDef="documento">
+    <th class="ng-container" mat-header-cell *matHeaderCellDef> CEDULA DEUDOR </th>
+    <td class="ng-container" mat-cell *matCellDef="let element"> {{element.documento}} </td>
+  </ng-container>
+  <ng-container class="ng-container" matColumnDef="nombredeudor">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> NOMBRE DEUDOR </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.nombredeudor}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="celular">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> CELULAR </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.celular}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="direccion">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> DIRECCION </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="mail">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> MAIL </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.mail}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="seguimiento">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> SEGUIMIENTO </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.seguimiento}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="fechacompromiso">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> FECHA COMPROMISO </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.fechacompromiso}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="fechaproxima">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> FECHA PROXIMA LLAMADA </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.fechaproxima}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="caracterizacion">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> CARACTERIZACION </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.caracterizacion}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="finllamada">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> FINAL LLAMADA </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.finllamada}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="valorapagar">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> VALOR A PAGAR</th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.valorapagar}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="diasmora">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> DIAS MORA</th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.diasmora}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="valorcapital">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> VALOR CAPITAL</th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.valorcapital}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="valorpago">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> VALOR PAGO</th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.valorpago}} </td>
+    </ng-container> 
+    <ng-container class="ng-container" matColumnDef="creadopor">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> CREADO POR </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.creadopor}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="creadoen">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> CREADO EN </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.creadoen}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="modificadopor">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> MODIFICADO POR </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.modificadopor}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="modificadoen">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> MODIFICADO EN </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.modificadoen}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="modificacioncausa">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> MODIFICACION CAUSA </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.modificacioncausa}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsSeguimientoExcel"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumnsSeguimientoExcel;"></tr>
+</table>
+</ion-card>
+
+<ion-card id="reportePagos" hidden>  
+  <ion-button id="pagosexcel" fill="outline" (click)="exportersP.exportTable('xlsx',{fileName:'Reporte_pagos'})"> 
+  </ion-button> 
+<table #exportersP="matTableExporter" matTableExporter mat-table [dataSource]="dataSourcePagos"
+  class="mat-elevation-z8">
+  <!--  
+* Separador EMAIL Column
+* Forma que empaqueta boton de ver el Intermediario. 
+* Metodo principal:verModalCreacionVer(element);
+* AUTH GOOGLE CLOUD FIREBASE SERVICE
+* @author Giovanny Uribe Acevedo  -->
+<ng-container class="ng-container" matColumnDef="intermediario">
+  <th class="ng-container" mat-header-cell *matHeaderCellDef> INSTITUCIÓN </th>
+  <td class="ng-container" mat-cell *matCellDef="let element"> {{element.intermediariodes}} </td>
+</ng-container>
+  <ng-container class="ng-container" matColumnDef="documento">
+    <th class="ng-container" mat-header-cell *matHeaderCellDef> CEDULA DEUDOR </th>
+    <td class="ng-container" mat-cell *matCellDef="let element"> {{element.documento}} </td>
+  </ng-container>
+  <ng-container class="ng-container" matColumnDef="nombredeudor">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> NOMBRE DEUDOR </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.nombredeudor}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="valorpago">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> VALOR PAGO </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.valorpago}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="valorcapital">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> VALOR CAPITAL </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.valorcapital}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="saldocapital">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> SALDO CAPITAL </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.saldocapital}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="nropagare">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> NRO PAGARE </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.nropagare}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="rc">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> RC </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.rc}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="rcid">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> RC </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.rcid}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="gac">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> GAC % </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.gac}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="intereses">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> TASA MORA % </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.intereses}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="valorgac">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> GAC</th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.valorgac}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="valorintereses">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> INTERESES</th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.valorintereses}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="diasmora">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> DIAS MORA </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.diasmora}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="valorapagar">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> VALOR A PAGAR</th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.valorapagar}} </td>
+    </ng-container> 
+    <ng-container class="ng-container" matColumnDef="creadopor">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> CREADO POR </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.creadopor}} </td>
+    </ng-container>    
+    <ng-container class="ng-container" matColumnDef="cobrador">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> COBRADOR </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.cobrador}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="creadoen">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> CREADO EN </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.creadoen}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="modificadopor">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> MODIFICADO POR </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.modificadopor}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="modificadoen">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> MODIFICADO EN </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.modificadoen}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="modificacioncausa">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> MODIFICACION CAUSA </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.modificacioncausa}} </td>
+    </ng-container>
+    <ng-container class="ng-container" matColumnDef="observacion">
+      <th class="ng-container" mat-header-cell *matHeaderCellDef> OBSERVACIÓN </th>
+      <td class="ng-container" mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsPagosExcel"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumnsPagosExcel;"></tr>
+</table>
+</ion-card>
